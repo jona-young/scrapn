@@ -95,7 +95,7 @@ function HourlySched({ curDate, courtBookings }) {
 
 
 
-  return <div className="sched__body">{rows}</div>;
+  return <div id="court-schedule">{rows}</div>;
 }
 
 export default HourlySched;

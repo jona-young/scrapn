@@ -15,177 +15,134 @@
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'liga';
-}
-/* GENERAL */
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
 
-.sched__body {
-    width: 1500px;
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    position: relative;
-}
-
-.sched__bodyLogin {
-    padding-top: 200px;
-    padding-bottom: 200px;
+    background: black;
+    color: white;
+    text-align: center;
     font-weight: bolder;
 }
 
-.schedule__header {
-    display: block;
-    width: 100%;
-    padding: 1.75em 0;
-    border-bottom: 1px solid lightgray;
-    background: white;
-}
-
-.schedule__disclaimer{
-    font-size: small;
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-weight: lighter;
-    text-transform: capitalize;
-}
-
-.schedule__disclaimerLogin {
-    text-transform: lowercase;
-}
-
-/* GRID */
-.sched__row {
-    width: 1500px;
-    margin: 0;
+/* GENERAL */
+* {
     padding: 0;
+    margin: 0;
+}
+
+#booking-container {
+    background: #4C5DAA;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+#date-box {
+    grid-row: 1;
+    grid-column: 1 / 6;
+}
+
+.date-selector {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    font-size: medium;
-}
-.row-middle {
-    align-items: center;
-}
-.sched__colHead {
-    flex-grow: 1;
-    flex-basis: 0;
-    width: 1500px;
+    padding: 10px;
+
+    color: white;
 }
 
-.sched__col {
+#select-left {
+    left:0;
+    margin: auto;
+}
+
+#select-right {
+    right:0;
+    margin: auto;
+}
+.date-header {
+    font-weight: bolder;
+}
+
+#court-header {
+    grid-row: 2;
+    grid-column: 1 / 6;
+    
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    flex-basis: 0;
-    width: 1500px;
-    border-bottom: 2px solid black;
-    font-family: "Baloo Tamma 2", sans-serif;
+    flex-direction: row;
+    color: white;
+
 }
 
-.sched__link {
-    margin-top: 2rem;
+.court-heading {
+    margin: auto;
+    font-weight:bolder
+}
+
+#court-schedule {
+    grid-row: 3;
+    grid-column: 1 / 6;
+}
+
+.schedule-row {
+    display: flex;
+    flex-direction: row;
+
+    height: 120px;
+    background: #E8EAEF;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    margin: 2px;
+}
+
+.cell {
+    background: #2042BA;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 2px;
+}
+
+.cell-time {
+    width: 28%;
+    padding-top: 50px;
+    font-size:12px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.cell-book {
+    width: 28%;
+    padding-top: 50px;
+    font-size:9px;
+    text-align: center;
+}
+
+.cell-book:hover {
+    background: #768CDD;
+}
+
+.court-link {
+    color: white;
     text-decoration: none;
 }
 
-.sched__linkBook {
-    font-size: 11px;
-    text-decoration: none;
-    background-color: #EEEEEE;
-    color: #333333;
-    padding: 2px 6px 2px 6px;
-    border-top: 1px solid #CCCCCC;
-    border-right: 1px solid #333333;
-    border-bottom: 1px solid #333333;
-    border-left: 1px solid #CCCCCC;
+.cell-booked {
+    width: 28%;
+    padding-top: 5px;
+
+    font-size:9px;
+    text-align: center;
+    background: #122A84;
+    color: white;
 }
 
-.bold {
-    font-weight: bold;
+.name-box {
+    margin-bottom: 20px;
 }
 
-/* calendar__month */
-.calendar__month {
-    display: block;
-    position: relative;
-    width: 1506px;
-    background: #FCFCFC;
-    border: 3px solid black;
-
-    height: auto;
-    margin:0 auto;
-}
-.calendar__month .schedule__header {
-    text-transform: Capitalize;
-    background: #FCFCFC;
-    font-weight: 700;
-    font-size: 115%;
-    padding: 1.5em 0;
-}
-.calendar__month .schedule__header .icon {
-    cursor: pointer;
-    transition: .15s ease-out;
+.link-button {
+    margin: 5px auto;
+    background: gray;
+    height: 15px;
+    width: 40px;
 }
 
-.calendar__month .schedule__header .icon:first-of-type {
-    margin-left: 1em;
-}
-.calendar__month .schedule__header .icon:last-of-type {
-    margin-right: 1em;
-}
-.calendar__month .sched__days {
-    text-transform: uppercase;
-    font-weight: 400;
-    color: gray;
-    font-size: 70%;
-    padding: .75em 0;
-    border-bottom: 1px solid lightgray;
-}
-.calendar__month .sched__body .cell {
-    position: relative;
-    border-right: 1px solid lightgray;
-    overflow: hidden;
-    background: white;
-    transition: 0.25s ease-out;
-}
-.calendar__month .sched__body .row {
-    border-bottom: 1px solid lightgray;
-}
-.calendar__month .sched__body .row:last-child {
-    border-bottom: none;
-}
-.calendar__month .sched__body .cell:last-child {
-    border-right: none;
-}
-.calendar__month .sched__body .coltime {
-    color: #FE852A;
-    font-weight:800;
-    font-size: x-large;
-    pointer-events: none;
-
-}
-.calendar__month .sched__body .cell .bg {
-    font-weight: 700;
-    line-height: 1;
-    color: #FE852A;
-    opacity: 0;
-    font-size: 5em;
-    position: absolute;
-    right: -.05em;
-    transition: .25s ease-out;
-    letter-spacing: -.07em;
-}
-
-.calendar__month .sched__body .sched__col {
-    flex-grow: 0;
-    flex-basis: calc(100%/5);
-    width: calc(100%/5);
-}
-
-.text {
-    font-family: 'Baloo Tamma 2', sans-serif;
+.link-button:hover {
+    background: lightgray;
 }

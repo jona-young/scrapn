@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const bookACourt = (timeSlots, courtCode, courtTime, courtDate, i) => {
   timeSlots.push(
-    <div className="sched__col cell" key={courtCode}>
+    <div className="cell cell-book" key={courtCode}>
       <Link
-        className="sched__link"
+        className="court-link"
         state={{            
           edit_val: false,
           date: courtDate,
@@ -16,7 +16,7 @@ export const bookACourt = (timeSlots, courtCode, courtTime, courtDate, i) => {
           pathname: "/tennis-form",
         }}
       >
-        Book a Court!
+        Book
       </Link>
     </div>
   );
@@ -33,17 +33,25 @@ export const bookedCourt = (
 ) => {
   const formDel = false;
   timeSlots.push(
-    <div className="sched__col cell" key={courtCode} name={i}>
-      {courtBookings[bx].players[0] ? courtBookings[bx].players[0] : "hello"}
-      <br />
-      {courtBookings[bx].players[1] ? courtBookings[bx].players[1] : "hello"}
-      <br />
-      {courtBookings[bx].players[2] ? courtBookings[bx].players[2] : "hello"}
-      <br />
-      {courtBookings[bx].players[3] ? courtBookings[bx].players[3] : "hello"}
-
-      <Link
-        className="sched__linkBook"
+    <div className="cell cell-booked" key={courtCode} name={i}>
+      <div className="name-box">
+        <div className="player-name">
+            {courtBookings[bx].players[0] ? courtBookings[bx].players[0].substring(0,8) : "hello"}
+          </div>
+          <div className="player-name">
+            {courtBookings[bx].players[1] ? courtBookings[bx].players[1].substring(0,8) : "hello"}
+          </div>
+          <div className="player-name">
+            {courtBookings[bx].players[2] ? courtBookings[bx].players[2].substring(0,8) : "hello"}
+          </div>
+          <div className="player-name">
+            {courtBookings[bx].players[3] ? courtBookings[bx].players[3].substring(0,8) : "hello"}
+          </div>
+      </div>
+      
+      <div className="link-button">
+        <Link
+        className="court-link"
         state={{
           edit_val: true,
           _id: courtBookings[bx]._id,
@@ -58,8 +66,10 @@ export const bookedCourt = (
           pathname: "/tennis-form",
         }}
       >
-        Edit Booking
+        Update
       </Link>
+      </div>
+
       <button
         onClick={() => deleteItem(courtBookings[bx]._id, history, formDel)}
       >
@@ -72,7 +82,7 @@ export const bookedCourt = (
 
 export const timeCell = (timeSlots, courtTime) => {
   timeSlots.push(
-    <div className="sched__col cell coltime" key={`Time-${courtTime}`}>
+    <div className="cell-time" key={`Time-${courtTime}`}>
       {courtTime}
     </div>
   );
@@ -80,7 +90,7 @@ export const timeCell = (timeSlots, courtTime) => {
 
 export const timeRow = (rows, curTime, timeSlots) => {
   rows.push(
-    <div className="sched__row" key={curTime}>
+    <div className="schedule-row" key={curTime}>
       {timeSlots}
     </div>
   );

@@ -6,19 +6,19 @@ function CourtNumbers() {
   for (let i = 0; i < 5; i++) {
     if (i === 0) {
       days.push(
-        <div className="sched__col bold col-center" key={i}>
-          Hours
+        <div className="court-heading" key={i}>
+          Time
         </div>
       );
     } else {
       days.push(
-        <div className="sched__col bold col-center" key={i}>
-          Court {i}
+        <div className="court-heading" key={i}>
+          Crt {i}
         </div>
       );
     }
   }
-  return <div className="sched_days sched__row">{days}</div>;
+  return <div id="court-header">{days}</div>;
 }
 
 export default CourtNumbers;

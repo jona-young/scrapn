@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import MonthHeader from './MonthHeader.js'
+import React, { useState, useEffect } from 'react';
 import DayHeader from './DayHeader.js'
 import CourtNumbers from './CourtNumbers.js'
 import Schedule from './Schedule'
@@ -9,16 +8,16 @@ const CourtBookings = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     const updateDate = (dateVal) => {
+        console.log('attempting: ', dateVal)
       setCurrentDate(dateVal);
     };
 
     return(
-        <>
-            <MonthHeader curDate={currentDate} onDateUpdate={updateDate} />
+        <div id="booking-container">
             <DayHeader curDate={currentDate} onDateUpdate={updateDate} />
             <CourtNumbers />
             <Schedule curDate={currentDate} />
-        </>
+        </div>
     )
 }
 
