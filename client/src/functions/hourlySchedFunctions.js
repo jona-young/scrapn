@@ -52,6 +52,7 @@ export const bookedCourt = (
           court: courtBookings[bx].court,
           players: courtBookings[bx].players,
           author: courtBookings[bx].author,
+          mode: "update"
         }}
         to={{
           pathname: "/tennis-form",
@@ -89,12 +90,33 @@ export const timeRow = (rows, curTime, timeSlots) => {
 export const handleChange = (e, updateItem, currentItem) => {
   const name = e.target.name;
   const value = e.target.value;
-  console.log('handle change: ', name, " - ", value)
-  console.log('current currentitem: ', currentItem)
+ 
+  if (e.target.getAttribute("data-key") === "players")
+  {
+    let playersOnCourt = currentItem.players
 
-  if (name === "player1") {
-    updateItem({ ...currentItem, [name]: value, author: value });
+    if (name === "player1") {
+      playersOnCourt[0] = value
+  
+      updateItem({ ...currentItem, ["players"]: playersOnCourt, author: value });
+    }
+    else if (name === "player2") {
+      playersOnCourt[1] = value
+  
+      updateItem({ ...currentItem, ["players"]: playersOnCourt });
+    }
+    else if (name === "player3") {
+      playersOnCourt[2] = value
+  
+      updateItem({ ...currentItem, ["players"]: playersOnCourt });
+    }
+    else if (name === "player4") {
+      playersOnCourt[3] = value
+  
+      updateItem({ ...currentItem, ["players"]: playersOnCourt });
+    }
   }
+
   else {
     updateItem({...currentItem, [name]: value});
   }

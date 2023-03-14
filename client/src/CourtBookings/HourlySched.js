@@ -44,7 +44,9 @@ function HourlySched({ curDate, courtBookings }) {
           //If no court bookings on the day, fill every cell with bookACourt
           if (courtBookings.length === 0) {
             bookACourt(timeSlots, courtCode, courtTime, courtDate, i.toString());
-          } else {
+          } 
+          else 
+          {
             //Cycles through each court booking to match to time and court cell
             for (let bx = 0; bx < courtBookings.length; bx++) {
               let book = courtBookings[bx];
@@ -90,6 +92,7 @@ function HourlySched({ curDate, courtBookings }) {
       curTime = addHours(curTime, 1);
     }
   }
+
 
 
   return <div className="sched__body">{rows}</div>;

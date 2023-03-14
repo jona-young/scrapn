@@ -34,7 +34,7 @@ module.exports.courtBookings_post = (req, res) => {
         }
         if (counter >= 3)
         {
-            res.smtatus(444).send({errors: 'The current ember ' + bookedCourt.players[0] + ' currently has 3 bookings'})
+            res.status(444).send({errors: 'The current member ' + bookedCourt.players[0] + ' currently has 3 bookings'})
         }
         else
         {

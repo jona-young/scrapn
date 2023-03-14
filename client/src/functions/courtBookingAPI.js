@@ -35,7 +35,7 @@ export const deleteBooking = async (courtBookingID, history, formDel) => {
     }
   };
 
-export const postBooking = async (e, forms, isEditing, history) => {
+export const postBooking = async (e, forms, history) => {
     e.preventDefault();
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-bookings', {
         credentials: 'include',
@@ -53,3 +53,23 @@ export const postBooking = async (e, forms, isEditing, history) => {
     history("/");
 
 }
+
+//Delete a court booking
+export const putBooking = async (e, forms, history) => {
+    console.log('this is getting hit:', forms)
+    e.preventDefault();
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-bookings/' + forms._id, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(forms),
+
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        history("/");
+    }
+  };
