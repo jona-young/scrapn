@@ -56,7 +56,6 @@ export const postBooking = async (e, forms, history) => {
 
 //Delete a court booking
 export const putBooking = async (e, forms, history) => {
-    console.log('this is getting hit:', forms)
     e.preventDefault();
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-bookings/' + forms._id, {
         credentials: 'include',

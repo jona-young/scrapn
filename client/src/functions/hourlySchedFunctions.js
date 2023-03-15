@@ -33,49 +33,45 @@ export const bookedCourt = (
 ) => {
   const formDel = false;
   timeSlots.push(
-    <div className="cell cell-booked" key={courtCode} name={i}>
-      <div className="name-box">
-        <div className="player-name">
-            {courtBookings[bx].players[0] ? courtBookings[bx].players[0].substring(0,8) : "hello"}
-          </div>
+    <Link
+    className="court-link cell cell-booked"
+    state={{
+      edit_val: true,
+      _id: courtBookings[bx]._id,
+      date: courtBookings[bx].date,
+      time: courtBookings[bx].time,
+      court: courtBookings[bx].court,
+      players: courtBookings[bx].players,
+      author: courtBookings[bx].author,
+      mode: "update"
+    }}
+    to={{
+      pathname: "/tennis-form",
+    }}
+    >
+      <div key={courtCode} name={i}>
+        <div className="name-box">
           <div className="player-name">
-            {courtBookings[bx].players[1] ? courtBookings[bx].players[1].substring(0,8) : "hello"}
-          </div>
-          <div className="player-name">
-            {courtBookings[bx].players[2] ? courtBookings[bx].players[2].substring(0,8) : "hello"}
-          </div>
-          <div className="player-name">
-            {courtBookings[bx].players[3] ? courtBookings[bx].players[3].substring(0,8) : "hello"}
-          </div>
+              {courtBookings[bx].players[0] ? courtBookings[bx].players[0].substring(0,8) : "hello"}
+            </div>
+            <div className="player-name">
+              {courtBookings[bx].players[1] ? courtBookings[bx].players[1].substring(0,8) : "hello"}
+            </div>
+            <div className="player-name">
+              {courtBookings[bx].players[2] ? courtBookings[bx].players[2].substring(0,8) : "hello"}
+            </div>
+            <div className="player-name">
+              {courtBookings[bx].players[3] ? courtBookings[bx].players[3].substring(0,8) : "hello"}
+            </div>
+        </div>
+        <button
+          onClick={() => deleteItem(courtBookings[bx]._id, history, formDel)}
+        >
+          Delete
+        </button>
       </div>
-      
-      <div className="link-button">
-        <Link
-        className="court-link"
-        state={{
-          edit_val: true,
-          _id: courtBookings[bx]._id,
-          date: courtBookings[bx].date,
-          time: courtBookings[bx].time,
-          court: courtBookings[bx].court,
-          players: courtBookings[bx].players,
-          author: courtBookings[bx].author,
-          mode: "update"
-        }}
-        to={{
-          pathname: "/tennis-form",
-        }}
-      >
-        Update
-      </Link>
-      </div>
+    </Link>
 
-      <button
-        onClick={() => deleteItem(courtBookings[bx]._id, history, formDel)}
-      >
-        Delete
-      </button>
-    </div>
   );
 };
 

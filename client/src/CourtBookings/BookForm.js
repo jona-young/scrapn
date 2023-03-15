@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { handleChange } from "../functions/hourlySchedFunctions.js";
 import { deleteBooking, postBooking, putBooking } from "../functions/courtBookingAPI.js"
 import { useNavigate, useLocation } from "react-router-dom";
-import "./BookForm.css";
 
 function BookForm() {
 //TODO: Need to set mode if new booking, then postBooking
@@ -27,111 +26,110 @@ function BookForm() {
     <div className="form">
       <span className="title">Court Booking Form</span>
       <form
-        className="form__form"
+        className="form-form"
         onSubmit={(e) => data.state.mode == "update" ? putBooking(e, currentItem, history) : postBooking(e, currentItem, history)}
       >
-        <label className="form__field">
+        <label className="form-field">
           Court Date
-          <br />
-          <input
-            type="date"
-            onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-            className="form__input"
-            name="date"
-            value={currentItem.date}
-            placeholder="YYYY-MM-DD"
-          />
         </label>
-        <label className="form__field">
-          Court Time <br />
-          <input
-            onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-            className="form__input"
-            name="time"
-            value={currentItem.time}
-          />
+        <input
+          type="date"
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="date"
+          value={currentItem.date}
+          placeholder="YYYY-MM-DD"
+        />
+        <label className="form-field">
+          Court Time
         </label>
-        <label className="form__field">
-          Court Number <br />
-          <select
-            onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-            className="form__input"
-            name="court"
-            value={currentItem.court}
-          >
-            <option value="1">Court 1</option>
-            <option value="2">Court 2</option>
-            <option value="3">Court 3</option>
-            <option value="4">Court 4</option>
-          </select>
+        <input
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="time"
+          value={currentItem.time}
+        />
+        <label className="form-field">
+          Court Number
         </label>
-        <label className="form__field">
+        <select
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="court"
+          value={currentItem.court}
+        >
+          <option value="1">Court 1</option>
+          <option value="2">Court 2</option>
+          <option value="3">Court 3</option>
+          <option value="4">Court 4</option>
+        </select>
+        <label className="form-field">
           Court Type
-          <br />
-          <select
-            onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-            className="form__input"
-            name="court"
-            value={currentItem.court_play}
-          >
-            <option value="0">Doubles</option>
-            <option value="1">Singles</option>
-          </select>
+        </label>
+        <select
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="court"
+          value={currentItem.court_play}
+        >
+          <option value="0">Doubles</option>
+          <option value="1">Singles</option>
+        </select>
+        <label className="form-field">
+              Player(s)
         </label>
         { currentItem.players[0] ? 
-        <label className="form__field">
-        Player(s) <br />
-        <input
-        type="text"
-        onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-        className="form__input"
-        name="player1"
-        data-key="players"
-        value={currentItem.players[0]}
-        />
-        </label>
+            <input
+            type="text"
+            onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+            className="form-input"
+            name="player1"
+            data-key="players"
+            value={currentItem.players[0]}
+            />
         : ""}
         { currentItem.players[1] ? 
-        <label className="form__field">
-        <input
-        type="text"
-        onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-        className="form__input"
-        name="player2"
-        data-key="players"
-        value={currentItem.players[1]}
-        />
-        </label>
+          <input
+          type="text"
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="player2"
+          data-key="players"
+          value={currentItem.players[1]}
+          />
         : ""}
         { currentItem.players[2] ? 
-        <label className="form__field">
-        <input
-        type="text"
-        onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-        className="form__input"
-        name="player3"
-        data-key="players"
-        value={currentItem.players[2]}
-        />
-        </label>
+          <input
+          type="text"
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="player3"
+          data-key="players"
+          value={currentItem.players[2]}
+          />
         : ""}
         { currentItem.players[3] ? 
-        <label className="form__field">
-        <input
-        type="text"
-        onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-        className="form__input"
-        name="player4"
-        data-key="players"
-        value={currentItem.players[3]}
-        />
-        </label>
+          <input
+          type="text"
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="player4"
+          data-key="players"
+          value={currentItem.players[3]}
+          />
         : ""}
-        <input id="submit" className="form__submit" type="submit" name="Add" />
+        <input id="submit" className="form-submit" type="submit" name="Add" />
       </form>
-      <button onClick={() => deleteBooking(currentItem._id, history, formDel)}>
-        Delete
-      </button>
+      {data.state.mode == "update" ? 
+        <button 
+          className="form-delete"
+          onClick={() => deleteBooking(currentItem._id, history, formDel)}>
+          Delete
+        </button> 
+        :
+        ""
+      }
+      
     </div>
   );
 }

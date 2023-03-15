@@ -1,13 +1,290 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.icon {
+    font-family: 'Material Icons', serif;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+
+    background: black;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* General Layout */
+#header {
+  background: #E8EAEF;
+  height: 50px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.header-heading {
+  padding: 10px;
+}
+
+.header-home {
+  text-decoration: none;
+  color: black;
+}
+
+.menu-bars {
+  position: absolute;
+  right:0;
+  margin: auto;
+  padding: 10px;
+  
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+}
+
+.header-menu {
+  width: 25px;
+  height: 25px;
+}
+
+.nav-menu {
+  background-color: #E8EAEF;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+}
+
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2%;
+  height: 60px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+  font-size: 18px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1%;
+  border-radius: 4px;
+}
+
+nav-menu-items {
+  width: 100%;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.nav-offmenu {
+  background-color: yellow;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+}
+
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
+}
+
+navbar-toggle {
+  width: 100%;
+
+}
+
+ul li::marker {
+  color: #E8EAEF;
+}
+
+/* Form */
+.form {
+  padding: 10px;
+  margin:10px;
+  border: 3px solid #E8EAEF;
+  border-radius: 5px;
+  background: #4C5DAA;
+  color: white;
+}
+
+.title {
+  font-weight: bolder;
+  font-size: x-large;
+}
+
+.form-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-field {
+  margin-top: 0.5rem;
+}
+
+.form-input {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.form-submit {
+  width: 200px;
+}
+
+.form-delete {
+  display: block;
+  position: relative;
+  margin: auto;
+  margin-top: 5px;
+
+  width: 200px;
+  background: salmon;
+}
+
+/* Court Bookings */
+#booking-container {
+    background: #4C5DAA;
+}
+
+#date-box {
+
+}
+
+.date-selector {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+
+    color: white;
+}
+
+#select-left {
+    left:0;
+    margin: auto;
+}
+
+#select-right {
+    right:0;
+    margin: auto;
+}
+.date-header {
+    font-weight: bolder;
+}
+
+#court-header {
+    display: flex;
+    flex-direction: row;
+    color: white;
+
+}
+
+.court-heading {
+    margin: auto;
+    font-weight:bolder
+}
+
+#court-schedule {
+}
+
+.schedule-row {
+    display: flex;
+    flex-direction: row;
+
+    height: 120px;
+    background: #E8EAEF;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    margin: 2px;
+}
+
+.cell {
+    background: #2042BA;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 2px;
+}
+
+.cell-time {
+    width: 28%;
+    padding-top: 50px;
+    font-size:12px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.cell-book {
+    width: 28%;
+    padding-top: 50px;
+    font-size:9px;
+    text-align: center;
+}
+
+.cell-book:hover {
+    background: #768CDD;
+}
+
+.court-link {
+  display:block;
+  color: white;
+  text-decoration: none;
+}
+
+.cell-booked {
+    width: 28%;
+    padding-top: 10px;
+
+    font-size:9px;
+    text-align: center;
+    background: #122A84;
+    color: white;
+}
+
+.cell-booked:hover {
+  background: #E8EAEF;
+  color: black;
+}
+
+.name-box {
+    margin-bottom: 20px;
 }
