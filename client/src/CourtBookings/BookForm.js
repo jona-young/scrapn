@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { handleChange } from "../functions/hourlySchedFunctions.js";
+import { handleChange } from "../functions/scheduleFunctions.js";
 import { deleteBooking, postBooking, putBooking } from "../functions/courtBookingAPI.js"
 import { useNavigate, useLocation } from "react-router-dom";
 

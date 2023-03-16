@@ -1,15 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
-  bookACourt,
-  bookedCourt,
-  timeCell,
-  timeRow,
-} from "../functions/hourlySchedFunctions.js";
-import { deleteBooking } from "../functions/courtBookingAPI.js";
+  loadingPage,
+  scheduleCreator
+} from "../functions/scheduleFunctions.js";
 import { useNavigate } from "react-router-dom";
-import format from "date-fns/format";
-import addHours from "date-fns/addHours";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 
@@ -21,79 +15,12 @@ function HourlySched({ curDate, courtBookings }) {
   const rows = [];
 
   if (courtBookings[0] === 0) {
-    rows.push(
-        <div className="sched__bodyLogin" key="loginText">
-          <h2>Courts loading...please wait!</h2>
-        </div>
-    )
+    loadingPage(rows);
     //If there are court bookings on the day
   } else {
     //Sets # of rows from curTime & endTime (Club's Hours of Operations)
-    while (curTime <= endTime) {
-      const courtTime = format(curTime, "p");
-      const courtDate = format(curTime, "yyyy-MM-d");
-
-      //Sets # of columns, in this case 5 for time and 4 courts
-      for (let i = 0; i < 5; i++) {
-        //First column is the time
-        if (i === 0) {
-          timeCell(timeSlots, courtTime);
-        } else {
-          const courtNum = i.toString();
-          const courtCode = courtNum + "--" + courtTime;
-          //If no court bookings on the day, fill every cell with bookACourt
-          if (courtBookings.length === 0) {
-            bookACourt(timeSlots, courtCode, courtTime, courtDate, i.toString());
-          } 
-          else 
-          {
-            //Cycles through each court booking to match to time and court cell
-            for (let bx = 0; bx < courtBookings.length; bx++) {
-              let book = courtBookings[bx];
-              //If courtBooking object is same time as row's time
-              if (courtTime === book.time) {
-                //If courtBooking object has same time and court number as row
-                if (courtNum === book.court) {
-                  bookedCourt(
-                      timeSlots,
-                      courtCode,
-                      i.toString(),
-                      courtBookings,
-                      bx,
-                      deleteBooking,
-                      history
-                  );
-                  break;
-                  //If courtBooking object has same time but not same court number
-                } else if (courtNum !== book.court_number) {
-                  //If the object has the right time, wrong court number, and is last object in array
-                  if (bx === courtBookings.length - 1) {
-                    bookACourt(timeSlots, courtCode, courtTime, courtDate, i);
-                    break;
-                  }
-                  continue;
-                }
-                //If cycles through last object in courtBooking & no courtTime match
-              } else if (bx === courtBookings.length - 1) {
-                bookACourt(timeSlots, courtCode, courtTime, courtDate, i);
-                break;
-                //Makes sure to cycle through whole courtBooking array for match
-              } else {
-                continue;
-              }
-            }
-          }
-        }
-      }
-      timeRow(rows, curTime, timeSlots);
-
-      //Resets time slots
-      timeSlots = [];
-      curTime = addHours(curTime, 1);
-    }
+    scheduleCreator(rows, timeSlots, curTime, endTime, courtBookings, history)
   }
-
-
 
   return <div id="court-schedule">{rows}</div>;
 }

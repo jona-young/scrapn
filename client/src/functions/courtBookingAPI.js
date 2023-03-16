@@ -17,7 +17,7 @@ export const getBookings = async (currentDate, setUpdatedCourtBookings) => {
 
 //Delete a court booking
 export const deleteBooking = async (courtBookingID, history, formDel) => {
-    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-bookings/' + courtBookingID, {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking/' + courtBookingID, {
         credentials: 'include',
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
@@ -27,6 +27,7 @@ export const deleteBooking = async (courtBookingID, history, formDel) => {
 
     if (json)
     {
+        console.log(json)
         if (formDel === true) {
             history.push("/tennis-book");
           } else if (formDel === false) {
@@ -37,7 +38,7 @@ export const deleteBooking = async (courtBookingID, history, formDel) => {
 
 export const postBooking = async (e, forms, history) => {
     e.preventDefault();
-    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-bookings', {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking', {
         credentials: 'include',
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -57,7 +58,7 @@ export const postBooking = async (e, forms, history) => {
 //Delete a court booking
 export const putBooking = async (e, forms, history) => {
     e.preventDefault();
-    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-bookings/' + forms._id, {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking/' + forms._id, {
         credentials: 'include',
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},

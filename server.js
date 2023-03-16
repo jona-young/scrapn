@@ -4,8 +4,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 // routes
 const courtBookingRoutes = require('./routes/courtBookingRoutes.js');
+const userRoutes = require('./routes/userRoutes.js');
 
 
 // Express app
@@ -22,10 +24,13 @@ mongoose.connect(process.env.DBURI)
 .then(() => app.listen(process.env.PORT))
 .catch((err) => console.log(err));
 
+mongoose.set('strictQuery', true);
+
 // Middleware
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
@@ -35,7 +40,9 @@ app.use(function(req, res, next) {
     next(); 
 });
 
-app.use(courtBookingRoutes)
+app.use(courtBookingRoutes);
+
+app.use(userRoutes);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
