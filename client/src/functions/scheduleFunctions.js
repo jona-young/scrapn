@@ -6,7 +6,7 @@ import addHours from "date-fns/addHours";
 
 export const bookACourt = (timeSlots, courtCode, courtTime, courtDate, i) => {
   timeSlots.push(
-    <div className="cell cell-book" key={courtCode}>
+    <div className="cell cell-book" key={courtCode + "-" + courtTime + "-" + courtDate}>
       <Link
         className="court-link"
         state={{            
@@ -36,7 +36,7 @@ export const bookedCourt = (
 ) => {
   const formDel = false;
   timeSlots.push(
-    <span className="cell-booked">
+    <span className="cell-booked" key={i}>
       <Link
       className="court-link"
       state={{
@@ -56,16 +56,16 @@ export const bookedCourt = (
         <div key={courtCode} name={i}>
           <div className="name-box">
             <div className="player-name">
-                {courtBookings[bx].players[0] ? courtBookings[bx].players[0].substring(0,7) : "hello"}
+                {courtBookings[bx].players[0] ? courtBookings[bx].players[0].name.substring(0,7) : ""}
               </div>
               <div className="player-name">
-                {courtBookings[bx].players[1] ? courtBookings[bx].players[1].substring(0,7) : "hello"}
+                {courtBookings[bx].players[1] ? courtBookings[bx].players[1].name.substring(0,7) : ""}
               </div>
               <div className="player-name">
-                {courtBookings[bx].players[2] ? courtBookings[bx].players[2].substring(0,7) : "hello"}
+                {courtBookings[bx].players[2] ? courtBookings[bx].players[2].name.substring(0,7) : ""}
               </div>
               <div className="player-name">
-                {courtBookings[bx].players[3] ? courtBookings[bx].players[3].substring(0,7) : "hello"}
+                {courtBookings[bx].players[3] ? courtBookings[bx].players[3].name.substring(0,7) : ""}
               </div>
           </div>
         </div>
@@ -101,33 +101,40 @@ export const timeRow = (rows, curTime, timeSlots) => {
 export const handleChange = (e, updateItem, currentItem) => {
   const name = e.target.name;
   const value = e.target.value;
- 
+
+  console.log(currentItem)
   if (e.target.getAttribute("data-key") === "players")
   {
+    const playerName = e.target.selectedOptions[0].text;
+    const nameObject = {
+      name: playerName,
+      nameID: value
+    }
+
     let playersOnCourt = currentItem.players
 
     if (name === "player1") {
-      playersOnCourt[0] = value
+      playersOnCourt[0] = nameObject
   
       updateItem({ ...currentItem, ["players"]: playersOnCourt, author: value });
     }
     else if (name === "player2") {
-      playersOnCourt[1] = value
+      playersOnCourt[1] = nameObject
   
       updateItem({ ...currentItem, ["players"]: playersOnCourt });
     }
     else if (name === "player3") {
-      playersOnCourt[2] = value
+      playersOnCourt[2] = nameObject
   
       updateItem({ ...currentItem, ["players"]: playersOnCourt });
     }
     else if (name === "player4") {
-      playersOnCourt[3] = value
+      playersOnCourt[3] = nameObject
   
       updateItem({ ...currentItem, ["players"]: playersOnCourt });
     }
-  }
 
+  }
   else {
     updateItem({...currentItem, [name]: value});
   }
@@ -206,3 +213,39 @@ export const scheduleCreator = (rows, timeSlots, curTime, endTime, courtBookings
     curTime = addHours(curTime, 1);
   }
 }
+
+  //Deletes players names if they were edited in doubles, user selected singles, and moves back to doubles
+  export const DoublesToSinglesSwitch = (e, setCurrentItem, currentItem) => {
+    const value = e.target.value
+    const formData = currentItem
+    console.log(currentItem)
+
+
+    if (value === "Singles")
+    {
+      const removals = formData.players.length - 2
+      for (let i = 0; i < removals; i++)
+      {
+        formData.players.pop()
+      }
+  
+      setCurrentItem(formData)
+      handleChange(e, setCurrentItem, currentItem);
+    }
+    if (value === "Doubles")
+    {
+      while (formData.players.length < 4)
+      {
+        formData.players.push({
+          name: "",
+          nameID: ""
+        })
+      }
+
+      setCurrentItem(formData)
+      handleChange(e, setCurrentItem, currentItem)
+    }
+      
+      
+
+  }

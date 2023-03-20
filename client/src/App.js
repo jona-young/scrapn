@@ -8,7 +8,7 @@ import Login from './General/Login.js';
 import Signup from './General/Signup.js';
 import { UserContext } from './functions/UserContext.js';
 import { DataContext } from './functions/DataContext.js';
-import { initialUserLoad } from './functions/userAPI.js';
+import { loadUserData } from './functions/userAPI.js';
 import "./index.css";
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
   }
 
   useEffect(() => {
-    initialUserLoad(updateUserPrefs);
+    loadUserData(updateUserPrefs);
   }, [])
   
   return (

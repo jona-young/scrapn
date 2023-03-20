@@ -1,5 +1,5 @@
-// GET Request for court bookings
-export const initialUserLoad = async (updateUserPrefs) => {
+// GET Request for client data
+export const loadUserData = async (updateUserPrefs) => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/validate', {
         credentials: 'include',
         method: 'GET',
@@ -17,11 +17,12 @@ export const initialUserLoad = async (updateUserPrefs) => {
       }
       else if (json.error === 'jwt')
       {
-        console.log('s grabbing jwt error');
+        // the user does not have a valid jwt, not logged in
+        return
       }
       else 
       {
-        console.log('troubleshoot HARD');
+        console.log('Please contact your system administrator.');
       }
 }
 
@@ -36,16 +37,17 @@ export const validateUser = async (redirectPath) => {
 
     if(json.user)
       {
-        console.log('user good')
+        // user's jwt validated, logged on
+        return
       }
       else if (json.error === 'jwt')
       {
-        console.log('s grabbing jwt error');
+        // user does not have valid jwt, not logged in, redirect to login
         redirectPath();
       }
       else 
       {
-        console.log('troubleshoot HARD');
+        console.log('Please contact your system administrator.');
       }
 }
 
@@ -173,3 +175,28 @@ export const putBooking = async (e, forms, history) => {
         history("/");
     }
   };
+
+// GET Request for user list
+export const getUsers = async (updateState) => {
+const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/users', {
+    credentials: 'include',
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+})
+
+const json = await data.json();
+
+if(json)
+  {
+    updateState(json)
+  }
+  else if (json.error === 'jwt')
+  {
+    // the user does not have a valid jwt, not logged in
+    return
+  }
+  else 
+  {
+    console.log('Please contact your system administrator.');
+  }
+}

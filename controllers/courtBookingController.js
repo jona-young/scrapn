@@ -23,26 +23,47 @@ module.exports.courtBookings_post = (req, res) => {
     var body = req.body;
     const bookedCourt = new CourtBooking(body);
 
-    // refactor to check users dynamically
+    let restrictionMessages = []
+    let over3Check = {}
+    let players = req.body.players
+    
+    for (let i = 0; i < players.length; i++)
+    {
+        over3Check[players[i].nameID] = [players[i].name, 0];
+    }
+
     CourtBooking.find()
     .then((result) => {
-        var counter = 0;
-        for (var i = 0; i < result.length; i++)
+        for (let i = 0; i < result.length; i++)
         {
-            if (result[i].players[0] == 'Albert Andersen')
+            for (let j = 0; j < result[i].players.length; j++)
             {
-                counter++;
+                if (result[i].players[j].nameID in over3Check)
+                {
+                    over3Check[result[i].players[j].nameID][1] += 1
+                }
             }
         }
-        if (counter >= 3)
+
+        for (const [key, value] of Object.entries(over3Check))
         {
-            res.status(444).send({errors: 'The current member ' + bookedCourt.players[0] + ' currently has 3 bookings'})
+            if (value[1] >= 3)
+            {
+                restrictionMessages.push(value[0] + " has " + value[1] + " bookings or more.")
+
+            }
+        } 
+
+        if (restrictionMessages.length > 0)
+        {
+            console.log(restrictionMessages)
+            res.status(444).send({errors: restrictionMessages})
         }
         else
         {
             bookedCourt.save()
             .then((result) => {
-                res.send({ result: 'Entry posted!' });
+                res.status(200).send({ result: 'Entry posted!' });
             })
             .catch((err) => {
                 console.log(err);
@@ -86,15 +107,7 @@ module.exports.courtBooking_put = (req, res) => {
 // DELETE :id
 module.exports.courtBooking_delete = (req, res) => {
     // const token = req.cookies.jwt;
-    const id = req.params.id;
-
-    CourtBooking.findByIdAndDelete(id)
-    .then((result) => {
-        res.status(200).send(result);
-    })
-    .catch((err) => {
-        res.status(400)
-    })
+    // const id = req.params.id;
 
     //  // Check jwt validation
     //  if (token)
@@ -127,5 +140,15 @@ module.exports.courtBooking_delete = (req, res) => {
     //          }
     //      })
     //  }    
+
+     const id = req.params.id;
+
+    CourtBooking.findByIdAndDelete(id)
+    .then((result) => {
+        res.status(200).send(result);
+    })
+    .catch((err) => {
+        res.status(400)
+    })
 
 }

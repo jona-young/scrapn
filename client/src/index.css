@@ -389,7 +389,7 @@ ul li::marker {
 }
 
 .name-box {
-    margin-bottom: 10px;
+    height: 68px;
 }
 
 .court-delete {

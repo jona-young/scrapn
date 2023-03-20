@@ -23,13 +23,7 @@ const userSchema = new Schema({
     privilige: {
         type: Number,
         required: true
-    },
-    bookings: [
-        {
-            type: String,
-            required: false
-        },
-    ],
+    }
 }, {timestamps: true});
 
 // Before user created

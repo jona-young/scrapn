@@ -4,25 +4,33 @@ const Schema = mongoose.Schema
 const courtBookingSchema = new Schema({
     court: {
         type: String,
-        required: false
+        required: true
     },
     date: {
         type: String,
-        required: false
+        required: true
     },
     time: {
         type: String,
-        required: false
+        required: true
     },
-    players: [
-        {
+    type: {
+        type: String,
+        required: true
+    },
+    players: [{
+        nameID: {
             type: String,
-            required: false
+            required: true,
         },
-    ],
+        name: {
+            type: String,
+            required: true,
+        }
+    }],
     author: {
         type: String,
-        required: false
+        required: true
     },
     authorID: {
         type: String,

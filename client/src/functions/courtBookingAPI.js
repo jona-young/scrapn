@@ -38,6 +38,7 @@ export const deleteBooking = async (courtBookingID, history, formDel) => {
 
 export const postBooking = async (e, forms, history) => {
     e.preventDefault();
+
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking', {
         credentials: 'include',
             method: 'POST',

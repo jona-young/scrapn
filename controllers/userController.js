@@ -90,7 +90,6 @@ module.exports.validate = (req, res) => {
         jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
             if (err)
             {
-                console.log("no shot: ", err.message);
                 res.status(400).send({ error: 'jwt'})
             }
             else
@@ -99,7 +98,6 @@ module.exports.validate = (req, res) => {
                 .exec(function(err, order) {
                     res.status(200).json({ user: order.name, isLoggedOn: true,
                                            privilige: order.privilige, 
-                                           department: order.department,
                                            message: 'Validated jwt token' });
                 });
             }
@@ -109,4 +107,63 @@ module.exports.validate = (req, res) => {
     {
         res.status(400).send({ error: 'jwt'})
     }
+}
+
+// DELETE :id
+module.exports.user_delete = (req, res) => {
+    // const token = req.cookies.jwt;
+    // const id = req.params.id;
+
+    //  // Check jwt validation
+    //  if (token)
+    //  {
+    //      jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
+    //          if (err)
+    //          {
+    //              console.log(err.message);
+    //              res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+    //          }
+    //          else
+    //          {
+                // User.findByIdAndDelete(id)
+                // .then((result) => {
+                    // res.status(200).cookie('jwt', '', { httpOnly: true, maxAge: 1 });send(result);
+                    // })
+                // .catch((err) => {
+                //     res.status(400)
+                // })
+    //              })
+    //          }
+    //      })
+    //  }    
+
+     const id = req.params.id;
+
+    User.findByIdAndDelete(id)
+    .then((result) => {
+        res.status(200).cookie('jwt', '', { httpOnly: true, maxAge: 1 });send(result);
+
+    })
+    .catch((err) => {
+        res.status(400)
+    })
+
+}
+
+module.exports.get_users = (req, res) => {
+    User.find()
+    .then((result) => {
+        let userData = []
+        for (let i = 0; i < result.length; i++)
+        {
+            userData.push({
+                nameID: result[i]._id,
+                name: result[i].name
+            })
+        }
+        res.send(userData)
+    })
+    .catch((err) => {
+        res.status(err);
+    })
 }

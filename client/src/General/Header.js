@@ -20,14 +20,11 @@ const Header = () => {
             <nav className={ navbar ? "nav-menu active" : "nav-menu"}>
                     <ul className="nav-menu-items" onClick={ showNavbar }>
                         <li className="navbar-toggle"><Link to="#" className="menu-bars">X</Link></li>
-                        <li className="nav-text"><Link to={"/"}>Home</Link></li>
+                        <li className="nav-text"><Link to={"/"}>Courts</Link></li>
+                        <li className="nav-text"><Link to={"profile"}>Profile</Link></li>
+
                         <li className="nav-text"><Link to={"login"}>Login</Link></li>
-                        <li className="nav-text"><Link to={"members"}>Members</Link></li>
-                        <li className="nav-text"><Link to={"member-create"}>Create Member</Link></li>
-                        <li className="nav-text"><Link to={"court-infractions"}>Infractions</Link></li>
-                        <li className="nav-text"><Link to={"infraction-create"}>Create Entry</Link></li>
-                        <li className="nav-text"><Link to={"purchase-orders"}>Purchase Orders</Link></li>
-                        <li className="nav-text"><Link to={"po-create"}>Create PO</Link></li>
+                        <li className="nav-text"><Link to={"signup"}>Signup</Link></li>
                     </ul>
             </nav>
         </div>
