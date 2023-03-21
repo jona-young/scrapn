@@ -6,9 +6,8 @@ import addHours from "date-fns/addHours";
 
 export const bookACourt = (timeSlots, courtCode, courtTime, courtDate, i) => {
   timeSlots.push(
-    <div className="cell cell-book" key={courtCode + "-" + courtTime + "-" + courtDate}>
       <Link
-        className="court-link"
+        className="cell cell-book court-link"
         state={{            
           edit_val: false,
           date: courtDate,
@@ -21,7 +20,6 @@ export const bookACourt = (timeSlots, courtCode, courtTime, courtDate, i) => {
       >
         Book
       </Link>
-    </div>
   );
 };
 
@@ -115,7 +113,7 @@ export const handleChange = (e, updateItem, currentItem) => {
 
     if (name === "player1") {
       playersOnCourt[0] = nameObject
-  
+
       updateItem({ ...currentItem, ["players"]: playersOnCourt, author: value });
     }
     else if (name === "player2") {
@@ -133,7 +131,6 @@ export const handleChange = (e, updateItem, currentItem) => {
   
       updateItem({ ...currentItem, ["players"]: playersOnCourt });
     }
-
   }
   else {
     updateItem({...currentItem, [name]: value});
@@ -245,7 +242,4 @@ export const scheduleCreator = (rows, timeSlots, curTime, endTime, courtBookings
       setCurrentItem(formData)
       handleChange(e, setCurrentItem, currentItem)
     }
-      
-      
-
   }

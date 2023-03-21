@@ -52,7 +52,7 @@ export const postBooking = async (e, forms, history) => {
         console.log(json.errors);
     }
 
-    history("/");
+    history("/court-bookings");
 
 }
 
@@ -71,6 +71,6 @@ export const putBooking = async (e, forms, history) => {
 
     if (json)
     {
-        history("/");
+        history("/court-bookings");
     }
   };

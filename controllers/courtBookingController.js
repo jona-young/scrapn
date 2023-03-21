@@ -106,49 +106,41 @@ module.exports.courtBooking_put = (req, res) => {
 
 // DELETE :id
 module.exports.courtBooking_delete = (req, res) => {
-    // const token = req.cookies.jwt;
-    // const id = req.params.id;
+    const token = req.cookies.jwt;
+    const id = req.params.id;
 
-    //  // Check jwt validation
-    //  if (token)
-    //  {
-    //      jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
-    //          if (err)
-    //          {
-    //              console.log(err.message);
-    //              res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
-    //          }
-    //          else
-    //          {
-    //              User.findById(decodedToken.id).select('privilige')
-    //              .exec(function(err, account) {
-    //                  if (account.privilige > 0)
-    //                  {
-    //                     CourtBooking.findByIdAndDelete(id)
-    //                     .then((result) => {
-    //                         res.send(result);
-    //                     })
-    //                     .catch((err) => {
-    //                         res.status(400)
-    //                     })
-    //                  }
-    //                  else
-    //                  {
-    //                      res.status(400).send({errors: {privilige: "Error - Account priviliges too low, contact site administrator"}})
-    //                  }
-    //              })
-    //          }
-    //      })
-    //  }    
+     // Check jwt validation
+     if (token)
+     {
+         jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
+             if (err)
+             {
+                 console.log(err.message);
+                 res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+             }
+             else
+             {
+                 User.findById(decodedToken.id).select('privilige')
+                 .exec(function(err, account) {
+                     if (account.privilige > 0)
+                     {
+                        CourtBooking.findByIdAndDelete(id)
+                        .then((result) => {
+                            res.status(200).send(result);
+                        })
+                        .catch((err) => {
+                            res.status(400)
+                        })
+                     }
+                     else
+                     {
+                         res.status(400).send({errors: {privilige: "Error - Account priviliges too low, contact site administrator"}})
+                     }
+                 })
+             }
+         })
+     }    
 
-     const id = req.params.id;
 
-    CourtBooking.findByIdAndDelete(id)
-    .then((result) => {
-        res.status(200).send(result);
-    })
-    .catch((err) => {
-        res.status(400)
-    })
 
 }

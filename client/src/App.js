@@ -6,6 +6,7 @@ import CourtBookings from './CourtBookings/CourtBookings.js';
 import BookForm from './CourtBookings/BookForm.js';
 import Login from './General/Login.js';
 import Signup from './General/Signup.js';
+import Home from './General/Home.js';
 import { UserContext } from './functions/UserContext.js';
 import { DataContext } from './functions/DataContext.js';
 import { loadUserData } from './functions/userAPI.js';
@@ -16,6 +17,7 @@ function App() {
     name: "",
     isLoggedOn: false,
     privilige: 0,
+    bookings: []
   })
 
   const updateUserPrefs = (value) => {
@@ -39,7 +41,8 @@ function App() {
         <BrowserRouter>
           <Header />
             <Routes>
-              <Route path="/" element={<CourtBookings/>} />
+              <Route path="/" element={<Home/>} />
+              <Route path="/court-bookings" element={<CourtBookings/>} />
               <Route path="/tennis-form" element={<BookForm/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />

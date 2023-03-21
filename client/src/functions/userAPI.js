@@ -1,5 +1,5 @@
 // GET Request for client data
-export const loadUserData = async (updateUserPrefs) => {
+export const loadUserData = async (updateUserPrefs, redirectPath) => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/validate', {
         credentials: 'include',
         method: 'GET',
@@ -12,13 +12,14 @@ export const loadUserData = async (updateUserPrefs) => {
       {
           updateUserPrefs({ name: json.user,
                             isLoggedOn: json.isLoggedOn, 
-                            privilige: json.privilige
+                            privilige: json.privilige,
+                            bookings: json.bookings 
                         })
       }
       else if (json.error === 'jwt')
       {
-        // the user does not have a valid jwt, not logged in
-        return
+        // user does not have valid jwt, not logged in, redirect to login
+        redirectPath();
       }
       else 
       {
@@ -37,6 +38,7 @@ export const validateUser = async (redirectPath) => {
 
     if(json.user)
       {
+
         // user's jwt validated, logged on
         return
       }
@@ -74,8 +76,8 @@ export const postSignup = async (e, loginDetails, history, errors, updateErrors,
 
   if (json.name)
   {
-      updateUserPrefs({name: data.name, isLoggedOn: data.isLoggedOn,
-                       privilige: data.privilige, department: data.department})
+      updateUserPrefs({name: json.name, isLoggedOn: json.isLoggedOn,
+                       privilige: json.privilige, bookings: json.bookings })
       updateLoadedData(false)
 
       history("/");
@@ -97,6 +99,7 @@ export const postLogin = async (e, loginDetails, history, errors, updateErrors, 
   })
 
   const json = await data.json();
+
   if (json.errors)
   {
       updateErrors({...errors, 
@@ -108,15 +111,31 @@ export const postLogin = async (e, loginDetails, history, errors, updateErrors, 
 
   if (json.name)
   {
-      updateUserPrefs({name: data.name, isLoggedOn: data.isLoggedOn,
-                       privilige: data.privilige, department: data.department})
+      updateUserPrefs({name: json.name, isLoggedOn: json.isLoggedOn,
+                       privilige: json.privilige, bookings: json.bookings})
       updateLoadedData(false)
 
       history("/");
   }
-
-
 }
+
+export const getLogout = async (updateUserPrefs, routeChange) => {
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/logout', {
+      credentials: 'include',
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+  })
+
+  const json = await data.json();
+
+  if (json)
+  {
+    updateUserPrefs({name: "", isLoggedOn: false})
+    routeChange();
+  }
+}
+
+
 
 //Delete a court booking
 export const deleteBooking = async (courtBookingID, history, formDel) => {

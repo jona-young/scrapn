@@ -4,76 +4,78 @@ var chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-// describe('Backend API CRUD Testing: User Authentication', function() {
-//     path = 'http://localhost:4000'
-//     var testToken
+var testToken
+var testUserID
 
-//     it('should signup for a new account', function(done) {
-//         chai.request(path)
-//             .post('/api/signup')
-//             .send({
-//                 name: 'test testerson',
-//                 email: "test@testerson.com",
-//                 password: "testerson",
-//                 privilige: 1337,
-//             })
-//             .end((err, res) => {
-//                 assert.equal(res.status, 200);
-//                 done();
-//             })
-//     })
+describe('Backend API CRUD Testing: User Authentication', function() {
+    path = 'http://localhost:4000'
+
+    it('should signup for a new account', function(done) {
+        chai.request(path)
+            .post('/api/signup')
+            .send({
+                name: 'test testerson',
+                email: "test@testerson.com",
+                password: "testerson",
+                privilige: 1337,
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                done();
+            })
+    })
     
-//     it('should login the user and assign testToken', function(done) {
-//         chai.request(path)
-//             .post('/api/login')
-//             .send({
-//                 email: "test@testerson.com",
-//                 password: "testerson",
-//             })
-//             .end((err, res) => {
-//                 testToken = res.body.token
-//                 assert.equal(res.status, 200);
-//                 done();
-//             })
-//     })
+    it('should login the user and assign testToken', function(done) {
+        chai.request(path)
+            .post('/api/login')
+            .send({
+                email: "test@testerson.com",
+                password: "testerson",
+            })
+            .end((err, res) => {
+                testToken = res.body.token
+                testUserID = res.body._id
+                assert.equal(res.status, 200);
+                done();
+            })
+    })
 
-//     it('should set testToken', function (done) {
-//         this.timeout(3000);
-//         setTimeout(done, 2000);
-//         console.log('Verify testToken: ', testToken);
-//     });
+    it('should set testToken', function (done) {
+        this.timeout(3000);
+        setTimeout(done, 2000);
+    });
 
-//     it('should validate jwt', function(done) {
-//         chai.request(path)
-//             .get('/api/validate')
-//             .set('Cookie', `jwt=${testToken}`)
-//             .end((err, res) => {
-//                 assert.equal(res.status, 200);
-//                 done();
-//             })
-//     })
+    it('should validate jwt', function(done) {
+        chai.request(path)
+            .get('/api/validate')
+            .set('Cookie', `jwt=${testToken}`)
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                done();
+            })
+    })
 
-//     it('should logout and reset the jwt', function(done) {
-//         chai.request(path)
-//             .get('/api/logout/')
-//             .set('Cookie', `jwt=${testToken}`)
-//             .end((err, res) => {
-//                 assert.equal(res.status, 200);
-//                 done();
-//         })
-//     })
+    // it('should logout and reset the jwt', function(done) {
+    //     chai.request(path)
+    //         .get('/api/logout/')
+    //         .set('Cookie', `jwt=${testToken}`)
+    //         .end((err, res) => {
+    //             assert.equal(res.status, 200);
+    //             done();
+    //     })
+    // })
 
-//     it('should get all users', function(done) {
-//         chai.request(path)
-//             .get('/api/users')
-//             .end((err, res) => {
-//                 console.log(res.body)
-//                 assert.equal(res.status, 200);
-//                 done();
-//             })
-//     })
+    it('should get all users', function(done) {
+        chai.request(path)
+            .get('/api/users')
+            .end((err, res) => {
+                console.log(res.body)
+                assert.equal(res.status, 200);
+                done();
+            })
+    })
 
-// })
+})
 
 describe('Backend API CRUD Testing: Court Bookings', function() {
     path = 'http://localhost:4000'
@@ -180,9 +182,6 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
     it('should set testID', function (done) {
         this.timeout(3000);
         setTimeout(done, 2000);
-        console.log('Verify testID1: ', testID1);
-        console.log('Verify testID2: ', testID2);
-        console.log('Verify testID3: ', testID3);
     });
 
 
@@ -220,6 +219,7 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
     it('should delete testID1 entry', function(done) {
         chai.request(path)
             .delete('/api/court-booking/' + testID1)
+            .set('Cookie', `jwt=${testToken}`)
             .end((err, res) => {
                 assert.equal(res.status, 200)
                 done();
@@ -229,6 +229,7 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
     it('should delete testID2 entry', function(done) {
         chai.request(path)
             .delete('/api/court-booking/' + testID2)
+            .set('Cookie', `jwt=${testToken}`)
             .end((err, res) => {
                 assert.equal(res.status, 200)
                 done();
@@ -238,9 +239,25 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
     it('should delete testID3 entry', function(done) {
         chai.request(path)
             .delete('/api/court-booking/' + testID3)
+            .set('Cookie', `jwt=${testToken}`)
             .end((err, res) => {
                 assert.equal(res.status, 200)
                 done();
             })
     })
+})
+
+describe('Backend API CRUD Testing: User DELETE', function() {
+    path = 'http://localhost:4000'
+
+    it('should delete test user', function(done) {
+        chai.request(path)
+        .delete('/api/delete/' + testUserID)
+        .set('Cookie', `jwt=${testToken}`)
+        .end((err, res) => {
+            assert.equal(res.status, 200)
+            done();
+        })
+    })
+
 })

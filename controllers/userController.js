@@ -1,4 +1,5 @@
 const User = require('../models/users.js');
+const CourtBooking = require('../models/court-bookings.js')
 const jwt = require('jsonwebtoken');
 
 // Error handling
@@ -50,7 +51,8 @@ module.exports.signup_post = async (req, res) => {
         const user = await User.create({ name, email, password, privilige})
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(200).json({ isLoggedOn: true, name: name });
+        res.status(200).json({ isLoggedOn: true, name: name, privilige: user.privilige, token: token,
+            _id: user._id, bookings: [] });
     }
     catch (err)
     {
@@ -63,11 +65,34 @@ module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await User.login(email, password);
-        const token = createToken(user._id);
-        const userInfo = await User.findById(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(200).json({ isLoggedOn: true, name: userInfo.name, privilige: userInfo.privilige, token: token });
+
+            const user = await User.login(email, password);
+            const token = createToken(user._id);
+
+            CourtBooking.find()
+            .then((result) => {
+                let userCourts = []
+    
+                for (let i = 0; i < result.length; i++)
+                {
+                    for (let j = 0; j < result[i].players.length; j++)
+                    {
+                        if (result[i].players[j].nameID == user._id)
+                        {
+                            userCourts.push(result[i])
+                        }
+                    }
+                }
+
+                res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.status(200).json({ isLoggedOn: true, name: user.name, 
+                                        privilige: user.privilige, token: token,
+                                         _id: user._id, bookings: userCourts });
+            })
+            .catch((err) => {
+                res.status(402).send({ error: 'court booking user load error'})
+            })
+
     }
     catch (err) {
         const errors = handleErrors(err)
@@ -94,12 +119,33 @@ module.exports.validate = (req, res) => {
             }
             else
             {
-                User.findById(decodedToken.id).select('name privilige department')
-                .exec(function(err, order) {
-                    res.status(200).json({ user: order.name, isLoggedOn: true,
-                                           privilige: order.privilige, 
-                                           message: 'Validated jwt token' });
-                });
+                CourtBooking.find()
+                .then((result) => {
+                    let userCourts = []
+
+                    for (let i = 0; i < result.length; i++)
+                    {
+                        for (let j = 0; j < result[i].players.length; j++)
+                        {
+                            if (result[i].players[j].nameID == decodedToken.id)
+                            {
+                                userCourts.push(result[i])
+                            }
+                        }
+                    }
+
+                    User.findById(decodedToken.id).select('name privilige department')
+                    .exec(function(err, order) {
+                        res.status(200).json({ user: order.name, isLoggedOn: true,
+                                                privilige: order.privilige, 
+                                                message: 'Validated jwt token',
+                                                bookings: userCourts });
+                    });
+                })
+                .catch((err) => {
+                    res.status(402).send({ error: 'court booking user load error'})
+                })
+
             }
         })
     }
@@ -111,43 +157,30 @@ module.exports.validate = (req, res) => {
 
 // DELETE :id
 module.exports.user_delete = (req, res) => {
-    // const token = req.cookies.jwt;
-    // const id = req.params.id;
+    const token = req.cookies.jwt;
+    const id = req.params.id;
 
-    //  // Check jwt validation
-    //  if (token)
-    //  {
-    //      jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
-    //          if (err)
-    //          {
-    //              console.log(err.message);
-    //              res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
-    //          }
-    //          else
-    //          {
-                // User.findByIdAndDelete(id)
-                // .then((result) => {
-                    // res.status(200).cookie('jwt', '', { httpOnly: true, maxAge: 1 });send(result);
-                    // })
-                // .catch((err) => {
-                //     res.status(400)
-                // })
-    //              })
-    //          }
-    //      })
-    //  }    
-
-     const id = req.params.id;
-
-    User.findByIdAndDelete(id)
-    .then((result) => {
-        res.status(200).cookie('jwt', '', { httpOnly: true, maxAge: 1 });send(result);
-
-    })
-    .catch((err) => {
-        res.status(400)
-    })
-
+     // Check jwt validation
+     if (token)
+     {
+         jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
+             if (err)
+             {
+                 console.log(err.message);
+                 res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+             }
+             else
+             {
+                User.findByIdAndDelete(id)
+                .then((result) => {
+                    res.status(200).cookie('jwt', '', { httpOnly: true, maxAge: 1 }).send(result);
+                    })
+                .catch((err) => {
+                    res.status(400)
+                })
+             }
+         })
+     }    
 }
 
 module.exports.get_users = (req, res) => {
