@@ -8,8 +8,6 @@ function BookForm({form}) {
   let history = useNavigate();
   const formDel = true;
 
-  console.log('this does 11 renders per page,excessive off setting currentitem : ', form)
-
   //Sets the item that will be pushed to backend API to create court booking
   const [currentItem, setCurrentItem] = useState({
     _id: form._id ? form._id : null,
@@ -31,11 +29,16 @@ function BookForm({form}) {
     authorID: form.authorID ? form.authorID : ""
   });
 
+
   const [ userFields, setUserFields ] = useState([])
   //TODO: Store this in global state. Currently it will ping backend API every form load
   useEffect(() => {
     getUsers(setUserFields)
   },[userFields.length])
+
+  useEffect(() => {
+    setCurrentItem(form)
+  },[form])
 
   return (
     <div className="form">

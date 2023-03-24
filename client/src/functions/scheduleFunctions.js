@@ -8,27 +8,8 @@ export const bookACourt = (timeSlots, courtTime, courtDate, i) => {
   timeSlots.push(
       <Link
         className="cell cell-book court-link"
-        state={{     
-          edit_val: false,
-          date: courtDate,
-          time: courtTime,
-          court: i,
-          type: "Singles",
-          players: [
-            {
-              name: "",
-              nameID: ""
-            },
-            {
-              name: "",
-              nameID: ""
-            }
-          ],
-          author: "",
-          authorID:""
-        }}
         to={{
-          pathname: "/create-court",
+          pathname: "/create-court/" + courtDate + "/" + courtTime,
         }}
       >
         Book
@@ -44,27 +25,14 @@ export const bookedCourt = (
   bx,
   deleteItem,
   history,
-  courtDate
 ) => {
   const formDel = false;
   timeSlots.push(
     <span className="cell-booked" key={i}>
       <Link
       className="court-link"
-      state={{
-        edit_val: true,
-        _id: courtBookings[bx]._id,
-        date: courtDate,
-        time: courtBookings[bx].time,
-        type: courtBookings[bx].type,
-        court: courtBookings[bx].court,
-        players: courtBookings[bx].players,
-        author: courtBookings[bx].author,
-        authorID: courtBookings[bx].authorID,
-        mode: "update"
-      }}
       to={{
-        pathname: "/update-court",
+        pathname: "/update-court/" + courtBookings[bx]._id,
       }}
       >
         <div key={courtCode} name={i}>
@@ -196,14 +164,14 @@ export const scheduleCreator = (rows, timeSlots, curTime, endTime, courtBookings
               } else if (courtNum !== book.court_number) {
                 //If the object has the right time, wrong court number, and is last object in array
                 if (bx === courtBookings.length - 1) {
-                  bookACourt(timeSlots, courtCode, courtTime, courtDate, i);
+                  bookACourt(timeSlots, courtTime, courtDate, i);
                   break;
                 }
                 continue;
               }
               //If cycles through last object in courtBooking & no courtTime match
             } else if (bx === courtBookings.length - 1) {
-              bookACourt(timeSlots, courtCode, courtTime, courtDate, i);
+              bookACourt(timeSlots, courtTime, courtDate, i);
               break;
               //Makes sure to cycle through whole courtBooking array for match
             } else {

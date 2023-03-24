@@ -21,19 +21,8 @@ export const courtDashboard = (courtArr, Link) => {
       bookedCourts.push(
         <Link
         className="bookings-item"
-        state={{
-          edit_val: true,
-          _id: courtArr[i]._id,
-          date: courtDate,
-          time: courtArr[i].time,
-          type: courtArr[i].type,
-          court: courtArr[i].court,
-          players: courtArr[i].players,
-          author: courtArr[i].author,
-          mode: "update"
-        }}
         to={{
-          pathname: "/update-court",
+          pathname: "/update-court/" + courtArr[i]._id,
         }}
         >
           <div className="bookings-info">

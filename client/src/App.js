@@ -40,8 +40,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/court-bookings" element={<CourtBookings/>} />
-              <Route path="/update-court" element={<UpdateBooking/>} />
-              <Route path="/create-court" element={<CreateBooking/>} />
+              <Route path="/update-court/:id" element={<UpdateBooking/>} />
+              <Route path="/create-court/:date/:time" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

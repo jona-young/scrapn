@@ -1,39 +1,33 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { getBooking } from '../functions/courtBookingAPI.js';
 import BookForm from './BookForm.js';
 
-const UpdateBooking = () => {
-    let data = useLocation();
 
-    //Sets the item that will be pushed to backend API to create court booking
-    const [currentItem, setCurrentItem] = useState({
-    _id: data.state._id ? data.state._id : "",
-    date: data.state.date ? data.state.date : "",
-    time: data.state.time ? data.state.time : "",
-    court: data.state.court ? data.state.court : "1",
-    type: data.state.type ? data.state.type : "Singles",
-    players: data.state.players? data.state.players : [
-        {
-        name: "",
-        nameID: ""
-        },
-        {
-        name: "",
-        nameID: ""
-        }
-    ],
-    author: data.state.author ? data.state.author : "",
-    authorID: data.state.authorID ? data.state.authorID : "",
-    mode: data.state.mode ? data.state.mode : ""
-    });
+const UpdateBooking = () => {
+    const { id } = useParams();
+
+    //Sets the item that will be pushed to backend API to update court booking
+    const [currentItem, setCurrentItem] = useState({});
+    const [formLoad, setFormLoad] = useState(false);
 
     useEffect(() => {
-        setCurrentItem(data.state)
+        getBooking(id, setCurrentItem, setFormLoad)
     },[])
 
-    return (
-        <BookForm form={currentItem} />
-    )
+    if (formLoad == true)
+    {
+        return (
+            <BookForm form={currentItem} />
+        )
+    }
+    else
+    {
+        return (
+            <h5>Loading...</h5>
+        )
+    }
+
 }
 
 export default UpdateBooking;

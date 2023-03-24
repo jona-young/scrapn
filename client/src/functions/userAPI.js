@@ -57,8 +57,6 @@ export const postSignup = async (e, loginDetails, history, errors, updateErrors,
       history("/");
 
   }
-
-
 }
 
 export const postLogin = async (e, loginDetails, history, errors, updateErrors, updateUserPrefs, updateLoadedData) => {
