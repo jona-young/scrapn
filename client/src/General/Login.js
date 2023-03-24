@@ -26,8 +26,8 @@ const Login = () => {
     }
 
     return (
-        <div className="grid-container" >
-            <div className="login-container" id="login-landing">
+        <div className="userauth-container" >
+            <div className="login-container">
                 <img src={ loginImage } className="login-image" alt="Hoi Pham on Unsplash"/>
                 <form className="login-box">
                     <h3 className="login-heading">Login</h3>

@@ -84,6 +84,8 @@ module.exports.login_post = async (req, res) => {
                     }
                 }
 
+                sortUserBookings(userCourts)
+
                 res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
                 res.status(200).json({ isLoggedOn: true, name: user.name, 
                                         privilige: user.privilige, token: token,
@@ -133,6 +135,8 @@ module.exports.validate = (req, res) => {
                             }
                         }
                     }
+
+                    sortUserBookings(userCourts)
 
                     User.findById(decodedToken.id).select('name privilige department')
                     .exec(function(err, order) {
@@ -194,9 +198,22 @@ module.exports.get_users = (req, res) => {
                 name: result[i].name
             })
         }
-        res.send(userData)
+        res.status(200).send(userData)
     })
     .catch((err) => {
         res.status(err);
     })
+}
+
+const sortUserBookings = (courts) => {
+    courts.sort(function(a, b) {
+        var keyA = new Date(a.date + " " + a.time),
+          keyB = new Date(b.date + " " + b.time);
+        // Compare the 2 dates
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+      });
+
+    return courts
 }

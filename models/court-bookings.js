@@ -7,8 +7,9 @@ const courtBookingSchema = new Schema({
         required: true
     },
     date: {
-        type: String,
-        required: true
+        type: Date,
+        required: true,
+        get: () => { console.log(date.to_string()); return date.to_string()}
     },
     time: {
         type: String,
@@ -37,7 +38,10 @@ const courtBookingSchema = new Schema({
         required: false
     }
     
-}, {timestamps: true});
+}, {
+    timestamps: true,
+    toJson: {getters: true}
+});
 
 const CourtBookings = mongoose.model('court-booking', courtBookingSchema);
 module.exports = CourtBookings;

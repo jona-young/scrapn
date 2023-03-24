@@ -21,47 +21,50 @@ const Signup = () => {
     const [ errors, setErrors ] = useState({});
 
     return (
-            <div className="login-container" id="login-landing">
-                <img src={ signupImage } className="login-image" alt="Mario Go on Unsplash"/>
-                <form className="login-box">
-                    <h3 className="login-heading">Sign Up</h3>
-                    <input type="text" 
+            <div className="userauth-container">
+                <div className="login-container">
+
+                    <img src={ signupImage } className="login-image" alt="Mario Go on Unsplash"/>
+                    <form className="login-box">
+                        <h3 className="login-heading">Sign Up</h3>
+                        <input type="text" 
+                                className="login-input" 
+                                placeholder="Name" 
+                                onChange={(e) => { handleChange(e, setLoginDetails, loginDetails)} }
+                                data-key="name" 
+                                required />
+                        <input type="text" 
                             className="login-input" 
-                            placeholder="Name" 
+                            placeholder="Email" 
                             onChange={(e) => { handleChange(e, setLoginDetails, loginDetails)} }
-                            data-key="name" 
+                            data-key="email" 
                             required />
-                    <input type="text" 
-                        className="login-input" 
-                        placeholder="Email" 
-                        onChange={(e) => { handleChange(e, setLoginDetails, loginDetails)} }
-                        data-key="email" 
-                        required />
-                    <div className="login-error">{ errors.email }</div>
-                    <input type="password" 
-                        autoComplete="on"
-                        name="new-password"
-                        id="new-password"
-                        className="login-input" 
-                        placeholder="Password"
-                        onChange={(e) => { handleChange(e, setLoginDetails, loginDetails)} }
-                        data-key="password" 
-                        required />
-                    <div className="login-error">{ errors.password }</div>
-                    <input type="button" 
-                        onClick={(e) => { postSignup(e, loginDetails, navigate, errors, setErrors, updateUserPrefs, updateLoadedData) } } 
-                        value="Submit" 
+                        <div className="login-error">{ errors.email }</div>
+                        <input type="password" 
+                            autoComplete="on"
+                            name="new-password"
+                            id="new-password"
+                            className="login-input" 
+                            placeholder="Password"
+                            onChange={(e) => { handleChange(e, setLoginDetails, loginDetails)} }
+                            data-key="password" 
+                            required />
+                        <div className="login-error">{ errors.password }</div>
+                        <input type="button" 
+                            onClick={(e) => { postSignup(e, loginDetails, navigate, errors, setErrors, updateUserPrefs, updateLoadedData) } } 
+                            value="Submit" 
+                            className="general-button login-button login-submit"/>
+                        <div className="login-orbox">
+                            <div className="login-line"></div>
+                            <span className="login-ortext">OR</span>
+                            <div className="login-line"></div>
+                        </div>
+                        <input type="button" 
+                        onClick={ routeLoginChange } 
+                        value="Already have an account?" 
                         className="general-button login-button login-submit"/>
-                    <div className="login-orbox">
-                        <div className="login-line"></div>
-                        <span className="login-ortext">OR</span>
-                        <div className="login-line"></div>
-                    </div>
-                    <input type="button" 
-                    onClick={ routeLoginChange } 
-                    value="Already have an account?" 
-                    className="general-button login-button login-submit"/>
-                </form>
+                    </form>
+                </div>
             </div>
     )
 }

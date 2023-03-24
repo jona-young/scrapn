@@ -1,11 +1,8 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
 import { courtDashboard } from '../functions/userFunctions';
-import { loadingPage } from '../functions/scheduleFunctions.js';
-import { validateUser, loadUserData } from '../functions/userAPI.js';
-
-
+import { loadUserData } from '../functions/userAPI.js';
 
 const Home = () => {
     //User Context
@@ -19,30 +16,30 @@ const Home = () => {
     const routeLoginChange = () => {
         navigate('/login');
     }
-
-
-    const updateCourtBlocks = () => {
+    useMemo(() => {
         setAvailableCourts(3 - userPrefs.bookings.length)
         setUserName(userPrefs.name)
-        setCourtBlocks(courtDashboard(userPrefs.bookings))
-    }
+        setCourtBlocks(courtDashboard(userPrefs.bookings, Link))
+    }, [userPrefs])
+
 
     useEffect(() => {
         loadUserData(updateUserPrefs, routeLoginChange)
-        updateCourtBlocks()
-        console.log(userPrefs)
-    },[userPrefs.bookings.length])
+    },[])
+
+
 
     return (
         <div id="home-container">
             <div className="home-headerrow">
-                <div className="bookings-available">
-                    <div className="home-heading">Welcome Back { userName }</div>
+                <div className="bookings-welcome">
+                    <div className="home-heading ">Welcome Back { userName }!</div>
                 </div>
-                <div className="bookings-available bookings-right">
-                    <div className="home-heading">Available Bookings</div>
-                    <div className="bookings-counter bookings-right">{availableCourts}</div>
-                </div>
+                <Link className="bookings-available bookings-right" to="/court-bookings">
+                        <div className="home-heading">Available Bookings</div>
+                        <div className="bookings-counter bookings-right">{availableCourts}</div>
+                </Link>
+
             </div>
             <div className="bookings-current">
                 <span className="home-heading">Current Bookings</span>

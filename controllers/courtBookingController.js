@@ -31,7 +31,6 @@ module.exports.courtBookings_post = (req, res) => {
     {
         over3Check[players[i].nameID] = [players[i].name, 0];
     }
-
     CourtBooking.find()
     .then((result) => {
         for (let i = 0; i < result.length; i++)
@@ -78,7 +77,7 @@ module.exports.courtBookings_post = (req, res) => {
    
 }
 
-// GET :id
+// GET :id CURRENTLY NOT USED
 module.exports.courtBooking_get = (req, res) => {
     const id = req.params.id;
 
@@ -95,14 +94,42 @@ module.exports.courtBooking_get = (req, res) => {
 module.exports.courtBooking_put = (req, res) => {
     const id = req.params.id;
     const body = req.body;
+    const token = req.cookies.jwt;
 
-    CourtBooking.findByIdAndUpdate(id, body)
-    .then((result) => {
-        res.status(200).send({ result: 'Updated!'})
-    })
-    .catch((err) => {
-        res.status(400);
-    })}
+     // Check jwt validation
+     if (token)
+     {
+         jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
+             if (err)
+             {
+                 console.log(err.message);
+                 res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+             }
+             else
+             {
+                console.log(body._id)
+                 User.findById(decodedToken.id).select('privilige')
+                 .exec(function(err, account) {
+                     if (account.privilige > 1 || decodedToken.id == id)
+                     {
+                        CourtBooking.findByIdAndUpdate(id, body)
+                        .then((result) => {
+                            res.status(200).send({ result: 'Updated!'})
+                        })
+                        .catch((err) => {
+                            res.status(400);
+                        })
+                     }
+                     else
+                     {
+                         res.status(400).send({errors: {privilige: "Error - Only the court owner or staff may edit this court!"}})
+                     }
+                 })
+             }
+         })
+     }    
+
+}
 
 // DELETE :id
 module.exports.courtBooking_delete = (req, res) => {
@@ -122,8 +149,8 @@ module.exports.courtBooking_delete = (req, res) => {
              {
                  User.findById(decodedToken.id).select('privilige')
                  .exec(function(err, account) {
-                     if (account.privilige > 0)
-                     {
+                    if (account.privilige > 1 || decodedToken.id == id)
+                    {
                         CourtBooking.findByIdAndDelete(id)
                         .then((result) => {
                             res.status(200).send(result);
@@ -140,7 +167,5 @@ module.exports.courtBooking_delete = (req, res) => {
              }
          })
      }    
-
-
 
 }

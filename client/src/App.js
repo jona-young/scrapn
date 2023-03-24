@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './General/Header.js';
 import Footer from './General/Footer.js';
 import CourtBookings from './CourtBookings/CourtBookings.js';
-import BookForm from './CourtBookings/BookForm.js';
+import UpdateBooking from './CourtBookings/UpdateBooking.js';
+import CreateBooking from './CourtBookings/CreateBooking.js';
 import Login from './General/Login.js';
 import Signup from './General/Signup.js';
 import Home from './General/Home.js';
@@ -29,10 +30,6 @@ function App() {
   const updateLoadedData = (value) => {
     setLoadedData(value);
   }
-
-  useEffect(() => {
-    loadUserData(updateUserPrefs);
-  }, [])
   
   return (
     <div className="App">
@@ -43,7 +40,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/court-bookings" element={<CourtBookings/>} />
-              <Route path="/tennis-form" element={<BookForm/>} />
+              <Route path="/update-court" element={<UpdateBooking/>} />
+              <Route path="/create-court" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

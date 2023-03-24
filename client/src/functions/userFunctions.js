@@ -1,3 +1,5 @@
+import format from "date-fns/format";
+
 //Function to update currentItem based off changes in each individual form field
 export const handleChange = (e, updateItem, currentItem) => {
     const name = e.target.getAttribute('data-key');
@@ -6,40 +8,60 @@ export const handleChange = (e, updateItem, currentItem) => {
     updateItem({...currentItem, [name]: value});
   };
 
-export const courtDashboard = (courtArr) => {
+export const courtDashboard = (courtArr, Link) => {
   let bookedCourts = []
   if (courtArr.length > 0)
   {
     for (let i = 0; i < courtArr.length; i++)
     {
+
+      let curDate = new Date(courtArr[i].date)
+      let courtDate = format(curDate, "yyyy-MM-d");
+
       bookedCourts.push(
-        <div className="bookings-item" key={i}>
-            <div className="bookings-info">
-                <div className="bookings-data">
-                Crt {courtArr[i].court}
-                </div>
-                <div className="bookings-data">
-                {courtArr[i].time}
-                </div>
-                <div className="bookings-data">
-                {courtArr[i].date}
-                </div>
-            </div>
-            <div className="bookings-players">
-                <div className="bookings-player">
-                  {courtArr[i].players[0].name}
-                </div>
-                <div className="bookings-player">
-                  {courtArr[i].players[1].name}
-                </div>
-                <div className="bookings-player">
-                  {courtArr[i].players[2] ? courtArr[i].players[2].name : ""}
-                </div>
-                <div className="bookings-player">
-                {courtArr[i].players[3] ? courtArr[i].players[3].name : ""}
-                </div>
-            </div>
-        </div>
+        <Link
+        className="bookings-item"
+        state={{
+          edit_val: true,
+          _id: courtArr[i]._id,
+          date: courtDate,
+          time: courtArr[i].time,
+          type: courtArr[i].type,
+          court: courtArr[i].court,
+          players: courtArr[i].players,
+          author: courtArr[i].author,
+          mode: "update"
+        }}
+        to={{
+          pathname: "/update-court",
+        }}
+        >
+          <div className="bookings-info">
+              <div className="bookings-data">
+              Crt {courtArr[i].court}
+              </div>
+              <div className="bookings-data">
+              {courtArr[i].time}
+              </div>
+              <div className="bookings-data">
+              { courtDate }
+              </div>
+          </div>
+          <div className="bookings-players">
+              <div className="bookings-player">
+                {courtArr[i].players[0].name}
+              </div>
+              <div className="bookings-player">
+                {courtArr[i].players[1].name}
+              </div>
+              <div className="bookings-player">
+                {courtArr[i].players[2] ? courtArr[i].players[2].name : ""}
+              </div>
+              <div className="bookings-player">
+              {courtArr[i].players[3] ? courtArr[i].players[3].name : ""}
+              </div>
+          </div>
+        </Link>
       )
     }
   }

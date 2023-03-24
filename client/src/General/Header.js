@@ -29,15 +29,15 @@ const Header = () => {
                 <img src={menuIcon} className="header-menu" alt="menu button" />
             </Link> 
             <nav className={ navbar ? "nav-menu active" : "nav-menu"}>
-                    <ul className="nav-menu-items" onClick={ showNavbar }>
-                        <li className="navbar-toggle"><Link to="#" className="menu-bars">X</Link></li>
-                        <li className="nav-text"><Link to={"/"}>Home</Link></li>
-                        <li className="nav-text"><Link to={"/court-bookings"}>Courts</Link></li>
-                        <li className="nav-text"><Link to={"profile"}>Profile</Link></li>
-                        <li className="nav-text"><Link to={"login"}>Login</Link></li>
-                        <li className="nav-text"><Link to={"signup"}>Signup</Link></li>
-                        <li className="nav-text"><button onClick={ () => {getLogout(updateUserPrefs, routeLoginChange)} }>Logout</button></li>
-                    </ul>
+                <ul className="nav-menu-items" onClick={ showNavbar }>
+                    <li className="navbar-toggle"><Link to="#" className="menu-bars">X</Link></li>
+                    <li className="nav-text"><Link to={"/"}>Home</Link></li>
+                    <li className="nav-text"><Link to={"/court-bookings"}>Courts</Link></li>
+                    <li className="nav-text"><Link to={"profile"}>Profile</Link></li>
+                    <li className="nav-text"><Link to={"login"}>Login</Link></li>
+                    <li className="nav-text"><Link to={"signup"}>Signup</Link></li>
+                    <li className="nav-text"><button onClick={ () => {getLogout(updateUserPrefs, routeLoginChange)} }>Logout</button></li>
+                </ul>
             </nav>
         </div>
     )

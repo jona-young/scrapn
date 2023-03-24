@@ -4,18 +4,31 @@ import { deleteBooking } from "./courtBookingAPI.js";
 import format from "date-fns/format";
 import addHours from "date-fns/addHours";
 
-export const bookACourt = (timeSlots, courtCode, courtTime, courtDate, i) => {
+export const bookACourt = (timeSlots, courtTime, courtDate, i) => {
   timeSlots.push(
       <Link
         className="cell cell-book court-link"
-        state={{            
+        state={{     
           edit_val: false,
           date: courtDate,
           time: courtTime,
           court: i,
+          type: "Singles",
+          players: [
+            {
+              name: "",
+              nameID: ""
+            },
+            {
+              name: "",
+              nameID: ""
+            }
+          ],
+          author: "",
+          authorID:""
         }}
         to={{
-          pathname: "/tennis-form",
+          pathname: "/create-court",
         }}
       >
         Book
@@ -30,7 +43,8 @@ export const bookedCourt = (
   courtBookings,
   bx,
   deleteItem,
-  history
+  history,
+  courtDate
 ) => {
   const formDel = false;
   timeSlots.push(
@@ -40,15 +54,17 @@ export const bookedCourt = (
       state={{
         edit_val: true,
         _id: courtBookings[bx]._id,
-        date: courtBookings[bx].date,
+        date: courtDate,
         time: courtBookings[bx].time,
+        type: courtBookings[bx].type,
         court: courtBookings[bx].court,
         players: courtBookings[bx].players,
         author: courtBookings[bx].author,
+        authorID: courtBookings[bx].authorID,
         mode: "update"
       }}
       to={{
-        pathname: "/tennis-form",
+        pathname: "/update-court",
       }}
       >
         <div key={courtCode} name={i}>
@@ -106,34 +122,27 @@ export const handleChange = (e, updateItem, currentItem) => {
     const playerName = e.target.selectedOptions[0].text;
     const nameObject = {
       name: playerName,
-      nameID: value
+      nameID: value,
     }
 
     let playersOnCourt = currentItem.players
 
-    if (name === "player1") {
-      playersOnCourt[0] = nameObject
+    if (name === "0") {
+      playersOnCourt[name] = nameObject
 
-      updateItem({ ...currentItem, ["players"]: playersOnCourt, author: value });
+      updateItem(currentObj => ({...currentObj, ["players"]: playersOnCourt, author: value}))
+
     }
-    else if (name === "player2") {
-      playersOnCourt[1] = nameObject
-  
-      updateItem({ ...currentItem, ["players"]: playersOnCourt });
-    }
-    else if (name === "player3") {
-      playersOnCourt[2] = nameObject
-  
-      updateItem({ ...currentItem, ["players"]: playersOnCourt });
-    }
-    else if (name === "player4") {
-      playersOnCourt[3] = nameObject
-  
-      updateItem({ ...currentItem, ["players"]: playersOnCourt });
+    else
+    {
+      playersOnCourt[name] = nameObject
+
+      updateItem(currentObj => ({...currentObj, ["players"]: playersOnCourt }))
     }
   }
   else {
-    updateItem({...currentItem, [name]: value});
+    updateItem(currentObj => ({...currentObj, [name]: value}))
+
   }
 };
 
@@ -161,7 +170,7 @@ export const scheduleCreator = (rows, timeSlots, curTime, endTime, courtBookings
         const courtCode = courtNum + "--" + courtTime;
         //If no court bookings on the day, fill every cell with bookACourt
         if (courtBookings.length === 0) {
-          bookACourt(timeSlots, courtCode, courtTime, courtDate, i.toString());
+          bookACourt(timeSlots, courtTime, courtDate, i.toString());
         } 
         else 
         {
@@ -179,7 +188,8 @@ export const scheduleCreator = (rows, timeSlots, curTime, endTime, courtBookings
                     courtBookings,
                     bx,
                     deleteBooking,
-                    history
+                    history,
+                    courtDate
                 );
                 break;
                 //If courtBooking object has same time but not same court number

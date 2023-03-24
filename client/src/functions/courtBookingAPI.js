@@ -15,6 +15,19 @@ export const getBookings = async (currentDate, setUpdatedCourtBookings) => {
     setUpdatedCourtBookings(json);
 }
 
+//GET SINGLE court booking
+export const getBooking = async (courtBookingID, setCourtBooking, history) => {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking/' + courtBookingID, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    setCourtBooking(json);
+  };
+
 //Delete a court booking
 export const deleteBooking = async (courtBookingID, history, formDel) => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking/' + courtBookingID, {

@@ -21,7 +21,6 @@ function HourlySched({ curDate, courtBookings }) {
     //Sets # of rows from curTime & endTime (Club's Hours of Operations)
     scheduleCreator(rows, timeSlots, curTime, endTime, courtBookings, history)
   }
-
   return <div id="court-schedule">{rows}</div>;
 }
 
