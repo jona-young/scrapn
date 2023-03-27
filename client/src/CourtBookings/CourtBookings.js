@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loadUserData } from '../functions/userAPI.js';
-import { UserContext } from '../functions/UserContext.js';
+import { validateUser } from '../functions/userAPI.js';
 import DayHeader from './DayHeader.js'
 import CourtNumbers from './CourtNumbers.js'
 import Schedule from './Schedule'
 
 const CourtBookings = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
-
-    //User Context
-    const { userPrefs, updateUserPrefs } = useContext(UserContext);
 
     const navigate = useNavigate();
     const routeLoginChange = () => {
@@ -22,7 +18,7 @@ const CourtBookings = () => {
     };
 
     useEffect(() => {
-        loadUserData(updateUserPrefs, routeLoginChange);
+        validateUser(routeLoginChange);
     },[])
     return(
         <div id="booking-container">

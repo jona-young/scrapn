@@ -1,13 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { UserContext } from '../functions/UserContext.js';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { validateUser } from '../functions/userAPI.js';
 import BookForm from './BookForm.js';
 
 const CreateBooking = () => {
     const { date, time } = useParams();
 
-    //User Context
-    const { userPrefs, updateUserPrefs } = useContext(UserContext);
+    const navigate = useNavigate();
+    const routeLoginChange = () => {
+        navigate('/login');
+    }
 
     //Sets the item that will be pushed to backend API to create court booking
     const [currentItem, setCurrentItem] = useState({
@@ -27,6 +29,10 @@ const CreateBooking = () => {
         author: "",
         authorID: ""
     });
+
+    useEffect(() => {
+        validateUser(routeLoginChange);
+    },[])
     return (
         <BookForm form={currentItem} />
     )

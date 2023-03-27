@@ -1,15 +1,11 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import menuIcon from '../images/menu-icon.png';
 import { getLogout } from '../functions/userAPI.js';
-import { UserContext } from '../functions/UserContext.js';
 
 
 
 const Header = () => {
-    //User Context
-    const { updateUserPrefs } = useContext(UserContext);
-
     const navigate = useNavigate();
     const routeLoginChange = () => {
         navigate('/login');
@@ -36,7 +32,7 @@ const Header = () => {
                     <li className="nav-text"><Link to={"profile"}>Profile</Link></li>
                     <li className="nav-text"><Link to={"login"}>Login</Link></li>
                     <li className="nav-text"><Link to={"signup"}>Signup</Link></li>
-                    <li className="nav-text"><button onClick={ () => {getLogout(updateUserPrefs, routeLoginChange)} }>Logout</button></li>
+                    <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange)} }>Logout</button></li>
                 </ul>
             </nav>
         </div>

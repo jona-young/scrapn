@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './General/Header.js';
 import Footer from './General/Footer.js';
 import CourtBookings from './CourtBookings/CourtBookings.js';
@@ -14,11 +14,21 @@ import { loadUserData } from './functions/userAPI.js';
 import "./index.css";
 
 function App() {
-  const [ userPrefs, setUserPrefs ] = useState({
-    name: "",
-    isLoggedOn: false,
-    privilige: 0,
-    bookings: []
+  const [ userPrefs, setUserPrefs ] = useState(() => {
+    const noUser = {
+      name: "",
+      isLoggedOn: false,
+      privilige: 0,
+      bookings: []
+    }
+    const loggedInUser = {
+      name: JSON.parse(localStorage.getItem("BMS-name")),
+      isLoggedOn: JSON.parse(localStorage.getItem("BMS-isLoggedOn")),
+      privilige: JSON.parse(localStorage.getItem("BMS-privilige")),
+      bookings: JSON.parse(localStorage.getItem("BMS-bookings")),
+    }
+
+    return loggedInUser || noUser;
   })
 
   const updateUserPrefs = (value) => {
@@ -31,6 +41,11 @@ function App() {
     setLoadedData(value);
   }
   
+  useState(() => {
+    loadUserData();
+    console.log('yah we hit dis')
+  }, [userPrefs])
+
   return (
     <div className="App">
       <UserContext.Provider value={{userPrefs, updateUserPrefs}}>
@@ -44,6 +59,7 @@ function App() {
               <Route path="/create-court/:date/:time" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           <Footer />
         </BrowserRouter>

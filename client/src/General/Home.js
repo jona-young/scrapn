@@ -2,7 +2,7 @@ import { useEffect, useContext, useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
 import { courtDashboard } from '../functions/userFunctions';
-import { loadUserData } from '../functions/userAPI.js';
+import { validateUser } from '../functions/userAPI.js';
 
 const Home = () => {
     //User Context
@@ -16,6 +16,7 @@ const Home = () => {
     const routeLoginChange = () => {
         navigate('/login');
     }
+    console.log(userPrefs)
     useMemo(() => {
         setAvailableCourts(3 - userPrefs.bookings.length)
         setUserName(userPrefs.name)
@@ -24,7 +25,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        loadUserData(updateUserPrefs, routeLoginChange)
+        validateUser(routeLoginChange)
     },[])
 
 

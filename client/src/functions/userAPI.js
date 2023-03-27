@@ -1,5 +1,5 @@
 // GET Request for client data
-export const loadUserData = async (updateUserPrefs, redirectPath) => {
+export const loadUserData = async () => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/validate', {
         credentials: 'include',
         method: 'GET',
@@ -10,21 +10,53 @@ export const loadUserData = async (updateUserPrefs, redirectPath) => {
 
     if(json.user)
       {
-        updateUserPrefs({ name: json.user,
-                          isLoggedOn: json.isLoggedOn, 
-                          privilige: json.privilige,
-                          bookings: json.bookings 
-                      })
+        localStorage.setItem("BMS-name", JSON.stringify(json.user))
+        localStorage.setItem("BMS-isLoggedOn", JSON.stringify(json.isLoggedOn))
+        localStorage.setItem("BMS-privilige", JSON.stringify(json.privilige))
+        localStorage.setItem("BMS-bookings", JSON.stringify(json.bookings))
       }
       else if (json.error === 'jwt')
       {
         // user does not have valid jwt, not logged in, redirect to login
-        redirectPath();
+        localStorage.setItem("BMS-name", JSON.stringify(""))
+        localStorage.setItem("BMS-isLoggedOn", JSON.stringify(false))
+        localStorage.setItem("BMS-privilige", JSON.stringify(0))
+        localStorage.setItem("BMS-bookings", JSON.stringify([]))
       }
       else 
       {
         console.log('Please contact your system administrator.');
       }
+}
+
+// GET Request for client data
+export const validateUser = async (redirectPath) => {
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/validate', {
+      credentials: 'include',
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+  })
+
+  const json = await data.json();
+
+  if(json.user)
+    {
+      // user is validated by backend
+      return 1;
+    }
+    else if (json.error === 'jwt')
+    {
+      // user does not have valid jwt, not logged in, redirect to login
+      localStorage.setItem("BMS-name", JSON.stringify(""))
+      localStorage.setItem("BMS-isLoggedOn", JSON.stringify(false))
+      localStorage.setItem("BMS-privilige", JSON.stringify(0))
+      localStorage.setItem("BMS-bookings", JSON.stringify([]))
+      redirectPath();
+    }
+    else 
+    {
+      console.log('Please contact your system administrator.');
+    }
 }
 
 export const postSignup = async (e, loginDetails, history, errors, updateErrors, updateUserPrefs, updateLoadedData) => {
@@ -91,7 +123,7 @@ export const postLogin = async (e, loginDetails, history, errors, updateErrors, 
   }
 }
 
-export const getLogout = async (updateUserPrefs, routeChange) => {
+export const getLogout = async (routeChange) => {
   const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/logout', {
       credentials: 'include',
       method: 'GET',
@@ -102,7 +134,10 @@ export const getLogout = async (updateUserPrefs, routeChange) => {
 
   if (json)
   {
-    updateUserPrefs({name: "", isLoggedOn: false})
+    localStorage.setItem("BMS-name", JSON.stringify(""))
+    localStorage.setItem("BMS-isLoggedOn", JSON.stringify(false))
+    localStorage.setItem("BMS-privilige", JSON.stringify(0))
+    localStorage.setItem("BMS-bookings", JSON.stringify([]))
     routeChange();
   }
 }
