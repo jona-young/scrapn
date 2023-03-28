@@ -43,7 +43,6 @@ function App() {
   
   useState(() => {
     loadUserData();
-    console.log('yah we hit dis')
   }, [userPrefs])
 
   return (
@@ -56,7 +55,7 @@ function App() {
               <Route path="/" element={<Home/>} />
               <Route path="/court-bookings" element={<CourtBookings/>} />
               <Route path="/update-court/:id" element={<UpdateBooking/>} />
-              <Route path="/create-court/:date/:time" element={<CreateBooking/>} />
+              <Route path="/create-court/:date/:time/:court" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path='*' element={<Navigate to='/' />} />

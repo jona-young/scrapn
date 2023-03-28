@@ -79,7 +79,7 @@ describe('Backend API CRUD Testing: User Authentication', function() {
 
 describe('Backend API CRUD Testing: Court Bookings', function() {
     path = 'http://localhost:4000'
-    currentDate = "2023-03-20"
+    currentDate = Date.now()
 
     testID1 = ""
     testID2 = ""
@@ -94,8 +94,8 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
                 time: "2:00 PM",
                 type: "Singles",
                 players: [
-                    {nameID: "6415e2ec5dd83646c36a7b27", name: "test testerson"},
-                    {nameID: "6415ef24ea78e29f4211b4df", name: "test testerson"},
+                    {nameID: "641ae438d0b5e1c4285ce82c", name: "test2"},
+                    {nameID: "641ae443d0b5e1c4285ce842", name: "test3"},
                 ],
                 author: "Jonathan Young",
             })
@@ -114,8 +114,8 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
                 time: "2:00 PM",
                 type: "Singles",
                 players: [
-                    {nameID: "6415e2ec5dd83646c36a7b27", name: "test testerson"},
-                    {nameID: "6415ef24ea78e29f4211b4df", name: "test testerson"},
+                    {nameID: "641ae438d0b5e1c4285ce82c", name: "test2"},
+                    {nameID: "641ae443d0b5e1c4285ce842", name: "test3"},
                 ],
                 author: "Jonathan Young",
             })
@@ -134,8 +134,8 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
                 time: "2:00 PM",
                 type: "Singles",
                 players: [
-                    {nameID: "6415e2ec5dd83646c36a7b27", name: "test testerson"},
-                    {nameID: "6415ef24ea78e29f4211b4df", name: "test testerson"},
+                    {nameID: "641ae438d0b5e1c4285ce82c", name: "test2"},
+                    {nameID: "641ae443d0b5e1c4285ce842", name: "test3"},
                 ],
                 author: "Jonathan Young",
             })
@@ -154,8 +154,8 @@ describe('Backend API CRUD Testing: Court Bookings', function() {
                 time: "2:00 PM",
                 type: "Doubles",
                 players: [
-                    {nameID: "6415e2ec5dd83646c36a7b27", name: "test testerson"},
-                    {nameID: "6415ef24ea78e29f4211b4df", name: "test testerson"},
+                    {nameID: "641ae438d0b5e1c4285ce82c", name: "test2"},
+                    {nameID: "641ae443d0b5e1c4285ce842", name: "test3"},
                 ],
                 author: "Jonathan Young",
             })

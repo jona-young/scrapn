@@ -121,7 +121,9 @@ module.exports.validate = (req, res) => {
             }
             else
             {
-                CourtBooking.find()
+                let currentDate = new Date()
+
+                CourtBooking.find({ date: {$gte: currentDate.setDate(currentDate.getDate() - 1)}})
                 .then((result) => {
                     let userCourts = []
 
@@ -148,6 +150,7 @@ module.exports.validate = (req, res) => {
                 })
                 .catch((err) => {
                     res.status(402).send({ error: 'court booking user load error'})
+                    console.log(err)
                 })
 
             }

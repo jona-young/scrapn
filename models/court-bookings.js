@@ -9,7 +9,7 @@ const courtBookingSchema = new Schema({
     date: {
         type: Date,
         required: true,
-        get: () => { console.log(date.to_string()); return date.to_string()}
+        get: (date) => {return date}
     },
     time: {
         type: String,

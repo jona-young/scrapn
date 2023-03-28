@@ -9,7 +9,7 @@ export const bookACourt = (timeSlots, courtTime, courtDate, i) => {
       <Link
         className="cell cell-book court-link"
         to={{
-          pathname: "/create-court/" + courtDate + "/" + courtTime,
+          pathname: "/create-court/" + courtDate + "/" + courtTime + "/" + i,
         }}
       >
         Book

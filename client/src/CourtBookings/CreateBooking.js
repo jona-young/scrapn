@@ -4,7 +4,7 @@ import { validateUser } from '../functions/userAPI.js';
 import BookForm from './BookForm.js';
 
 const CreateBooking = () => {
-    const { date, time } = useParams();
+    const { date, time, court } = useParams();
 
     const navigate = useNavigate();
     const routeLoginChange = () => {
@@ -16,6 +16,8 @@ const CreateBooking = () => {
         id: null,
         date: date,
         time: time,
+        court: court,
+        type: "Singles",
         players: [
             {
             name: "",
@@ -29,6 +31,8 @@ const CreateBooking = () => {
         author: "",
         authorID: ""
     });
+
+    console.log(currentItem)
 
     useEffect(() => {
         validateUser(routeLoginChange);

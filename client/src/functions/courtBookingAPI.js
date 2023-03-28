@@ -83,13 +83,15 @@ export const putBooking = async (e, forms, history) => {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(forms),
-
     })
 
     const json = await data.json();
 
-    if (json)
+    if (json.errors)
     {
-        history("/court-bookings");
+        console.log(json.errors);
     }
+
+    history("/court-bookings");
+
   };
