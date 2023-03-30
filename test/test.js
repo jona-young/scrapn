@@ -55,6 +55,23 @@ describe('Backend API CRUD Testing: User Authentication', function() {
             })
     })
 
+    it('update user profile', function(done) {
+        chai.request(path)
+            .put('/api/users/' + testUserID)
+            .set('Cookie', `jwt=${testToken}`)
+            .send({
+                name:"jokes on you",
+                email: "jokes@onyou.com",
+                password: "gongshow",
+                privilige: 7331,
+                rating: 90.01 
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                done();
+            })
+    })
+
     // it('should logout and reset the jwt', function(done) {
     //     chai.request(path)
     //         .get('/api/logout/')

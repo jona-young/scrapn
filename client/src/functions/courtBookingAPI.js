@@ -75,7 +75,7 @@ export const postBooking = async (e, forms, history) => {
 
 }
 
-//Delete a court booking
+//Updates a court booking
 export const putBooking = async (e, forms, history) => {
     e.preventDefault();
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking/' + forms._id, {
@@ -94,4 +94,4 @@ export const putBooking = async (e, forms, history) => {
 
     history("/court-bookings");
 
-  };
+};

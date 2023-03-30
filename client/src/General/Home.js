@@ -16,7 +16,7 @@ const Home = () => {
     const routeLoginChange = () => {
         navigate('/login');
     }
-    console.log(userPrefs)
+
     useMemo(() => {
         setAvailableCourts(3 - userPrefs.bookings.length)
         setUserName(userPrefs.name)
@@ -36,9 +36,9 @@ const Home = () => {
                 <div className="bookings-welcome">
                     <div className="home-heading ">Welcome Back { userName }!</div>
                 </div>
-                <Link className="bookings-available bookings-right" to="/court-bookings">
+                <Link className="bookings-available content-right" to="/court-bookings">
                         <div className="home-heading">Available Bookings</div>
-                        <div className="bookings-counter bookings-right">{availableCourts}</div>
+                        <div className="bookings-counter content-right">{availableCourts}</div>
                 </Link>
 
             </div>

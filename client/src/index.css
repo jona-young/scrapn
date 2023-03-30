@@ -162,6 +162,85 @@ ul li::marker {
   font-weight: bold;
 }
 
+/* Court Bookings */
+#profile {
+    padding: 10px 15px;
+    background: #4C5DAA;
+    min-height: 550px;
+}
+
+.large-heading {
+  font-size: 18px;
+  color: white;
+}
+
+.profile-field {
+  margin: 10px 10px;
+  padding: 10px 15px;
+  height: 50px;
+  border: 2px solid #e3e3e3;
+  background-color: #f7f7f7;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-button {
+  height: 20px;
+  width: 25px;
+  margin: auto 0;
+}
+
+.profile-confirm {
+  margin-top: 5px;
+  height: 20px;
+  width: 50px;
+}
+
+.update-rating {
+  right: 0;
+  margin: 0 0 auto auto;
+  width: 50px;
+}
+
+#users-container {
+  background: #4C5DAA;
+  padding: 10px 15px;
+}
+
+.user-block {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+
+  height: 30px;
+  padding: 10px 10px 0 10px;
+  margin: 10px;
+  border: 2px solid #e3e3e3;
+  background-color: #f7f7f7;
+
+  text-decoration: none;
+  color: black;
+}
+
+.user-block:hover {
+  background-color: #dcd5d5;
+}
+
+.content-short {
+  height: 20px;
+  padding: 5px 5px 0 5px;
+  font-weight: bold;
+}
+
+.user-item {
+  height: 20px;
+  width: 100px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #home-container {
   background: #4C5DAA;
   padding: 10px;
@@ -202,7 +281,7 @@ ul li::marker {
   background-color: #dcd5d5;
 }
 
-.bookings-right {
+.content-right {
   right: 0;
   margin-left: auto;
 }
@@ -432,10 +511,6 @@ ul li::marker {
 /* Court Bookings */
 #booking-container {
     background: #4C5DAA;
-}
-
-#date-box {
-
 }
 
 .date-selector {

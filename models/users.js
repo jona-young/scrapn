@@ -23,6 +23,10 @@ const userSchema = new Schema({
     privilige: {
         type: Number,
         required: true
+    },
+    rating: {
+        type: mongoose.Types.Decimal128,
+        required: false,
     }
 }, {timestamps: true});
 

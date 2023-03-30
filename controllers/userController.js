@@ -46,9 +46,10 @@ const createToken = (id) => {
 
 module.exports.signup_post = async (req, res) => {
     const { name, email, password, privilige } = req.body;
+    const rating = 0.00
 
     try {
-        const user = await User.create({ name, email, password, privilige})
+        const user = await User.create({ name, email, password, privilige, rating})
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ isLoggedOn: true, name: name, privilige: user.privilige, token: token,
@@ -142,7 +143,7 @@ module.exports.validate = (req, res) => {
 
                     User.findById(decodedToken.id).select('name privilige department')
                     .exec(function(err, order) {
-                        res.status(200).json({ user: order.name, isLoggedOn: true,
+                        res.status(200).json({ user: order.name, _id: decodedToken.id, isLoggedOn: true,
                                                 privilige: order.privilige, 
                                                 message: 'Validated jwt token',
                                                 bookings: userCourts });
@@ -198,7 +199,9 @@ module.exports.get_users = (req, res) => {
         {
             userData.push({
                 nameID: result[i]._id,
-                name: result[i].name
+                name: result[i].name,
+                email: result[i].email,
+                rating: result[i].rating.toString()
             })
         }
         res.status(200).send(userData)
@@ -206,6 +209,72 @@ module.exports.get_users = (req, res) => {
     .catch((err) => {
         res.status(err);
     })
+}
+
+module.exports.get_user = (req, res) => {
+    const id = req.params.id
+    const token = req.cookies.jwt;
+
+    // Check jwt validation
+    if (token)
+    {
+        jwt.verify(token, 'BOOKR-JWT', async (err, decodedToken) => {
+            if (err)
+            {
+                res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+            }
+            else
+            {
+                User.findById(id)
+                .then((result) => {
+                    res.status(200).json({ 
+                                            _id: result._id,
+                                            name: result.name,
+                                           email: result.email,
+                                           rating: result.rating.toString()
+                                        });
+                })
+                .catch((err) => {
+                    res.status(err);
+                })  
+            }
+        })
+    }  
+}
+
+
+module.exports.put_user = (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    const token = req.cookies.jwt;
+
+     // Check jwt validation
+     if (token)
+     {
+        console.log('here yee here yee')
+         jwt.verify(token, 'BOOKR-JWT', async (err, decodedToken) => {
+            console.log('me dude: ', id)
+             if (err)
+             {
+                 console.log(err.message);
+                 res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+             }
+             else
+             {
+                console.log('mi goreng: ', body)
+
+                User.findByIdAndUpdate(id, body)
+                .then((result) => {
+                    console.log('shin ramyun: ', result)
+                    res.status(200).send({ result: 'Updated!'})
+                })
+                .catch((err) => {
+                    console.log('deez nuts: ', err)
+                    res.status(400);
+                })
+             }
+         })
+     }   
 }
 
 const sortUserBookings = (courts) => {

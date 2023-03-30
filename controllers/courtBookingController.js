@@ -77,7 +77,6 @@ module.exports.courtBooking_put = (req, res) => {
 
                 if (rulesResult.length > 0)
                 {
-                    console.log(rulesResult)
                     res.status(444).send({errors: rulesResult})
                 }
                 else
@@ -104,7 +103,6 @@ module.exports.courtBooking_put = (req, res) => {
              }
          })
      }    
-
 }
 
 // DELETE :id

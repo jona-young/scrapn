@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './General/Header.js';
 import Footer from './General/Footer.js';
@@ -7,6 +7,8 @@ import UpdateBooking from './CourtBookings/UpdateBooking.js';
 import CreateBooking from './CourtBookings/CreateBooking.js';
 import Login from './General/Login.js';
 import Signup from './General/Signup.js';
+import Profile from './General/Profile.js';
+import Users from './General/Users.js';
 import Home from './General/Home.js';
 import { UserContext } from './functions/UserContext.js';
 import { DataContext } from './functions/DataContext.js';
@@ -17,12 +19,15 @@ function App() {
   const [ userPrefs, setUserPrefs ] = useState(() => {
     const noUser = {
       name: "",
+      nameID: "",
       isLoggedOn: false,
       privilige: 0,
       bookings: []
     }
     const loggedInUser = {
       name: JSON.parse(localStorage.getItem("BMS-name")),
+      nameID: JSON.parse(localStorage.getItem("BMS-nameID")),
+
       isLoggedOn: JSON.parse(localStorage.getItem("BMS-isLoggedOn")),
       privilige: JSON.parse(localStorage.getItem("BMS-privilige")),
       bookings: JSON.parse(localStorage.getItem("BMS-bookings")),
@@ -43,7 +48,7 @@ function App() {
   
   useState(() => {
     loadUserData();
-  }, [userPrefs])
+  }, [])
 
   return (
     <div className="App">
@@ -58,6 +63,8 @@ function App() {
               <Route path="/create-court/:date/:time/:court" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/users" element={<Users />} />
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           <Footer />

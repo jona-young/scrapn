@@ -10,18 +10,22 @@ export const loadUserData = async () => {
 
     if(json.user)
       {
-        localStorage.setItem("BMS-name", JSON.stringify(json.user))
-        localStorage.setItem("BMS-isLoggedOn", JSON.stringify(json.isLoggedOn))
-        localStorage.setItem("BMS-privilige", JSON.stringify(json.privilige))
-        localStorage.setItem("BMS-bookings", JSON.stringify(json.bookings))
+        setLocalStorage([["BMS-name", json.user], 
+                        ["BMS-nameID", json._id], 
+                        ["BMS-isLoggedOn", json.isLoggedOn], 
+                        ["BMS-privilige", json.privilige], 
+                        ["BMS-bookings", json.bookings]
+                        ])
       }
       else if (json.error === 'jwt')
       {
         // user does not have valid jwt, not logged in, redirect to login
-        localStorage.setItem("BMS-name", JSON.stringify(""))
-        localStorage.setItem("BMS-isLoggedOn", JSON.stringify(false))
-        localStorage.setItem("BMS-privilige", JSON.stringify(0))
-        localStorage.setItem("BMS-bookings", JSON.stringify([]))
+        setLocalStorage([["BMS-name", ""], 
+                          ["BMS-nameID", ""], 
+                          ["BMS-isLoggedOn", false], 
+                          ["BMS-privilige", 0], 
+                          ["BMS-bookings", []]
+                        ])
       }
       else 
       {
@@ -47,10 +51,12 @@ export const validateUser = async (redirectPath) => {
     else if (json.error === 'jwt')
     {
       // user does not have valid jwt, not logged in, redirect to login
-      localStorage.setItem("BMS-name", JSON.stringify(""))
-      localStorage.setItem("BMS-isLoggedOn", JSON.stringify(false))
-      localStorage.setItem("BMS-privilige", JSON.stringify(0))
-      localStorage.setItem("BMS-bookings", JSON.stringify([]))
+      setLocalStorage([["BMS-name", ""], 
+                        ["BMS-nameID", ""], 
+                        ["BMS-isLoggedOn", false], 
+                        ["BMS-privilige", 0], 
+                        ["BMS-bookings", []]
+                      ])
       redirectPath();
     }
     else 
@@ -123,7 +129,7 @@ export const postLogin = async (e, loginDetails, history, errors, updateErrors, 
   }
 }
 
-export const getLogout = async (routeChange) => {
+export const getLogout = async (routeChange, updateState) => {
   const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/logout', {
       credentials: 'include',
       method: 'GET',
@@ -134,10 +140,14 @@ export const getLogout = async (routeChange) => {
 
   if (json)
   {
-    localStorage.setItem("BMS-name", JSON.stringify(""))
-    localStorage.setItem("BMS-isLoggedOn", JSON.stringify(false))
-    localStorage.setItem("BMS-privilige", JSON.stringify(0))
-    localStorage.setItem("BMS-bookings", JSON.stringify([]))
+    setLocalStorage([["BMS-name", ""], 
+                      ["BMS-nameID", ""], 
+                      ["BMS-isLoggedOn", false], 
+                      ["BMS-privilige", 0], 
+                      ["BMS-bookings", []]
+                    ])
+
+    updateState(false);
     routeChange();
   }
 }
@@ -165,4 +175,50 @@ export const getUsers = async (updateState) => {
     {
       console.log('Please contact your system administrator.');
     }
+}
+
+
+//GET SINGLE court booking
+export const getUser = async (id, setUser) => {
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/user/' + id, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+  })
+
+  let json = await data.json();
+
+  setUser(json);
+};
+
+//Updates a user profile
+export const putUser = async (e, forms, history) => {
+  e.preventDefault();
+  console.log(' ooooh ok')
+
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/user/' + forms._id, {
+      credentials: 'include',
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(forms),
+  })
+
+  const json = await data.json();
+
+  console.log(' uh ok')
+
+  if (json.errors)
+  {
+      console.log(json.errors);
+  }
+
+  history("/");
+
+};
+
+const setLocalStorage = (items) => {
+  for (let i = 0; i < items.length; i++)
+  {
+    localStorage.setItem(items[i][0], JSON.stringify(items[i][1]))
+  }
 }

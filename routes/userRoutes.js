@@ -22,4 +22,10 @@ userRouter.get('/api/validate', userController.validate);
 // Delete user DELETE route
 userRouter.delete('/api/delete/:id', userController.user_delete)
 
+// User GET single route
+userRouter.get('/api/user/:id', userController.get_user);
+
+// User PUT route
+userRouter.put('/api/user/:id', userController.put_user);
+
 module.exports = userRouter;
