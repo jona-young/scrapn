@@ -10,6 +10,7 @@ import Signup from './General/Signup.js';
 import Profile from './General/Profile.js';
 import Users from './General/Users.js';
 import Home from './General/Home.js';
+import Tournament from './Tournaments/Tournament.js';
 import { UserContext } from './functions/UserContext.js';
 import { DataContext } from './functions/DataContext.js';
 import { loadUserData } from './functions/userAPI.js';
@@ -65,6 +66,8 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/tournament" element={<Tournament />} />
+
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           <Footer />

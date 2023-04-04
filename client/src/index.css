@@ -629,6 +629,74 @@ ul li::marker {
   font-size:12px;
 }
 
+/* TOURNAMENT */
+.tournament {
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+  width: 320px;
+}
+
+.tournament-round {
+  margin: auto 0 auto 5px;
+}
+
+.tournament-match {
+  height: 75px;
+  width: 300px;
+  background: #00C772;
+}
+
+.tournament-empty {
+  height: 75px;
+  width: 300px;
+  background: lightgray;
+}
+
+.match-info {
+  padding: 5px 10px 0 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+}
+
+.match-team {
+  padding: 0 10px 0 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.match-score {
+  right:0;
+  margin-left: auto;
+  font-weight: normal;
+  text-align: right;
+}
+
+.tournament-connect {
+  border-right: 6px solid #5590EC;
+
+}
+.tournament-space6 {
+  min-height:10px;
+}
+
+.tournament-space5 {
+  min-height:35px;
+}
+
+.tournament-space4 {
+  min-height: 145px;
+}
+
+.tournament-space3 {
+  min-height: 365px;
+}
+
+.tournament-space2 {
+  min-height: 850px;
+}
+
 @media only screen and (min-width: 885px)
 {
   .bookings-available {
