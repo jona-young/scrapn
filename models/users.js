@@ -27,7 +27,11 @@ const userSchema = new Schema({
     rating: {
         type: mongoose.Types.Decimal128,
         required: false,
-    }
+    },
+    tournaments: [{
+        type: String,
+        required: false
+    }]
 }, {timestamps: true});
 
 // Before user created

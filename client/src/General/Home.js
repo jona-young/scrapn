@@ -1,14 +1,18 @@
 import { useEffect, useContext, useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
-import { courtDashboard } from '../functions/userFunctions';
+import { courtDashboard, tournamentDashboard } from '../functions/userFunctions';
 import { validateUser } from '../functions/userAPI.js';
+import { getTournaments } from '../functions/tournamentAPI.js';
 
 const Home = () => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
 
     const [ courtBlocks, setCourtBlocks ] = useState()
+    const [tournaments, setTournaments] = useState([])
+    const [ tournamentBlocks, setTournamentBlocks ] = useState()
+    const [ dummy, setDummy ] = useState()
     const [ availableCourts, setAvailableCourts] = useState(0);
     const [ userName, setUserName] = useState('Guest');
 
@@ -23,9 +27,13 @@ const Home = () => {
         setCourtBlocks(courtDashboard(userPrefs.bookings, Link))
     }, [userPrefs])
 
-
+    useMemo(() => {
+        setTournamentBlocks(tournamentDashboard(tournaments, Link))
+    }, [tournaments])
+    
     useEffect(() => {
         validateUser(routeLoginChange)
+        getTournaments(userPrefs.nameID, setTournaments, setDummy)
     },[])
 
 
@@ -47,6 +55,13 @@ const Home = () => {
                 <div className="bookings-items">
                     { courtBlocks }               
                 </div>
+            </div>
+            <div className="bookings-current">
+                <span className="home-heading">Current Tournaments</span>
+                <div className="bookings-items">
+                    { tournamentBlocks }               
+                </div>
+                <Link to="/create-tournament" className="home-button">Create New Tournament</Link>
             </div>
         </div>
     )

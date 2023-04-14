@@ -65,3 +65,37 @@ export const courtDashboard = (courtArr, Link) => {
 
   return bookedCourts
 }
+
+export const tournamentDashboard = (tournamentArr, Link) => {
+  let bookedTournaments = []
+  
+  if (tournamentArr.length > 0)
+  {
+    for (let i = 0; i < tournamentArr.length; i++)
+    {
+      bookedTournaments.push(
+        <Link
+        className="bookings-item"
+        key={i}
+        to={{
+          pathname: "/tournament/" + tournamentArr[i]._id,
+        }}
+        >
+          <div className="bookings-info">
+              {tournamentArr[i].name} at {tournamentArr[i].location} on {tournamentArr[i].date}
+          </div>
+        </Link>
+      )
+    }
+  }
+  else
+  {
+    bookedTournaments.push(
+
+    <span className="bookings-empty">You do not currently have any booked courts!</span>
+    )
+  }
+
+
+  return bookedTournaments
+}

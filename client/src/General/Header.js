@@ -32,6 +32,7 @@ const Header = () => {
                     <li className="navbar-toggle"><Link to="#" className="menu-bars">X</Link></li>
                     <li className="nav-text"><Link to={"/"}>Home</Link></li>
                     <li className="nav-text"><Link to={"/court-bookings"}>Courts</Link></li>
+                    <li className="nav-text"><Link to={"/tournaments"}>Tournaments</Link></li>
                     <li className="nav-text"><Link to={"/profile/" + nameIDLink}>Profile</Link></li>
                     <li className="nav-text"><Link to={"/users"}>Users</Link></li>
 

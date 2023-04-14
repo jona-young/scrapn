@@ -247,6 +247,22 @@ ul li::marker {
   min-height: 500px;
 }
 
+.home-button {
+  display: block;
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+  padding: 5px;
+  text-align: center;
+  background: #b4b3b3;;
+  width: 400px;
+  margin: auto;
+}
+
+.home-button:hover {
+  background: #c1c1c2;
+}
+
 .bookings-empty {
   font-size: 12px;
 }
@@ -463,7 +479,6 @@ ul li::marker {
 
 /* Form */
 .form {
-  height: 475px;
   padding: 10px;
   margin:10px;
   border: 3px solid #E8EAEF;
@@ -493,9 +508,16 @@ ul li::marker {
   margin-bottom: 5px;
 }
 
+.form-number {
+  font-weight: bold;
+  text-align: center;
+  width: 40px;
+  margin-right: 5px;
+}
+
 .form-submit {
   margin-top: 25px;
-  width: 200px;
+  width: 190px;
 }
 
 .form-delete {
@@ -630,11 +652,16 @@ ul li::marker {
 }
 
 /* TOURNAMENT */
+.tournament-container {
+  padding: 10px;
+  min-height: 550px;
+}
+
 .tournament {
   display: flex;
   flex-direction: row;
   padding: 30px;
-  width: 320px;
+  overflow-x: scroll;
 }
 
 .tournament-round {
@@ -642,19 +669,22 @@ ul li::marker {
 }
 
 .tournament-match {
-  height: 75px;
-  width: 300px;
+  height: 60px;
+  width: 200px;
   background: #00C772;
+  border: 3px solid #e8e8e8;
+  font-size: 12px;
 }
 
 .tournament-empty {
-  height: 75px;
-  width: 300px;
+  height: 60px;
+  width: 200px;
   background: lightgray;
+  border: 3px solid #e8e8e8;
 }
 
 .match-info {
-  padding: 5px 10px 0 10px;
+  padding: 3px 10px 0 10px;
   font-weight: bold;
   display: flex;
   flex-direction: row;
@@ -664,6 +694,15 @@ ul li::marker {
   padding: 0 10px 0 20px;
   display: flex;
   flex-direction: row;
+
+}
+
+.match-names {
+  width:100px;
+  height: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .match-score {
@@ -678,24 +717,91 @@ ul li::marker {
 
 }
 .tournament-space6 {
-  min-height:10px;
-}
-
-.tournament-space5 {
   min-height:35px;
 }
 
+.tournament-space5 {
+  min-height:136px;
+}
+
 .tournament-space4 {
-  min-height: 145px;
+  min-height: 335px;
 }
 
 .tournament-space3 {
-  min-height: 365px;
+  min-height: 740px;
 }
 
 .tournament-space2 {
-  min-height: 850px;
+  min-height: 1525px;
 }
+
+.box-score {
+  display: inline-block;
+  width: 15px;
+  margin: 0 1px;
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  width: 285px;
+  height: 100%;
+  left: 5%;
+  /* background: rgba(0, 0, 0, 0.25); */
+}
+
+.modal-content {
+  background: white;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px;
+  width: 240px;
+  border-radius: 5px;
+  border: 2px solid black;
+  font-size: 12px;
+}
+
+.modal-close {
+  float: right;
+}
+
+.modal-remove {
+  float: left;
+  margin-right: 15px;
+  background: red;
+  padding: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.modal-remove:hover {
+  background: lightcoral;
+}
+
+.form-score {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tournament-button {
+  text-decoration: none;
+  color: white;
+  background: green;
+  display: block;
+  height: 25px;
+  width: 55px;
+  padding: 5px 0 0 15px;
+  font-size: 12px;
+}
+
+.tournament-button:hover {
+  background: limegreen;
+}
+
 
 @media only screen and (min-width: 885px)
 {

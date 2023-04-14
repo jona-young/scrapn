@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 // routes
 const courtBookingRoutes = require('./routes/courtBookingRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
+const tournamentRoutes = require('./routes/tournamentRoutes.js');
 
 
 // Express app
@@ -43,6 +44,8 @@ app.use(function(req, res, next) {
 app.use(courtBookingRoutes);
 
 app.use(userRoutes);
+
+app.use(tournamentRoutes);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
