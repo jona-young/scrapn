@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { singleElimination } from '../Tournaments/tournamentFunctions.js';
-import { getTournament, putTournament } from '../functions/tournamentAPI.js';
+import { singleElimination, roundRobin, roundRobinStandings } from '../Tournaments/tournamentFunctions.js';
+import { getTournament, putTournament, getRoundRobinResults } from '../functions/tournamentAPI.js';
 import MatchUpdate from '../Tournaments/MatchUpdate.js';
 
 const Tournament = () => {
@@ -10,6 +10,8 @@ const Tournament = () => {
 
     
     const [ bracket, setBracket ] = useState([])
+    const [ standings, setStandings ] = useState([])
+    const [ standingsData, setStandingsData ] = useState()
     const [ currentItem, setCurrentItem ] = useState({
         matches: []
     })
@@ -50,8 +52,20 @@ const Tournament = () => {
 
     useEffect(() => { 
         getTournament(id, setCurrentItem, setLoadedData)
-        singleElimination(currentItem.matches, setBracket, togglePopUp)
+        if (currentItem.tournamentType === "single-elim")
+        {
+            singleElimination(currentItem.matches, setBracket, togglePopUp)
+        }
+        else if (currentItem.tournamentType === "round-robin")
+        {
+            getRoundRobinResults(id, setStandingsData);
+            roundRobin(currentItem.matches, setBracket, togglePopUp)
+        }
     }, [loadedData])
+
+    useEffect(() => {
+        roundRobinStandings(currentItem.players, standingsData, setStandings, loadedData)
+    }, [standingsData, loadedData])
 
     return (
         <div className="tournament-container">
@@ -59,9 +73,10 @@ const Tournament = () => {
             {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} /> : null}
             {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
             <h1>{currentItem.name}</h1>
-            <h4>{currentItem.date}</h4>
+            <h4>{currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}</h4>
             <h4>{currentItem.location}</h4>
 
+            {standings}
             <div className="tournament">
                 {bracket}
             </div>

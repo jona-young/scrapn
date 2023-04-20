@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { handleChange, addMatchRounds, updateMatchRounds, protectCurrentRounds, removeMatchRounds } from "../Tournaments/tournamentFunctions.js";
+import { handleChange, matchAndPlayerUpdater } from "../Tournaments/tournamentFunctions.js";
 import { postTournament, putTournament } from "../functions/tournamentAPI.js";
 
 const TournamentForm = ({form, update}) => {
@@ -10,13 +10,16 @@ const TournamentForm = ({form, update}) => {
   const [currentItem, setCurrentItem] = useState({
     _id: form._id ? form._id : null,
     name: form.name? form.name : "",
-    date: form.date ? form.date : "",
+    startDate: form.startDate ? form.startDate : "",
+    endDate: form.endDate ? form.endDate : "",
     location: form.location ? form.location : "",
-    matches: form.matches ? form.matches : 4,
+    tournamentType: form.tournamentType ? form.tournamentType : "",
+    matches: form.matches ? form.matches : 1,
     author: form.author ? form.author : "",
     authorID: form.authorID ? form.authorID : "",
-    players: form.players ? form.players : ["","","",""],
-    mode: update ? update : "-1"
+    players: form.players ? form.players : [],
+    mode: update ? update : "-1",
+    numSeeds: form.numSeeds ? form.numSeeds : 0
   });
 
   const [ numMatches, setNumMatches ] = useState(4)
@@ -27,42 +30,7 @@ const TournamentForm = ({form, update}) => {
   },[form])
 
   useEffect(() => {
-    // if the purpose is to update a current tournament
-    if (numMatches > currentItem.matches.length && update)
-    {
-      // find the matches to add to the current tournament draw
-      const matchesToAdd = numMatches - currentItem.matches.length
-      // protect the current matches when sending to backend so they are not overwritten
-      protectCurrentRounds(currentItem.matches, setCurrentItem)
-      // pass current matches with number of extra matches to add
-      const matchArr = updateMatchRounds(matchesToAdd, currentItem.matches[currentItem.matches.length - 1].round)
-      const combinedMatches = currentItem.matches.concat(matchArr.matches)
-      const combinedPlayers = currentItem.players.concat(matchArr.players)
-
-      // update current item
-      setCurrentItem(currentObj => ({...currentObj, matches: combinedMatches, players: combinedPlayers}))
-    }
-    else if (numMatches < currentItem.matches.length)
-    {
-      // find the number of matches to remove
-      const matchesToRemove = (currentItem.matches.length) - numMatches
-      const matchArr = removeMatchRounds(matchesToRemove, currentItem.matches, currentItem.players)
-
-      // removes appropriate matches and players
-      setCurrentItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
-    }
-    else if (numMatches == currentItem.matches.length)
-    {
-      // good to go, the ideal situation
-      return
-    }
-    else
-    {
-      // a new tournament form with blank matches 
-      const matchArr = addMatchRounds(numMatches)
-      setCurrentItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
-    }
-    
+    matchAndPlayerUpdater(numMatches, currentItem, setCurrentItem, update)
   }, [numMatches])
 
   return (
@@ -82,14 +50,25 @@ const TournamentForm = ({form, update}) => {
           value={currentItem.name}
         />
         <label className="form-field">
-          Date
+          Start Date
         </label>
         <input
-          type="datetime-local"
+          type="date"
           onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
           className="form-input"
-          name="date"
-          value={currentItem.date}
+          name="startDate"
+          value={currentItem.startDate}
+          placeholder="YYYY-MM-DD"
+        />
+        <label className="form-field">
+          End Date
+        </label>
+        <input
+          type="date"
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="endDate"
+          value={currentItem.endDate}
           placeholder="YYYY-MM-DD"
         />
         <label className="form-field">
@@ -101,6 +80,20 @@ const TournamentForm = ({form, update}) => {
           name="location"
           value={currentItem.location}
         />
+                <label className="form-field">
+          Draw Type
+        </label>
+        <select
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="tournamentType"
+          value={currentItem.tournamentType}
+        >
+          <option key="1-dt">Select Draw</option>
+          <option value="single-elim" key="2-dt">Single Elimination</option>
+          <option value="round-robin" key="3-dt">Round Robin</option>
+
+        </select>
         <label className="form-field">
           Matches
         </label>
@@ -110,26 +103,55 @@ const TournamentForm = ({form, update}) => {
           name="numMatches"
           value={numMatches}
         >
-          <option key="1">Select Draw</option>
-          <option value="4" key="2">Single Elim - 4 Team</option>
-          <option value="8" key="3">Single Elim - 8 Team</option>
-          <option value="16" key="4">Single Elim - 16 Team</option>
-          <option value="32" key="5">Single Elim - 32 Team</option>
-          <option value="64" key="6">Single Elim - 64 Team</option>
+          <option key="1-nm">Select draw type first..</option>
+          {currentItem.tournamentType === "single-elim" ? 
+          <>
+            <option value="4" key="2-se">4 Team</option>
+            <option value="8" key="3-se">8 Team</option>
+            <option value="16" key="4-se">16 Team</option>
+            <option value="32" key="5-se">32 Team</option>
+            <option value="64" key="6-se">64 Team</option>
+          </>
+          : ""
+          }
+          
+          {currentItem.tournamentType === "round-robin" ? 
+          <>
+            <option value="2" key="3-rr">2 Team</option>
+            <option value="3" key="4-rr">3 Team</option>
+            <option value="4" key="5-rr">4 Team</option>
+            <option value="5" key="6-rr">5 Team</option>
+            <option value="6" key="6-rr">6 Team</option>
+          </>
+          : ""
+          }
         </select>
         <label className="form-field">
           Players
         </label>
         { currentItem && currentItem.players && 
         currentItem.players.map((player, idx) => {
-            return <input
+            return <div className="form-players">
+                    <b>{idx + 1}. &nbsp;</b>
+                    <input
                       onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
                       className="form-input"
                       name="players"
                       data-key={idx}
                       value={currentItem.players[idx]}
                     />
+                   </div>
         })}
+        {form.mode !== "update" ? 
+              <>
+                <label className="form-field">
+                  Insert Seeds to Draw
+                </label>
+                <input type="checkbox" onClick={(e) => handleChange(e, setCurrentItem, currentItem)} name="seedDraw" value={true} />
+              </>
+              :
+              ""
+        }
 
         <input id="submit" className="form-submit" type="submit" name="Add" />
 

@@ -40,7 +40,6 @@ body {
 #header {
   background: #E8EAEF;
   height: 50px;
-
   display: flex;
   flex-direction: row;
 }
@@ -802,6 +801,77 @@ ul li::marker {
   background: limegreen;
 }
 
+.rr-standings {
+  margin: 30px;
+  padding: 20px;
+  background: #e8e8e8;
+  border: 5px solid #f0f0f0; 
+  text-align: center;
+}
+
+.standings-blocked {
+  background: black;
+}
+
+.standings-value {
+  border: 2px solid black;
+}
+
+.roundrobin-container {
+  display: flex;
+  flex-direction: rows;
+  flex-wrap: wrap;
+}
+
+.roundrobin-standings {
+  height: 200px;
+  margin: auto;
+}
+
+.roundrobin-match {
+  width: 220px;
+  height: 130px;
+  margin: 20px 5px;
+  background: #00C772;
+  border: 5px solid #f0f0f0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.roundrobin-matchup {
+  margin: 5px auto;
+}
+
+.roundrobin-dateloc {
+  margin: 5px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+}
+
+.roundrobin-location {
+  font-weight: bold;
+}
+
+.roundrobin-date {
+  right: 0;
+  margin-left: auto;
+}
+
+.roundrobin-scoreset {
+  margin: 2px auto;
+  display: flex;
+  flex-direction: row;
+
+  font-size: 12px;
+}
+
+.roundrobin-score {
+  width: 25px;
+  margin: 0 5px;
+  text-align: center;
+}
 
 @media only screen and (min-width: 885px)
 {

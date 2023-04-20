@@ -13,11 +13,13 @@ const CreateTournament = () => {
     const [currentItem, setCurrentItem] = useState({
         id: null,
         name: "",
-        date: "",
+        startDate: "",
+        endDate: "",
         location: "",
-        matches:[{},{},{},{}],
+        tournamentType: "",
+        matches:[],
         author: "",
-        players: ["","","",""],
+        players: [],
 
     });
 

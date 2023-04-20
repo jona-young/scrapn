@@ -6,11 +6,19 @@ const tournamentSchema = new Schema({
         type: String,
         required: false
     },
-    date: {
+    startDate: {
+        type: String,
+        required: false
+    },
+    endDate: {
         type: String,
         required: false
     },
     location: { 
+        type: String,
+        required: false,
+    },
+    tournamentType: {
         type: String,
         required: false,
     },

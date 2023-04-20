@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver'
+import { roundRobinUpdater } from "../Tournaments/tournamentFunctions.js";
 
 // GET Request for single tournament
 export const getTournament = async (id, updateData, setDataLoaded) => {
@@ -38,10 +38,18 @@ export const getTournaments = async (id, updateData, setDataLoaded) => {
 export const postTournament = async (e, form, history) => {
     e.preventDefault();
 
+    console.log(form)
+    if (form.tournamentType == "round-robin")
+    {
+        let formattedMatches = roundRobinUpdater(form.players.length, form)
+        form.matches = formattedMatches
+    }
+
     if (form.matches.length == 0)
     {
         return console.log('Error 400: match length must be over 0')
     }
+
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament', {
         credentials: 'include',
             method: 'POST',
@@ -81,20 +89,18 @@ export const putTournament = async (e, forms, history) => {
     history('/tournament/' + forms._id)
 };
 
-export const downloadDraw = (forms) => {
-    console.log(forms)
-    fetch(process.env.REACT_APP_DEVAPI + '/api/download-draw/', {
+// GET Request for all user tournaments
+export const getRoundRobinResults = async (id, updateData) => {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/round-robin/" + id, {
         credentials: 'include',
-        method: 'POST',
+        method: 'GET',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(forms),
+    })
 
-    })
-    .then((response) => response.blob())
-    .then((res) => {
-        const pdfBlob = new Blob([res], { type: 'application/pdf' });
-        saveAs(pdfBlob, `draw.pdf`)
-    }).catch((err)=> {
-        console.log(err)
-    })
+    const json = await data.json();
+
+    if (json)
+    {
+        updateData(json)
+    }
 }
