@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <div id="footer">
             <div className="footer-item footer-name">
-                BOOKR
+                SCRAPN
             </div>
             <div className="footer-item">
                 123 Rainbow Road, Toronto, ON, A1B 2C3

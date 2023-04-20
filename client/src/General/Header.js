@@ -22,7 +22,7 @@ const Header = () => {
     return (
         <div id="header" >
             <h3 className="header-heading">
-                <Link className="header-home" to={"/"}>BOOKR</Link>
+                <Link className="header-home" to={"/"}>SCRAPN</Link>
             </h3>
             <Link to="#" onClick={ showNavbar} className="menu-bars">
                 <img src={menuIcon} className="header-menu" alt="menu button" />

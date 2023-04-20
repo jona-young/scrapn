@@ -123,7 +123,6 @@ export const roundRobinStandings = (players, currentResults, updateTable, loaded
 
         updateTable(<table className="rr-standings">{headings}{rows}</table>)
     }
-
 }
 
 export const roundRobin = (matches, updateState, togglePopUp) => {
