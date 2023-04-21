@@ -93,6 +93,8 @@ export const putTournament = async (e, form, history, changePlayerSize) => {
     }
 
     history('/tournament/' + form._id)
+    //window.location.reload(false);
+
 };
 
 
@@ -111,7 +113,7 @@ export const deleteTournament = async (id, history, formDel) => {
         console.log(json)
         if (formDel === true) {
             // if tournanet deleted on tournament page
-            history.push("/");
+            history("/");
           } else if (formDel === false) {
             // if tournament deleted on home page
             window.location.reload(false);

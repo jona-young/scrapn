@@ -385,6 +385,11 @@ ul li::marker {
   padding: 7px 0 0 10px;
 }
 
+.tournament-header {
+  display: flex;
+  flex-direction: row;
+}
+
 .button-delete {
   right: 0;
   margin-left: auto;

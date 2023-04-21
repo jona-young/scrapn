@@ -1,4 +1,5 @@
 const populateMatchWinners = (matchArr) => {
+    console.log(matchArr)
     let formattedArr = []
 
     // create a copy of the array

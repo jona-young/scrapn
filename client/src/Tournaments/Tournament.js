@@ -68,7 +68,7 @@ const Tournament = () => {
 
     return (
         <div className="tournament-container">
-            <div>
+            <div className="tournament-header">
                 <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
                 <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>
             </div>

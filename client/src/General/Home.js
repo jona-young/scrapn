@@ -22,7 +22,11 @@ const Home = () => {
     }
 
     useMemo(() => {
-        setAvailableCourts(3 - userPrefs.bookings.length)
+        if (userPrefs.bookings.length)
+        {
+            setAvailableCourts(3 - userPrefs.bookings.length)
+        }
+        else {setAvailableCourts(3 - 0)}
         setUserName(userPrefs.name)
         setCourtBlocks(courtDashboard(userPrefs.bookings, Link))
     }, [userPrefs])
