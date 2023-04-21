@@ -142,7 +142,6 @@ module.exports.courtBooking_delete = (req, res) => {
              }
          })
      }    
-
 }
 
 const rulesCheck = async (body) => {

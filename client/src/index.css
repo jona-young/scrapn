@@ -333,10 +333,6 @@ ul li::marker {
   background-color: #f7f7f7;
 }
 
-.bookings-items {
-  margin-top: 10px;
-}
-
 .bookings-item {
   display: flex;
   flex-direction: column;
@@ -371,6 +367,31 @@ ul li::marker {
 .bookings-player {
   margin: 2px auto;
 }
+
+.tournaments-item {
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
+  padding: 5px;
+  background: #4C5DAA;
+  border: 2px solid #e3e3e3;
+}
+
+.tournaments-link {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  padding: 7px 0 0 10px;
+}
+
+.button-delete {
+  right: 0;
+  margin-left: auto;
+  padding: 2px 4px;
+  background: lightcoral;
+}
+
 
 /* Login */
 .userauth-container {
@@ -802,7 +823,7 @@ ul li::marker {
 }
 
 .rr-standings {
-  margin: 30px;
+  margin: 10px;
   padding: 20px;
   background: #e8e8e8;
   border: 5px solid #f0f0f0; 

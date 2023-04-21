@@ -24,6 +24,7 @@ export const courtDashboard = (courtArr, Link) => {
         to={{
           pathname: "/update-court/" + courtArr[i]._id,
         }}
+        key={i+'-court'}
         >
           <div className="bookings-info">
               <div className="bookings-data">
@@ -57,7 +58,6 @@ export const courtDashboard = (courtArr, Link) => {
   else
   {
     bookedCourts.push(
-
     <span className="bookings-empty">You do not currently have any booked courts!</span>
     )
   }
@@ -66,7 +66,7 @@ export const courtDashboard = (courtArr, Link) => {
   return bookedCourts
 }
 
-export const tournamentDashboard = (tournamentArr, Link) => {
+export const tournamentDashboard = (tournamentArr, Link, deleteTournament, history) => {
   let bookedTournaments = []
   
   if (tournamentArr.length > 0)
@@ -74,24 +74,27 @@ export const tournamentDashboard = (tournamentArr, Link) => {
     for (let i = 0; i < tournamentArr.length; i++)
     {
       bookedTournaments.push(
+      <div className="tournaments-item">
         <Link
-        className="bookings-item"
-        key={i}
+        className="tournaments-link"
+        key={i+"-tournament"}
         to={{
           pathname: "/tournament/" + tournamentArr[i]._id,
         }}
         >
           <div className="bookings-info">
-              {tournamentArr[i].name} at {tournamentArr[i].location} on {tournamentArr[i].date}
+              {tournamentArr[i].name} at {tournamentArr[i].location} on {tournamentArr[i].startDate}
           </div>
         </Link>
+        <button className="button-delete" key={i+"-del"} onClick={() => deleteTournament(tournamentArr[i]._id, history, false)}>Delete Tournament</button>
+      </div>
+
       )
     }
   }
   else
   {
     bookedTournaments.push(
-
     <span className="bookings-empty">You do not currently have any booked courts!</span>
     )
   }

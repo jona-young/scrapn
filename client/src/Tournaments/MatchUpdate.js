@@ -6,7 +6,8 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match }) => {
         location: "",
         round: "",
         team1: "",
-        team2: ""
+        team2: "",
+        winner: ""
     })
 
     const editMatch = (e) => {

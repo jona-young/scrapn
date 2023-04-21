@@ -26,7 +26,8 @@ const TournamentForm = ({form, update}) => {
 
   useEffect(() => {
     setCurrentItem(form)
-    setNumMatches(form.matches.length)
+    if (form.tournamentType === "single-elim") {setNumMatches(form.matches.length)}
+    else {setNumMatches(form.players.length)}
   },[form])
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const TournamentForm = ({form, update}) => {
       <span className="title">Tournament Form</span>
       <form
         className="form-form"
-        onSubmit={(e) => update === 1 ? putTournament(e, currentItem, navigate) : postTournament(e, currentItem, navigate)}
+        onSubmit={(e) => update === 1 ? putTournament(e, currentItem, navigate, true) : postTournament(e, currentItem, navigate)}
       >
         <label className="form-field">
           Name
@@ -117,10 +118,10 @@ const TournamentForm = ({form, update}) => {
           
           {currentItem.tournamentType === "round-robin" ? 
           <>
-            <option value="2" key="3-rr">2 Team</option>
-            <option value="3" key="4-rr">3 Team</option>
-            <option value="4" key="5-rr">4 Team</option>
-            <option value="5" key="6-rr">5 Team</option>
+            <option value="2" key="2-rr">2 Team</option>
+            <option value="3" key="3-rr">3 Team</option>
+            <option value="4" key="4-rr">4 Team</option>
+            <option value="5" key="5-rr">5 Team</option>
             <option value="6" key="6-rr">6 Team</option>
           </>
           : ""
@@ -131,12 +132,13 @@ const TournamentForm = ({form, update}) => {
         </label>
         { currentItem && currentItem.players && 
         currentItem.players.map((player, idx) => {
-            return <div className="form-players">
+            return <div className="form-players" key={idx+1 + "-playerdiv"}>
                     <b>{idx + 1}. &nbsp;</b>
                     <input
                       onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
                       className="form-input"
                       name="players"
+                      key={idx+1 + "-player"}
                       data-key={idx}
                       value={currentItem.players[idx]}
                     />

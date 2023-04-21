@@ -94,34 +94,36 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
 export const roundRobinStandings = (players, currentResults, updateTable, loadedData) => {
     if (currentResults)
     {
+        let counter = 0
         let headings =  <tr>
                             <th></th>
-                            { players.map((player) => {
-                            return <th>{player}</th>
+                            { players.map((player, idx) => {
+                            return <th key={idx + "-playercol"}>{player}</th>
                             })}
                         </tr>
         let rows = []
         for (let i = 0; i < players.length; i++)
         {
-        let row = []
-        for (let j = 0; j < players.length; j++)
-        {
-        if (players[i] === players[j])
-        {
-        row.push(<td className="standings-blocked">BLOCKED</td>)
-        }
-        else
-        {
-        row.push(<td className="standings-value">{currentResults[players[i]][players[j]]}</td>)
-        }
-        }
-        rows.push(<tr>
-            <td>{players[i]}</td>
-            {row}
-        </tr>)
+            let row = []
+            for (let j = 0; j < players.length; j++)
+            {
+                if (players[i] === players[j])
+                {
+                    row.push(<td className="standings-blocked" key={counter + "-blocked"}>BLOCKED</td>)
+                }
+                else
+                {
+                    row.push(<td className="standings-value" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
+                }
+                counter++
+            }
+                rows.push(<tr key={counter+"-row"}>
+                    <td>{players[i]}</td>
+                    {row}
+                </tr>)
         }
 
-        updateTable(<table className="rr-standings">{headings}{rows}</table>)
+            updateTable(<table className="rr-standings"><tbody>{headings}{rows}</tbody></table>)
     }
 }
 
@@ -147,14 +149,14 @@ export const roundRobin = (matches, updateState, togglePopUp) => {
                             {matches[i].team2 && matches[i].winner === "2" ? <b>{matches[i].team2}</b> : matches[i].team2}
                         </div>
                         <div className="roundrobin-scoreset">
-                            {matches[i].score1.map((score) => {return <p className="roundrobin-score">{score}</p>})}
+                            {matches[i].score1.map((score) => {return <p className="roundrobin-score" key={i+"-team1"}>{score}</p>})}
                         </div>
                         <div className="roundrobin-scoreset">
-                            {matches[i].score2.map((score) => {return <p className="roundrobin-score">{score}</p>})}
+                            {matches[i].score2.map((score) => {return <p className="roundrobin-score" key={i+"-team2"}>{score}</p>})}
                         </div>
                     </div>)
     }
-    tournament.push(<div className="roundrobin-container">{round}</div>)
+    tournament.push(<div className="roundrobin-container" key={0}>{round}</div>)
 
     updateState(tournament)
 }
@@ -182,7 +184,7 @@ export const listTournaments = (tournaments, updateList, Link) => {
 export const handleChange = (e, updateItem, currentItem) => {
     const name = e.target.name;
     const value = e.target.value;
-    
+
     if (name === "numMatches") { updateItem(parseInt(value)) }
     else if (name === "players") 
     {
@@ -282,11 +284,21 @@ export const roundRobinUpdater = (numMatches, currentItem) => {
 const roundRobinCheckPlayers = (numMatches, currentItem, updateItem) => {
     let updatedPlayers = currentItem.players
     let playerLen = updatedPlayers.length
+
     if (playerLen < numMatches)
     {
         let addPlayers = numMatches - playerLen
         for (let i = 0; i < addPlayers; i++) { updatedPlayers.push("")}
     }
+    else if (playerLen > numMatches)
+    {
+        const removePlayers = playerLen - numMatches
+        for (let i = 0; i < removePlayers; i++)
+        {
+            updatedPlayers.pop()
+        }
+    }
+    else { return }
 
     updateItem(currentObject => ({...currentObject, players: updatedPlayers}))
 }
@@ -348,8 +360,6 @@ const createRoundRobinMatchSet = (modifiedPlayers, _players1, _players2) => {
 
     while (shiftCounter <= endShift)
     {
-        console.log(endShift, ' wid it: ', shiftCounter)
-
         for (let i = 0; i < players1.length; i++)
         {
             matchSet.push({

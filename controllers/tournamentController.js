@@ -95,6 +95,7 @@ module.exports.put_tournament = (req, res) => {
              }
              else
              {
+                console.log(body)
                 if (body.tournamentType !== "round-robin")
                 {
                     // Process body matches to auto populate winners from previous rounds
@@ -174,6 +175,43 @@ module.exports.get_roundRobinResults = (req, res) => {
 }
 
 // DELETE - Delete tournament
+module.exports.delete_tournament = (req, res) => {
+    const token = req.cookies.jwt;
+    const id = req.params.id;
+
+     // Check jwt validation
+     if (token)
+     {
+         jwt.verify(token, 'BOOKR-JWT', (err, decodedToken) => {
+             if (err)
+             {
+                 console.log(err.message);
+                 res.status(400).send({ errors: {jwt: "Invalid JWT token"}})
+             }
+             else
+            {                        
+                Tournament.findByIdAndDelete(id)
+                .then((result) => {
+                    User.findById(decodedToken.id).select('privilige')
+                    .exec(function(err, account) {
+                        if (account.privilige > 1 || decodedToken.id == result.author)
+                        {
+                            res.status(200).send(result);
+                        }
+                        else
+                        {
+                            res.status(400).send({errors: {privilige: "Error - Account priviliges too low, contact site administrator"}})
+                        }
+                    })
+                })
+                .catch((err) => {
+                    res.status(400)
+                })
+
+             }
+         })
+     }    
+}
 
 // // GET - export tournament
 // module.exports.export_tournament = (req, res) => {

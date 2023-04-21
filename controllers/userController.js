@@ -70,7 +70,9 @@ module.exports.login_post = async (req, res) => {
             const user = await User.login(email, password);
             const token = createToken(user._id);
 
-            CourtBooking.find()
+            let currentDate = new Date()
+
+            CourtBooking.find({date: {$gte: currentDate.setDate(currentDate.getDate() - 1)}})
             .then((result) => {
                 let userCourts = []
     

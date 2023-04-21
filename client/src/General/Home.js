@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
 import { courtDashboard, tournamentDashboard } from '../functions/userFunctions';
 import { validateUser } from '../functions/userAPI.js';
-import { getTournaments } from '../functions/tournamentAPI.js';
+import { getTournaments, deleteTournament } from '../functions/tournamentAPI.js';
 
 const Home = () => {
     //User Context
@@ -28,7 +28,7 @@ const Home = () => {
     }, [userPrefs])
 
     useMemo(() => {
-        setTournamentBlocks(tournamentDashboard(tournaments, Link))
+        setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate))
     }, [tournaments])
     
     useEffect(() => {

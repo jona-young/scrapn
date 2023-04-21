@@ -46,6 +46,12 @@ export const validateUser = async (redirectPath) => {
   if(json.user)
     {
       // user is validated by backend
+      setLocalStorage([["BMS-name", json.user], 
+      ["BMS-nameID", json._id], 
+      ["BMS-isLoggedOn", json.isLoggedOn], 
+      ["BMS-privilige", json.privilige], 
+      ["BMS-bookings", json.bookings]
+      ])
       return 1;
     }
     else if (json.error === 'jwt')
@@ -123,6 +129,12 @@ export const postLogin = async (e, loginDetails, history, errors, updateErrors, 
   {
       updateUserPrefs({name: json.name, isLoggedOn: json.isLoggedOn,
                        privilige: json.privilige, bookings: json.bookings})
+      // setLocalStorage([["BMS-name", json.user], 
+      //                 ["BMS-nameID", json._id], 
+      //                 ["BMS-isLoggedOn", json.isLoggedOn], 
+      //                 ["BMS-privilige", json.privilige], 
+      //                 ["BMS-bookings", json.bookings]
+      //                 ])
       updateLoadedData(false)
 
       history("/");

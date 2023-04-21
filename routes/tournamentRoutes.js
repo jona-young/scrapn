@@ -15,10 +15,11 @@ tournamentRouter.post('/api/tournament', tournamentController.post_tournament);
 // PUT - Update tournament
 tournamentRouter.put('/api/tournament/:id', tournamentController.put_tournament);
 
+// DELETE - Delete tournament
+tournamentRouter.delete('/api/tournament/:id',  tournamentController.delete_tournament);
+
 // GET - Retrieve round robin results
 tournamentRouter.get('/api/round-robin/:id', tournamentController.get_roundRobinResults);
-
-// DELETE - Delete tournament
 
 // GET - Download tournament draw
 // tournamentRouter.post('/api/download-draw/', tournamentController.export_tournament)

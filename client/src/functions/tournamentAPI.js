@@ -69,14 +69,20 @@ export const postTournament = async (e, form, history) => {
 }
 
 //PUT request to update tournament
-export const putTournament = async (e, forms, history) => {
+export const putTournament = async (e, form, history, changePlayerSize) => {
     e.preventDefault()
 
-    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament/' + forms._id, {
+    if (form.tournamentType == "round-robin" && changePlayerSize == true)
+    {
+        let formattedMatches = roundRobinUpdater(form.players.length, form)
+        form.matches = formattedMatches
+    }
+
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament/' + form._id, {
         credentials: 'include',
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(forms),
+        body: JSON.stringify(form),
     })
 
     const json = await data.json();
@@ -86,8 +92,32 @@ export const putTournament = async (e, forms, history) => {
         console.log(json.errors);
     }
 
-    history('/tournament/' + forms._id)
+    history('/tournament/' + form._id)
 };
+
+
+//Delete a court booking
+export const deleteTournament = async (id, history, formDel) => {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament/' + id, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        console.log(json)
+        if (formDel === true) {
+            // if tournanet deleted on tournament page
+            history.push("/");
+          } else if (formDel === false) {
+            // if tournament deleted on home page
+            window.location.reload(false);
+          }
+    }
+  };
 
 // GET Request for all user tournaments
 export const getRoundRobinResults = async (id, updateData) => {

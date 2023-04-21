@@ -34,14 +34,13 @@ const Tournament = () => {
 
     const updateMatch = async (e, updatedMatch) => {
         e.preventDefault();
-
         let allMatches = currentItem.matches
         allMatches[matchID] = updatedMatch
 
         setCurrentItem(curItem => ({...curItem, matches: allMatches}))
 
         // PUT request immediately? Will need navigate to redirect and re render the tournament
-        putTournament(e, currentItem,  navigate);
+        putTournament(e, currentItem,  navigate, false);
 
 
         // then toggle pop up to remove the pop up
@@ -69,7 +68,11 @@ const Tournament = () => {
 
     return (
         <div className="tournament-container">
-            <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
+            <div>
+                <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
+                <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>
+            </div>
+
             {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} /> : null}
             {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
             <h1>{currentItem.name}</h1>

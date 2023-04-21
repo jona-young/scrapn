@@ -48,7 +48,7 @@ export const deleteBooking = async (courtBookingID, history, formDel) => {
     {
         console.log(json)
         if (formDel === true) {
-            history.push("/tennis-book");
+            history.push("/court-bookings");
           } else if (formDel === false) {
             window.location.reload(false);
           }
