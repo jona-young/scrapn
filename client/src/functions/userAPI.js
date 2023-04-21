@@ -94,7 +94,7 @@ export const postSignup = async (e, loginDetails, history, errors, updateErrors,
 
   if (json.name)
   {
-      updateUserPrefs({name: json.name, isLoggedOn: json.isLoggedOn,
+      updateUserPrefs({name: json.name, nameID: json._id, isLoggedOn: json.isLoggedOn,
                        privilige: json.privilige, bookings: json.bookings })
       updateLoadedData(false)
 
@@ -127,14 +127,9 @@ export const postLogin = async (e, loginDetails, history, errors, updateErrors, 
 
   if (json.name)
   {
-      updateUserPrefs({name: json.name, isLoggedOn: json.isLoggedOn,
+      updateUserPrefs({name: json.name, nameID: json._id, isLoggedOn: json.isLoggedOn,
                        privilige: json.privilige, bookings: json.bookings})
-      // setLocalStorage([["BMS-name", json.user], 
-      //                 ["BMS-nameID", json._id], 
-      //                 ["BMS-isLoggedOn", json.isLoggedOn], 
-      //                 ["BMS-privilige", json.privilige], 
-      //                 ["BMS-bookings", json.bookings]
-      //                 ])
+                       
       updateLoadedData(false)
 
       history("/");

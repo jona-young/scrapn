@@ -71,7 +71,7 @@ module.exports.login_post = async (req, res) => {
             const token = createToken(user._id);
 
             let currentDate = new Date()
-
+            // let userCourts = []
             CourtBooking.find({date: {$gte: currentDate.setDate(currentDate.getDate() - 1)}})
             .then((result) => {
                 let userCourts = []

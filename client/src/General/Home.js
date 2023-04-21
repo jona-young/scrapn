@@ -8,7 +8,7 @@ import { getTournaments, deleteTournament } from '../functions/tournamentAPI.js'
 const Home = () => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
-
+    console.log(userPrefs)
     const [ courtBlocks, setCourtBlocks ] = useState()
     const [tournaments, setTournaments] = useState([])
     const [ tournamentBlocks, setTournamentBlocks ] = useState()
@@ -21,7 +21,7 @@ const Home = () => {
         navigate('/login');
     }
 
-    useMemo(() => {
+    useEffect(() => {
         if (userPrefs.bookings.length)
         {
             setAvailableCourts(3 - userPrefs.bookings.length)
@@ -29,15 +29,15 @@ const Home = () => {
         else {setAvailableCourts(3 - 0)}
         setUserName(userPrefs.name)
         setCourtBlocks(courtDashboard(userPrefs.bookings, Link))
+        getTournaments(userPrefs.nameID, setTournaments, setDummy)
     }, [userPrefs])
 
-    useMemo(() => {
+    useEffect(() => {
         setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate))
     }, [tournaments])
     
     useEffect(() => {
         validateUser(routeLoginChange)
-        getTournaments(userPrefs.nameID, setTournaments, setDummy)
     },[])
 
 
