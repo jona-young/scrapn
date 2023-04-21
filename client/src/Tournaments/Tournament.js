@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { singleElimination, roundRobin, roundRobinStandings } from '../Tournaments/tournamentFunctions.js';
-import { getTournament, putTournament, getRoundRobinResults } from '../functions/tournamentAPI.js';
+import { getTournament, putTournament, getRoundRobinResults, deleteTournament } from '../functions/tournamentAPI.js';
 import MatchUpdate from '../Tournaments/MatchUpdate.js';
 
 const Tournament = () => {
