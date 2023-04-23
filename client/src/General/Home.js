@@ -8,7 +8,7 @@ import { getTournaments, deleteTournament } from '../functions/tournamentAPI.js'
 const Home = () => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
-    console.log(userPrefs)
+
     const [ courtBlocks, setCourtBlocks ] = useState()
     const [tournaments, setTournaments] = useState([])
     const [ tournamentBlocks, setTournamentBlocks ] = useState()
@@ -22,7 +22,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        if (userPrefs.bookings.length)
+        if (userPrefs && userPrefs.bookings && userPrefs.bookings.length)
         {
             setAvailableCourts(3 - userPrefs.bookings.length)
         }

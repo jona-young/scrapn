@@ -10,7 +10,7 @@ export const handleChange = (e, updateItem, currentItem) => {
 
 export const courtDashboard = (courtArr, Link) => {
   let bookedCourts = []
-  if (courtArr.length > 0)
+  if (courtArr && courtArr.length > 0)
   {
     for (let i = 0; i < courtArr.length; i++)
     {
@@ -69,7 +69,7 @@ export const courtDashboard = (courtArr, Link) => {
 export const tournamentDashboard = (tournamentArr, Link, deleteTournament, history) => {
   let bookedTournaments = []
   
-  if (tournamentArr.length > 0)
+  if (tournamentArr && tournamentArr.length > 0)
   {
     for (let i = 0; i < tournamentArr.length; i++)
     {

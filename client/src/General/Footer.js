@@ -10,7 +10,10 @@ const Footer = () => {
                 123 Rainbow Road, Toronto, ON, A1B 2C3
             </div>
             <div className="footer-item">
-                <Link path="#" className="footer-link">Contact Us</Link>
+                <Link path="#" onClick={(e) => {
+                    window.location.href = "mailto:scrapn.support@icloud.com?subject=Scrapn Tournament Issue";
+                    e.preventDefault()
+                }} className="footer-link">Contact Us</Link>
             </div>
             <div className="footer-item">
                 2023 BMS by jona-young
