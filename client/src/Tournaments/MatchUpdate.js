@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const MatchUpdate = ({ togglePopUp, updateMatch, match }) => {
+const MatchUpdate = ({ togglePopUp, updateMatch, match, players }) => {
     const [ matchToEdit, setMatchToEdit ] = useState({
         date: "",
         location: "",
@@ -77,82 +77,91 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match }) => {
                 <form onSubmit={(e) => updateMatch(e, matchToEdit)}>
                     <br />
                     <label className="form-field">
-                    Date
+                        Date
                     </label>
                     <br />
                     <input
-                    type="datetime-local"
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="date"
-                    value={matchToEdit.date}
-                    />
+                        type="datetime-local"
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="date"
+                        value={matchToEdit.date}
+                        />
                     <br />
                     <label className="form-field">
-                    Location
+                        Location
                     </label>
                     <br />
                     <input
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="location"
-                    value={matchToEdit.location}
-                    />
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="location"
+                        value={matchToEdit.location}
+                        />
                     <br />
                     <label className="form-field">
-                    Round
+                        Round
                     </label>
                     <br />
                     <input
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="round"
-                    value={matchToEdit.round}
-                    />
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="round"
+                        value={matchToEdit.round}
+                        />
                     <br />
                     <label className="form-field">
-                    Team 1
-                    </label>
-                    <br />
-                    <input
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="team1"
-                    value={matchToEdit.team1}
-                    />
-                    <br />
-                    <label className="form-field">
-                    Team 2
-                    </label>
-                    <br />
-                    <input
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="team2"
-                    value={matchToEdit.team2}
-                    />
-                    <br />
-                    <label className="form-field">
-                    Best Of Series
+                        Team 1
                     </label>
                     <br />
                     <select
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="bestof"
-                    value={matchToEdit.bestof}
-                    >
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="team1"
+                        value={matchToEdit.team1}
+                        >
+                        <option value="" disabled selected key="dis-player-1">Choose player...</option>
+                        { players.map((player, idx) => {
+                            return <option value={player} key={"p1-" + idx}>{player}</option>
+                        })}
+                    </select>
+                    <br />
+                    <label className="form-field">
+                        Team 2
+                    </label>
+                    <br />
+                    <select
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="team2"
+                        value={matchToEdit.team2}
+                        >
+                        <option value="" disabled selected key="dis-player-2">Choose player...</option>
+                        { players.map((player, idx) => {
+                            return <option value={player} key={"p2-" + idx}>{player}</option>
+                        })}
+                    </select>
+                    <br />
+                    <label className="form-field">
+                        Best Of Series
+                    </label>
+                    <br />
+                    <select
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="bestof"
+                        value={matchToEdit.bestof}
+                        >
                         <option value="" disabled selected key="dis1">Choose value...</option>
                         <option value="1" key="best1">1</option>
                         <option value="2" key="best2">2</option>
                         <option value="3" key="best3">2 out of 3</option>
                         <option value="4" key="best4">4</option>
                         <option value="5" key="best5">3 out of 5</option>
-
                     </select>
                     <br />
                     <label className="form-field">
-                    Team 1 Scores
+                        Team 1 Scores
                     </label>
                     <br />
                     <div className="form-score">
@@ -172,7 +181,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match }) => {
                     </div>
                     <br />
                     <label className="form-field">
-                    Team 2 Scores
+                        Team 2 Scores
                     </label>
                     <br />
                     <div className="form-score">
@@ -192,15 +201,15 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match }) => {
                     </div>
                     <br />
                     <label className="form-field">
-                    Winner
+                        Winner
                     </label>
                     <br />
                     <select
-                    onChange={(e) => editMatch(e)}
-                    className="form-input"
-                    name="winner"
-                    value={matchToEdit.winner}
-                    >
+                        onChange={(e) => editMatch(e)}
+                        className="form-input"
+                        name="winner"
+                        value={matchToEdit.winner}
+                        >
                         <option value="" disabled selected key="dis2">Choose value...</option>
                         <option value="0" key="win0">Not Decided</option>
                         <option value="1" key="win1">{matchToEdit.team1 ? matchToEdit.team1 : "Team 1"}</option>

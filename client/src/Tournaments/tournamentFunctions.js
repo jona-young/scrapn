@@ -2,6 +2,12 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
     try
     {
         const tournament = []
+        const options = {
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit'
+        }
         
         // Match size has to account for the parent-child tree placeholder to determine next and previous matches
         const matchSize = matches.length - 1
@@ -41,6 +47,14 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
                 }
                 else
                 {
+                    let rawDate = matches[keyCounter].date
+                    let formattedDate
+                    if (rawDate !== "")
+                    {
+                        formattedDate = new Date(rawDate).toLocaleString([], options)
+                    }
+                    else { formattedDate = ""}
+
                     round.push(<div className={matchClass}
                                     key={keyCounter}
                                     data-key={keyCounter}
@@ -50,7 +64,7 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
                                             {matches[keyCounter].round} {matches[keyCounter].location ? (" - " + matches[keyCounter].location) : ""}
                                         </div>
                                         <p className="match-score">
-                                            {matches[keyCounter].date}
+                                            {formattedDate}
                                         </p>
                                     </div>
                                     <div className="match-team">
@@ -129,11 +143,29 @@ export const roundRobinStandings = (players, currentResults, updateTable, loaded
 
 export const roundRobin = (matches, updateState, togglePopUp) => {
     let tournament = []
+    const options = {
+        year: 'numeric', 
+        month: 'numeric', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit'
+    }
 
     // display matches
     let round = []
     for (let i = 0; i < matches.length; i++)
     {   
+
+
+        let rawDate = matches[i].date
+        let formattedDate
+        if (rawDate !== "")
+        {
+            formattedDate = new Date(rawDate).toLocaleString([], options)
+        }
+        else { formattedDate = ""}
+
+
         round.push(<div className="roundrobin-match"
                         key={i+"rr-match"}
                         data-key={i}
@@ -141,7 +173,7 @@ export const roundRobin = (matches, updateState, togglePopUp) => {
                         >
                         <div className="roundrobin-dateloc">
                             <div className="roundrobin-location">{"Round " + matches[i].round}&nbsp; <br /> {matches[i].location}</div>
-                            <div className="roundrobin-date">&nbsp;{matches[i].date}</div>
+                            <div className="roundrobin-date">&nbsp;{formattedDate}</div>
                         </div>
                         <div className="roundrobin-matchup">
                             {matches[i].team1 && matches[i].winner === "1" ? <b>{matches[i].team1}</b> : matches[i].team1}

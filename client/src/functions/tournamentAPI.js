@@ -38,7 +38,6 @@ export const getTournaments = async (id, updateData, setDataLoaded) => {
 export const postTournament = async (e, form, history) => {
     e.preventDefault();
 
-    console.log(form)
     if (form.tournamentType == "round-robin")
     {
         let formattedMatches = roundRobinUpdater(form.players.length, form)

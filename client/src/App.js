@@ -6,7 +6,7 @@ import CourtBookings from './CourtBookings/CourtBookings.js';
 import UpdateBooking from './CourtBookings/UpdateBooking.js';
 import CreateBooking from './CourtBookings/CreateBooking.js';
 import Login from './General/Login.js';
-// import Signup from './General/Signup.js';
+import Signup from './General/Signup.js';
 import Profile from './General/Profile.js';
 import Users from './General/Users.js';
 import Home from './General/Home.js';
@@ -65,7 +65,7 @@ function App() {
               <Route path="/update-court/:id" element={<UpdateBooking/>} />
               <Route path="/create-court/:date/:time/:court" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/signup" element={<Signup />} /> */}
+              <Route path="/signup" element={<Signup />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/users" element={<Users />} />
               <Route path="/tournament/:id" element={<Tournament />} />
@@ -77,7 +77,7 @@ function App() {
         </BrowserRouter>
       </DataContext.Provider>
       </UserContext.Provider>
-</div>
+    </div>
   );
 }
 

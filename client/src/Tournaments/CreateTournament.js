@@ -22,9 +22,7 @@ const CreateTournament = () => {
         players: [],
 
     });
-
-    console.log(currentItem)
-
+    
     useEffect(() => {
         validateUser(routeLoginChange);
     },[])

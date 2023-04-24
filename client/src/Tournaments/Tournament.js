@@ -65,9 +65,6 @@ const Tournament = () => {
         roundRobinStandings(currentItem.players, standingsData, setStandings, loadedData)
     }, [standingsData, loadedData])
 
-    console.log(currentItem)
-
-
     return (
         <div className="tournament-container">
             <div className="tournament-header">
@@ -75,7 +72,7 @@ const Tournament = () => {
                 <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>
             </div>
 
-            {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} /> : null}
+            {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} players={currentItem.players} /> : null}
             {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
             <h1>{currentItem.name}</h1>
             <h4>{currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}</h4>
