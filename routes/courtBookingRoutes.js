@@ -3,8 +3,11 @@ const courtBookingController = require('../controllers/courtBookingController.js
 
 const courtBookingRouter = Router();
 
-// GET - Retrieve all court "infractions
+// GET - Retrieve all courts
 courtBookingRouter.get('/api/court-bookings/:id',  courtBookingController.courtBookings_get);
+
+// GET - Retrieve all user courts
+courtBookingRouter.get('/api/user-bookings/:id',  courtBookingController.userBookings_get);
 
 // POST - Add court "infraction to database
 courtBookingRouter.post('/api/court-booking',  courtBookingController.courtBookings_post);

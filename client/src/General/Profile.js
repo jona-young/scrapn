@@ -33,8 +33,10 @@ const Profile = () => {
         setCurrentItem(curItem => ({...curItem, rating: String(parseFloat(currentItem.rating) + 0.5)}))
     }
 
-    console.log(currentItem)
-
+    const lowerRating = () => {
+        setCurrentItem(curItem => ({...curItem, rating: String(parseFloat(currentItem.rating) - 0.5)}))
+    }
+    
     useEffect(() => {
         getUser(id, setCurrentItem)
         updateViewCheck()
@@ -59,7 +61,7 @@ const Profile = () => {
                 { updateView ? 
                     <div className="update-rating">
                         <button className="profile-button" onClick={() => raiseRating()}>+</button>
-                        <button className="profile-button">-</button>
+                        <button className="profile-button" onClick={() => lowerRating()}>-</button>
                         <button className="profile-confirm" onClick={(e) => putUser(e, currentItem, navigate)}>Done</button>
                     </div>
                     :

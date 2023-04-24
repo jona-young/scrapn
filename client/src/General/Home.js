@@ -4,11 +4,13 @@ import { UserContext } from '../functions/UserContext.js';
 import { courtDashboard, tournamentDashboard } from '../functions/userFunctions';
 import { validateUser } from '../functions/userAPI.js';
 import { getTournaments, deleteTournament } from '../functions/tournamentAPI.js';
+import { getBookingsByUser } from '../functions/courtBookingAPI.js';
 
 const Home = () => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
 
+    const [ courts, setCourts ] = useState()
     const [ courtBlocks, setCourtBlocks ] = useState()
     const [tournaments, setTournaments] = useState([])
     const [ tournamentBlocks, setTournamentBlocks ] = useState()
@@ -22,19 +24,23 @@ const Home = () => {
     }
 
     useEffect(() => {
-        if (userPrefs && userPrefs.bookings && userPrefs.bookings.length)
-        {
-            setAvailableCourts(3 - userPrefs.bookings.length)
-        }
-        else {setAvailableCourts(3 - 0)}
         setUserName(userPrefs.name)
-        setCourtBlocks(courtDashboard(userPrefs.bookings, Link))
+        getBookingsByUser(userPrefs.nameID, setCourts)
         getTournaments(userPrefs.nameID, setTournaments, setDummy)
     }, [userPrefs])
 
     useEffect(() => {
         setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate))
     }, [tournaments])
+
+    useEffect(() => {
+        if (courts && courts.length)
+        {
+            setAvailableCourts(3 - courts.length)
+        }
+        else {setAvailableCourts(3 - 0)}
+        setCourtBlocks(courtDashboard(courts, Link))
+    }, [courts])
     
     useEffect(() => {
         validateUser(routeLoginChange)

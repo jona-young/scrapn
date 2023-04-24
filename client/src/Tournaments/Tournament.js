@@ -7,7 +7,6 @@ import MatchUpdate from '../Tournaments/MatchUpdate.js';
 const Tournament = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-
     
     const [ bracket, setBracket ] = useState([])
     const [ standings, setStandings ] = useState([])
@@ -65,6 +64,9 @@ const Tournament = () => {
     useEffect(() => {
         roundRobinStandings(currentItem.players, standingsData, setStandings, loadedData)
     }, [standingsData, loadedData])
+
+    console.log(currentItem)
+
 
     return (
         <div className="tournament-container">

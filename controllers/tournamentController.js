@@ -95,7 +95,6 @@ module.exports.put_tournament = (req, res) => {
              }
              else
              {
-                console.log(body)
                 if (body.tournamentType !== "round-robin")
                 {
                     // Process body matches to auto populate winners from previous rounds

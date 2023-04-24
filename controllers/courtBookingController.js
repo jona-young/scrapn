@@ -18,6 +18,38 @@ module.exports.courtBookings_get = (req, res) => {
     })
 }
 
+// GET all
+module.exports.userBookings_get = (req, res) => {
+    const id = req.params.id;
+
+    let currentDate = new Date()
+
+     CourtBooking.find({date: {$gte: currentDate.setDate(currentDate.getDate() - 1)}})
+     .then((result) => {
+         let userCourts = []
+
+         for (let i = 0; i < result.length; i++)
+         {
+             for (let j = 0; j < result[i].players.length; j++)
+             {
+                 if (result[i].players[j].nameID == id)
+                 {
+                     userCourts.push(result[i])
+                 }
+             }
+         }
+
+         sortUserBookings(userCourts)
+
+         res.status(200).send(userCourts)
+     })
+     .catch((err) => {
+        console.log('this one: ', err)
+         res.status(400).send({ error: 'court booking user load error'})
+     })
+
+}
+
 // POST form
 module.exports.courtBookings_post = async (req, res) => {
     const body = req.body;
@@ -81,6 +113,7 @@ module.exports.courtBooking_put = (req, res) => {
                 }
                 else
                 {
+                    console.log('nah we fine: ', body)
                     CourtBooking.findByIdAndUpdate(id, body)
                     .then((result) => {
                         User.findById(decodedToken.id).select('privilige')
@@ -194,4 +227,17 @@ const rulesCheck = async (body) => {
     })
 
     return courtSearch
+}
+
+const sortUserBookings = (courts) => {
+    courts.sort(function(a, b) {
+        var keyA = new Date(a.date + " " + a.time),
+          keyB = new Date(b.date + " " + b.time);
+        // Compare the 2 dates
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+      });
+
+    return courts
 }

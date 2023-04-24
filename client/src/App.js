@@ -6,11 +6,10 @@ import CourtBookings from './CourtBookings/CourtBookings.js';
 import UpdateBooking from './CourtBookings/UpdateBooking.js';
 import CreateBooking from './CourtBookings/CreateBooking.js';
 import Login from './General/Login.js';
-import Signup from './General/Signup.js';
+// import Signup from './General/Signup.js';
 import Profile from './General/Profile.js';
 import Users from './General/Users.js';
 import Home from './General/Home.js';
-import ListTournaments from './Tournaments/ListTournaments.js';
 import Tournament from './Tournaments/Tournament.js';
 import CreateTournament from './Tournaments/CreateTournament.js';
 import UpdateTournament from './Tournaments/UpdateTournament.js';
@@ -66,10 +65,9 @@ function App() {
               <Route path="/update-court/:id" element={<UpdateBooking/>} />
               <Route path="/create-court/:date/:time/:court" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              {/* <Route path="/signup" element={<Signup />} /> */}
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/users" element={<Users />} />
-              {/* <Route path="/tournaments" element={<ListTournaments />} /> */}
               <Route path="/tournament/:id" element={<Tournament />} />
               <Route path="/create-tournament" element={<CreateTournament />} />
               <Route path="/update-tournament/:id" element={<UpdateTournament />} />
