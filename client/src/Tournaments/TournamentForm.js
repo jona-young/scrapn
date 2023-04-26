@@ -23,13 +23,14 @@ const TournamentForm = ({form, update}) => {
     numSeeds: form.numSeeds ? form.numSeeds : 0
   });
 
-  const [ numMatches, setNumMatches ] = useState()
+  const [ numMatches, setNumMatches ] = useState(form && form.players && form.players.length ? form.players.length : 4)
   useEffect(() => {
     setCurrentItem(form)
-    if (form.tournamentType === "single-elim") {setNumMatches(form.matches.length)}
+    if (form.tournamentType === "single-elim") {setNumMatches(form.players.length)}
     else {setNumMatches(form.players.length)}
   },[form])
 
+  console.log(currentItem.players)
   useEffect(() => {
     matchAndPlayerUpdater(numMatches, currentItem, setCurrentItem, update)
   }, [numMatches])

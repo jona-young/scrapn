@@ -256,6 +256,7 @@ const singlesUpdater = (numMatches, currentItem, updateItem, mode) => {
     // if the purpose is to update a current tournament
     if (numMatches > currentItem.matches.length && mode)
     {
+        console.log(1)
       // find the matches to add to the current tournament draw
       const matchesToAdd = numMatches - currentItem.matches.length
       // protect the current matches when sending to backend so they are not overwritten
@@ -270,6 +271,8 @@ const singlesUpdater = (numMatches, currentItem, updateItem, mode) => {
     }
     else if (numMatches < currentItem.matches.length)
     {
+        console.log(2)
+
       // find the number of matches to remove
       const matchesToRemove = (currentItem.matches.length) - numMatches
       const matchArr = removeMatchRounds(matchesToRemove, currentItem.matches, currentItem.players)
@@ -279,11 +282,15 @@ const singlesUpdater = (numMatches, currentItem, updateItem, mode) => {
     }
     else if (numMatches == currentItem.matches.length)
     {
+        console.log(3)
+
       // good to go, the ideal situation
       return
     }
     else
     {
+        console.log(4)
+
       // a new tournament form with blank matches 
       const matchArr = addMatchRounds(numMatches)
       updateItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
