@@ -23,7 +23,7 @@ const TournamentForm = ({form, update}) => {
     numSeeds: form.numSeeds ? form.numSeeds : 0
   });
 
-  const [ numMatches, setNumMatches ] = useState(4)
+  const [ numMatches, setNumMatches ] = useState()
   useEffect(() => {
     setCurrentItem(form)
     if (form.tournamentType === "single-elim") {setNumMatches(form.matches.length)}
