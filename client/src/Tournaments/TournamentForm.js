@@ -4,6 +4,7 @@ import { handleChange, matchAndPlayerUpdater } from "../Tournaments/tournamentFu
 import { postTournament, putTournament } from "../functions/tournamentAPI.js";
 
 const TournamentForm = ({form, update}) => {
+  console.log(form)
   const navigate = useNavigate();
   const formDel = true;
   //Sets the item that will be pushed to backend API to create court booking
@@ -23,7 +24,6 @@ const TournamentForm = ({form, update}) => {
   });
 
   const [ numMatches, setNumMatches ] = useState(4)
-
   useEffect(() => {
     setCurrentItem(form)
     if (form.tournamentType === "single-elim") {setNumMatches(form.matches.length)}

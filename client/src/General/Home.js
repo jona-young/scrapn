@@ -58,19 +58,14 @@ const Home = () => {
                         <div className="home-heading">Available Bookings</div>
                         <div className="bookings-counter content-right">{availableCourts}</div>
                 </Link>
-
             </div>
             <div className="bookings-current">
-                <span className="home-heading">Current Bookings</span>
-                <div className="bookings-items">
-                    { courtBlocks }               
-                </div>
+                <span className="bookings-heading">Current Bookings</span>
+                { courtBlocks }               
             </div>
             <div className="bookings-current">
-                <span className="home-heading">Current Tournaments</span>
-                <div className="bookings-items">
-                    { tournamentBlocks }               
-                </div>
+                <span className="bookings-heading">Current Tournaments</span>
+                { tournamentBlocks }               
                 <Link to="/create-tournament" className="home-button">Create New Tournament</Link>
             </div>
         </div>
