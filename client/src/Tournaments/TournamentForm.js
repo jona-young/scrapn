@@ -19,6 +19,7 @@ const TournamentForm = ({form, update}) => {
     author: form.author ? form.author : "",
     authorID: form.authorID ? form.authorID : "",
     players: form.players ? form.players : [],
+    playerType: form.playerType ? form.playerType : "",
     mode: update ? update : "-1",
     numSeeds: form.numSeeds ? form.numSeeds : 0
   });
@@ -82,7 +83,7 @@ const TournamentForm = ({form, update}) => {
           name="location"
           value={currentItem.location}
         />
-                <label className="form-field">
+        <label className="form-field">
           Draw Type
         </label>
         <select
@@ -94,7 +95,6 @@ const TournamentForm = ({form, update}) => {
           <option key="1-dt">Select Draw</option>
           <option value="single-elim" key="2-dt">Single Elimination</option>
           <option value="round-robin" key="3-dt">Round Robin</option>
-
         </select>
         <label className="form-field">
           Matches
@@ -127,6 +127,19 @@ const TournamentForm = ({form, update}) => {
           </>
           : ""
           }
+        </select>
+        <label className="form-field">
+          Player Type
+        </label>
+        <select
+          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          className="form-input"
+          name="playerType"
+          value={currentItem.playerType}
+        >
+          <option key="1-dt">Select Player Type</option>
+          <option value="Singles" key="2-dt">Singles</option>
+          <option value="Doubles" key="3-dt">Doubles</option>
         </select>
         <label className="form-field">
           Players

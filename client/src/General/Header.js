@@ -35,7 +35,6 @@ const Header = () => {
                     <li className="nav-text"><Link to={"/tournaments"}>Tournaments</Link></li>
                     <li className="nav-text"><Link to={"/profile/" + nameIDLink}>Profile</Link></li>
                     <li className="nav-text"><Link to={"/users"}>Users</Link></li>
-
                     <UserLoggedOn />
                 </ul>
             </nav>

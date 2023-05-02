@@ -1,4 +1,4 @@
-export const singleElimination = (matches, updateState, togglePopUp) => {
+export const singleElimination = (matches, updateState, togglePopUp, playerType) => {
     try
     {
         const tournament = []
@@ -16,8 +16,19 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
         //find bracket size
         let depth = findDepth(matchSize)
 
-        let emptyClass = "tournament-empty"
-        let matchClass = "tournament-match"
+        let emptyClass = "tournament-empty "
+        let matchClass = "tournament-match "
+
+        // match-team, match-names
+        let doublesMatch = ""
+        let nameClass = ""
+        let doublesSpacer = ""
+        if (playerType === "Doubles")
+        {
+            doublesMatch = "match-doublesteam"
+            nameClass = "match-doublesname"
+            doublesSpacer = <br/>
+        }
 
         let matchSpacer = 6
         for (let i = depth; i > 0; i--)
@@ -55,7 +66,7 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
                     }
                     else { formattedDate = ""}
 
-                    round.push(<div className={matchClass}
+                    round.push(<div className={matchClass + doublesMatch}
                                     key={keyCounter}
                                     data-key={keyCounter}
                                     onClick={(e) => forwardPopUp(e, togglePopUp)}>
@@ -68,16 +79,17 @@ export const singleElimination = (matches, updateState, togglePopUp) => {
                                         </p>
                                     </div>
                                     <div className="match-team">
-                                        <div className="match-names">
-                                            {matches[keyCounter].team1 && matches[keyCounter].winner === "1" ? <b>{matches[keyCounter].team1}</b> : matches[keyCounter].team1} &nbsp;
+                                        <div className={"match-names " + nameClass}>
+                                            {matches[keyCounter].team1 && matches[keyCounter].winner === "1" ? <b><ParseDoublesTeam team={matches[keyCounter].team1} /></b> : <ParseDoublesTeam team={matches[keyCounter].team1} /> } &nbsp;
                                         </div>
                                         <div className="match-score">
                                             {matches[keyCounter].score1.map((score)=> {return <span className="box-score">{score}</span>})}
                                         </div>
                                     </div>
+                                    { doublesSpacer }
                                     <div className="match-team">
-                                        <div className="match-names">
-                                        {matches[keyCounter].team2 && matches[keyCounter].winner === "2" ? <b>{matches[keyCounter].team2}</b> : matches[keyCounter].team2} &nbsp;
+                                        <div className={"match-names " + nameClass}>
+                                        {matches[keyCounter].team2 && matches[keyCounter].winner === "2" ? <b><ParseDoublesTeam team={matches[keyCounter].team2} /></b> : <ParseDoublesTeam team={matches[keyCounter].team2} />} &nbsp;
                                         </div>
                                         <div className="match-score">
                                         {matches[keyCounter].score2.map((score)=> {return <span className="box-score">{score}</span>})}
@@ -112,8 +124,12 @@ export const roundRobinStandings = (players, currentResults, updateTable, loaded
         let headings =  <tr>
                             <th></th>
                             { players.map((player, idx) => {
-                            return <th key={idx + "-playercol"}>{player}</th>
+                            return <th key={idx + "-playercol"}>{<ParseDoublesTeam team={player} />}</th>
                             })}
+                            <th>Wins</th>
+                            <th>Games</th>
+                            <th>Place</th>
+
                         </tr>
         let rows = []
         for (let i = 0; i < players.length; i++)
@@ -123,17 +139,30 @@ export const roundRobinStandings = (players, currentResults, updateTable, loaded
             {
                 if (players[i] === players[j])
                 {
-                    row.push(<td className="standings-blocked" key={counter + "-blocked"}>BLOCKED</td>)
+                    row.push(<td className="standings-blocked" key={counter + "-blocked"}>&nbsp;</td>)
                 }
                 else
                 {
-                    row.push(<td className="standings-value" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
+                    if (currentResults[players[i]][players[j]] === "TBD")
+                    {
+                        row.push(<td className="standings-value" key={counter + "-playerblock"}>&nbsp;</td>)
+                    }
+                    else
+                    {
+                        row.push(<td className="standings-value" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
+                    }
+                    // row.push(<td className="standings-value" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
+
                 }
                 counter++
             }
                 rows.push(<tr key={counter+"-row"}>
-                    <td>{players[i]}</td>
+                    <td className="standings-rowplayer">{<ParseDoublesTeam team={players[i]} />}</td>
                     {row}
+                    <td className="standings-results" key={counter + "-wins"}></td>
+                    <td className="standings-results" key={counter + "-games"}></td>
+                    <td className="standings-results" key={counter + "-place"}></td>
+
                 </tr>)
         }
 
@@ -176,9 +205,11 @@ export const roundRobin = (matches, updateState, togglePopUp) => {
                             <div className="roundrobin-date">&nbsp;{formattedDate}</div>
                         </div>
                         <div className="roundrobin-matchup">
-                            {matches[i].team1 && matches[i].winner === "1" ? <b>{matches[i].team1}</b> : matches[i].team1}
-                            &nbsp; vs &nbsp;
-                            {matches[i].team2 && matches[i].winner === "2" ? <b>{matches[i].team2}</b> : matches[i].team2}
+                            <p className="roundrobin-names">
+                            {matches[i].team1 && matches[i].winner === "1" ? <b><ParseDoublesTeam team={matches[i].team1} /></b> : <ParseDoublesTeam team={matches[i].team1} />}
+                            <br /> vs <br />
+                            {matches[i].team2 && matches[i].winner === "2" ? <b><ParseDoublesTeam team={matches[i].team2} /></b> : <ParseDoublesTeam team={matches[i].team2} />}
+                            </p>
                         </div>
                         <div className="roundrobin-scoreset">
                             {matches[i].score1.map((score) => {return <p className="roundrobin-score" key={i+"-team1"}>{score}</p>})}
@@ -546,4 +577,35 @@ const removeMatchRounds = (matchesToRemove, _matches, _players) => {
     }
 
     return formattedArr
+}
+
+const ParseDoublesTeam = ({team}) => {
+    if (team === "")
+    {
+        return <>{team}</>
+    }
+    if (team.split("/").length >= 2)
+    {
+        return (
+            <>
+                {team.split("/")[0]}
+                <br />
+                {team.split("/")[1]}
+            </>
+        )
+    }
+    else if (team.split("&").length >= 2)
+    {
+        return (
+            <>
+                {team.split("&")[0]}
+                <br />
+                {team.split("&")[1]}
+            </>
+        )
+    }
+    else
+    {
+        return <>{team}</>
+    }
 }

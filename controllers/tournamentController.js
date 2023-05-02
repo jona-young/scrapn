@@ -8,8 +8,34 @@ const populateMatchWinners = require('../helpers/populateMatchWinners.js');
 const matchSeedsToDraw = require('../helpers/matchSeedsToDraw.js');
 
 
-// GET all
+// GET all tournaments
 module.exports.get_tournaments = (req, res) => {
+
+    Tournament.find()
+    .then((result) => {
+        let sortedTournaments = {}
+
+        for (let i = 0; i < result.length; i++)
+        {
+            if (result[i].author in sortedTournaments)
+            {
+                sortedTournaments[result[i].author].push(result[i])
+            }
+            else
+            {
+                sortedTournaments[result[i].author] = []
+            }
+        }
+
+        res.status(200).send(sortedTournaments)
+    })
+    .catch((err) => {
+        res.status(err);
+    })
+}
+
+// GET all tournaments for a given user
+module.exports.get_usertournaments = (req, res) => {
     const id = req.params.id;
 
     Tournament.find({ author: id})

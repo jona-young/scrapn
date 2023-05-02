@@ -6,7 +6,6 @@ import { UserContext } from '../functions/UserContext.js';
 const UserLoggedOn = () => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
-
     const [ loggedOn, setLoggedOn ] = useState(false)
     const navigate = useNavigate();
     const routeLoginChange = () => {
@@ -19,6 +18,21 @@ const UserLoggedOn = () => {
 
     if (loggedOn)
     {
+        if (userPrefs.privilige > 2)
+        {
+            return (
+                <>
+                    <li className="nav-text"><Link to={"/list-tournaments"}>List of Tournaments</Link></li>
+                    <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
+                </> 
+            )
+        }
+        else
+        {
+            return (
+                <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
+            )
+        }
         return (
             <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
         )

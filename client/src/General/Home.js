@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
 import { courtDashboard, tournamentDashboard } from '../functions/userFunctions';
 import { validateUser } from '../functions/userAPI.js';
-import { getTournaments, deleteTournament } from '../functions/tournamentAPI.js';
+import { getUserTournaments, deleteTournament } from '../functions/tournamentAPI.js';
 import { getBookingsByUser } from '../functions/courtBookingAPI.js';
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
     useEffect(() => {
         setUserName(userPrefs.name)
         getBookingsByUser(userPrefs.nameID, setCourts)
-        getTournaments(userPrefs.nameID, setTournaments, setDummy)
+        getUserTournaments(userPrefs.nameID, setTournaments, setDummy)
     }, [userPrefs])
 
     useEffect(() => {

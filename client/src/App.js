@@ -13,6 +13,7 @@ import Home from './General/Home.js';
 import Tournament from './Tournaments/Tournament.js';
 import CreateTournament from './Tournaments/CreateTournament.js';
 import UpdateTournament from './Tournaments/UpdateTournament.js';
+import ListTournaments from './Tournaments/ListTournaments.js';
 import { UserContext } from './functions/UserContext.js';
 import { DataContext } from './functions/DataContext.js';
 import { loadUserData } from './functions/userAPI.js';
@@ -71,6 +72,7 @@ function App() {
               <Route path="/tournament/:id" element={<Tournament />} />
               <Route path="/create-tournament" element={<CreateTournament />} />
               <Route path="/update-tournament/:id" element={<UpdateTournament />} />
+              <Route path="/list-tournaments" element={<ListTournaments />} />
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           <Footer />

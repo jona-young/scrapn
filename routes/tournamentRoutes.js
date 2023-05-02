@@ -3,8 +3,11 @@ const tournamentController = require('../controllers/tournamentController.js');
 
 const tournamentRouter = Router();
 
+// GET - Retrieve all tournaments
+tournamentRouter.get('/api/tournaments',  tournamentController.get_tournaments);
+
 // GET - Retrieve all tournaments by user account
-tournamentRouter.get('/api/tournaments/:id',  tournamentController.get_tournaments);
+tournamentRouter.get('/api/user-tournaments/:id',  tournamentController.get_usertournaments);
 
 // GET - Retrieve single tournament
 tournamentRouter.get('/api/tournament/:id',  tournamentController.get_tournament);

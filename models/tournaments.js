@@ -76,6 +76,10 @@ const tournamentSchema = new Schema({
         type: String,
         required: false
     }],
+    playerType: {
+        type: String,
+        required: false
+    }
 }, {
     timestamps: true
 });

@@ -52,12 +52,12 @@ const Tournament = () => {
         getTournament(id, setCurrentItem, setLoadedData)
         if (currentItem.tournamentType === "single-elim")
         {
-            singleElimination(currentItem.matches, setBracket, togglePopUp)
+            singleElimination(currentItem.matches, setBracket, togglePopUp, currentItem.playerType)
         }
         else if (currentItem.tournamentType === "round-robin")
         {
             getRoundRobinResults(id, setStandingsData);
-            roundRobin(currentItem.matches, setBracket, togglePopUp)
+            roundRobin(currentItem.matches, setBracket, togglePopUp, currentItem.playerType)
         }
     }, [loadedData])
 

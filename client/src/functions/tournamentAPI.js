@@ -18,8 +18,25 @@ export const getTournament = async (id, updateData, setDataLoaded) => {
 }
 
 // GET Request for all user tournaments
-export const getTournaments = async (id, updateData, setDataLoaded) => {
-    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/tournaments/" + id, {
+export const getUserTournaments = async (id, updateData, setDataLoaded) => {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/user-tournaments/" + id, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        updateData(json);
+        setDataLoaded(true)
+    }
+}
+
+// GET Request for all user tournaments
+export const getTournaments = async (updateData, setDataLoaded) => {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/tournaments/", {
         credentials: 'include',
         method: 'GET',
         headers: {'Content-Type': 'application/json'},

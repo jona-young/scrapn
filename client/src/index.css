@@ -746,17 +746,25 @@ ul li::marker {
 }
 
 .match-team {
-  padding: 0 10px 0 20px;
+  padding: 0 10px 0 10px;
   display: flex;
   flex-direction: row;
 }
 
 .match-names {
-  width:100px;
-  height: 17px;
+  width:130px;
+  height: 17px; 
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.match-doublesteam {
+  height: 120px;
+}
+
+.match-doublesname {
+  height: 34px;
 }
 
 .match-score {
@@ -857,9 +865,10 @@ ul li::marker {
 }
 
 .rr-standings {
-  margin: 10px;
+  margin: 20px 0 0 35px;
   padding: 20px;
-  background: #e8e8e8;
+  background: #00C772;
+  color: black;
   border: 5px solid #f0f0f0; 
   text-align: center;
 }
@@ -869,7 +878,19 @@ ul li::marker {
 }
 
 .standings-value {
-  border: 2px solid black;
+  border: 4px solid black;
+  width: 300px;
+}
+
+.standings-results {
+  border: 4px solid black;
+  width: 100px;
+}
+
+.standings-rowplayer {
+  width: 200px;
+  padding: 10px 0 10px 0;
+  font-weight: bold;
 }
 
 .roundrobin-container {
@@ -884,9 +905,10 @@ ul li::marker {
 }
 
 .roundrobin-match {
-  width: 220px;
-  height: 130px;
+  width: 250px;
+  height: 195px;
   margin: 20px 5px;
+  padding: 0 10px 0 10px;
   background: #00C772;
   border: 5px solid #f0f0f0;
 
@@ -925,6 +947,10 @@ ul li::marker {
 .roundrobin-score {
   width: 25px;
   margin: 0 5px;
+  text-align: center;
+}
+
+.roundrobin-names {
   text-align: center;
 }
 
