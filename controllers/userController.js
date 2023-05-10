@@ -253,9 +253,7 @@ module.exports.put_user = (req, res) => {
      // Check jwt validation
      if (token)
      {
-        console.log('here yee here yee')
          jwt.verify(token, 'BOOKR-JWT', async (err, decodedToken) => {
-            console.log('me dude: ', id)
              if (err)
              {
                  console.log(err.message);
@@ -263,15 +261,11 @@ module.exports.put_user = (req, res) => {
              }
              else
              {
-                console.log('mi goreng: ', body)
-
                 User.findByIdAndUpdate(id, body)
                 .then((result) => {
-                    console.log('shin ramyun: ', result)
                     res.status(200).send({ result: 'Updated!'})
                 })
                 .catch((err) => {
-                    console.log('deez nuts: ', err)
                     res.status(400);
                 })
              }

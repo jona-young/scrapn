@@ -42,6 +42,14 @@ export const singleElimination = (matches, updateState, togglePopUp, playerType)
                 //match spacer var
                 let connectClass = "tournament-connect tournament-space"+ matchSpacer
                 let spaceClass = "tournament-space"+ matchSpacer
+
+                if (playerType === "Doubles")
+                {
+                    connectClass = "tournament-connect tournament-space"+ matchSpacer + matchSpacer
+                    spaceClass = "tournament-space"+ matchSpacer + matchSpacer
+                }
+
+
                 let connector = <div className={connectClass} key={'spacer-' + keyCounter}></div>
                 let spacer = <div className={spaceClass} key={'spacer-' + keyCounter}></div>
 
@@ -609,4 +617,3 @@ const ParseDoublesTeam = ({team}) => {
         return <>{team}</>
     }
 }
-

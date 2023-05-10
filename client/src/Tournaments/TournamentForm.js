@@ -4,7 +4,6 @@ import { handleChange, matchAndPlayerUpdater } from "../Tournaments/tournamentFu
 import { postTournament, putTournament } from "../functions/tournamentAPI.js";
 
 const TournamentForm = ({form, update}) => {
-  console.log(form)
   const navigate = useNavigate();
   const formDel = true;
   //Sets the item that will be pushed to backend API to create court booking
@@ -21,17 +20,26 @@ const TournamentForm = ({form, update}) => {
     players: form.players ? form.players : [],
     playerType: form.playerType ? form.playerType : "",
     mode: update ? update : "-1",
-    numSeeds: form.numSeeds ? form.numSeeds : 0
+    seeds: form.seeds ? form.seeds : 0
   });
+
+  const [ tournamentType, setTournamentType ] = useState("")
+  const updateTournamentType = (e) => {
+    setTournamentType(e.target.value)
+    handleChange(e, setCurrentItem, currentItem)
+  }
 
   const [ numMatches, setNumMatches ] = useState(form && form.players && form.players.length ? form.players.length : 4)
   useEffect(() => {
     setCurrentItem(form)
-    if (form.tournamentType === "single-elim") {setNumMatches(form.players.length)}
+    if (form.tournamentType === "single-elim")
+    {
+      setNumMatches(form.players.length)
+      setTournamentType("single-elim")
+    }
     else {setNumMatches(form.players.length)}
   },[form])
 
-  console.log(currentItem.players)
   useEffect(() => {
     matchAndPlayerUpdater(numMatches, currentItem, setCurrentItem, update)
   }, [numMatches])
@@ -87,7 +95,7 @@ const TournamentForm = ({form, update}) => {
           Draw Type
         </label>
         <select
-          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+          onChange={(e) => updateTournamentType(e)}
           className="form-input"
           name="tournamentType"
           value={currentItem.tournamentType}
@@ -97,7 +105,7 @@ const TournamentForm = ({form, update}) => {
           <option value="round-robin" key="3-dt">Round Robin</option>
         </select>
         <label className="form-field">
-          Matches
+          Number of Teams
         </label>
         <select
           onChange={(e) => handleChange(e, setNumMatches, numMatches)}
@@ -158,16 +166,25 @@ const TournamentForm = ({form, update}) => {
                     />
                    </div>
         })}
-        {form.mode !== "update" ? 
-              <>
-                <label className="form-field">
-                  Insert Seeds to Draw
-                </label>
-                <input type="checkbox" onClick={(e) => handleChange(e, setCurrentItem, currentItem)} name="seedDraw" value={true} />
-              </>
-              :
-              ""
-        }
+
+        {tournamentType === "single-elim" ? 
+        <>
+          <label className="form-field">
+            Number of Seeds
+          </label>
+          <input
+            type="number"
+            onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+            className="form-input"
+            name="seeds"
+            value={currentItem.seeds}
+            placeholder="# of Seeds"
+          />
+        </>
+
+        :
+        ""
+      }
 
         <input id="submit" className="form-submit" type="submit" name="Add" />
 

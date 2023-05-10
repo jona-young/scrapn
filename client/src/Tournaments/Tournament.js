@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import { UserContext } from '../functions/UserContext.js';
+import jsPDF from 'jspdf';
 import { singleElimination, roundRobin, roundRobinStandings } from '../Tournaments/tournamentFunctions.js';
 import { getTournament, putTournament, getRoundRobinResults, deleteTournament } from '../functions/tournamentAPI.js';
 import MatchUpdate from '../Tournaments/MatchUpdate.js';
@@ -7,6 +9,11 @@ import MatchUpdate from '../Tournaments/MatchUpdate.js';
 const Tournament = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+
+    //User Context
+    const { userPrefs } = useContext(UserContext);
+
+    const pdfRef = useRef(null);
     
     const [ bracket, setBracket ] = useState([])
     const [ standings, setStandings ] = useState([])
@@ -47,6 +54,70 @@ const Tournament = () => {
 
         setLoadedData(false)
     }
+    
+    // Export tournament draws, modular for round robin & single elimination
+    const exportPDF = (tournamentType, players) => {
+        let orient = "l"
+        let dimensions = [500, 500]
+        if (tournamentType === "single-elim")
+        {
+            if (players >= 8 && players < 16)
+            {
+                dimensions = [900, 900]
+            }
+            else if (players >= 16 && players < 32)
+            {
+                orient="p"
+                dimensions = [1260, 1600]
+            }
+            else if (players >= 32 && players < 64)
+            {
+                orient="p"
+                dimensions = [1440, 2800]
+            }
+            else if (players >= 64)
+            {
+                orient="p"
+                dimensions = [1440, 5600]
+            }
+        }
+        else if (tournamentType === "round-robin")
+        {
+            if (players === 2)
+            {
+                dimensions = [1260, 720]
+            }
+            else if (players === 3)
+            {
+                dimensions = [1260, 1080]
+            }
+            else if (players === 4)
+            {
+                dimensions = [1260, 1260]
+            }
+            else if (players === 5)
+            {
+                orient="p"
+                dimensions = [1260, 1780]
+            }
+            else if (players === 6)
+            {
+                orient="p"
+                dimensions = [1440, 2060]
+            }
+
+        }
+
+        const content = pdfRef.current;
+
+        // jsPDF parameters (orientation, unit, page size)
+        const doc = new jsPDF(orient, "px", dimensions);
+        doc.html(content, {
+            callback: function (doc) {
+            doc.save('sample.pdf');
+            }
+        });
+    }
 
     useEffect(() => { 
         getTournament(id, setCurrentItem, setLoadedData)
@@ -65,24 +136,35 @@ const Tournament = () => {
         roundRobinStandings(currentItem.players, standingsData, setStandings, loadedData)
     }, [standingsData, loadedData])
 
+
+
     return (
-        <div className="tournament-container">
+        <>
+            { currentItem.author === userPrefs.nameID ? 
             <div className="tournament-header">
                 <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
                 <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>
             </div>
+            : ""
+        }
+            <button onClick={() => exportPDF(currentItem.tournamentType, currentItem.players.length)} className="button-download">Download PDF</button>
+            <div className="tournament-container" ref={pdfRef}>
+                {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} players={currentItem.players} /> : null}
+                {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
+                <div className="tournament-banner">
+                    <h1>{currentItem.name}</h1>
+                    <hr className="banner-line" />
+                    <h4>{currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}</h4>
+                    <h4>{currentItem.location}</h4>
+                </div>
 
-            {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} players={currentItem.players} /> : null}
-            {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
-            <h1>{currentItem.name}</h1>
-            <h4>{currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}</h4>
-            <h4>{currentItem.location}</h4>
-
-            {standings}
-            <div className="tournament">
-                {bracket}
+                {standings}
+                <div className="tournament">
+                    {bracket}
+                </div>
             </div>
-        </div>
+        </>
+        
     )
 }
 

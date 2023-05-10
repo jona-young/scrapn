@@ -409,6 +409,17 @@ ul li::marker {
   flex-direction: row;
 }
 
+.tournament-banner {
+  background: #00C772;
+  padding: 10px 30px 10px 30px;
+  color: white;
+}
+
+.banner-line {
+  margin: 5px 0 5px 0;
+  border: 5px solid white;
+}
+
 .button-delete {
   right: 0;
   margin-right: 5px;
@@ -421,6 +432,19 @@ ul li::marker {
 
 .button-delete:hover {
   background: rgb(148, 120, 233);
+}
+
+.button-download {
+  right: 0;
+  margin-left: 10px;
+  margin-right: 5px;
+  padding: 2px 4px;
+  background: #0092FF;
+  color: white;
+}
+
+.button-download:hover {
+  background: #79a6c8;
 }
 
 
@@ -622,9 +646,6 @@ ul li::marker {
     font-weight:bolder
 }
 
-#court-schedule {
-}
-
 .schedule-row {
     display: flex;
     flex-direction: row;
@@ -778,6 +799,7 @@ ul li::marker {
   border-right: 6px solid #5590EC;
 
 }
+
 .tournament-space6 {
   min-height:35px;
 }
@@ -796,6 +818,26 @@ ul li::marker {
 
 .tournament-space2 {
   min-height: 1525px;
+}
+
+.tournament-space66 {
+  min-height:35px;
+}
+
+.tournament-space55 {
+  min-height:196px;
+}
+
+.tournament-space44 {
+  min-height: 515px;
+}
+
+.tournament-space33 {
+  min-height: 1150px;
+}
+
+.tournament-space22 {
+  min-height: 2465px;
 }
 
 .box-score {

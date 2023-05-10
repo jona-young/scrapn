@@ -1,4 +1,4 @@
-const matchSeedsToDraw = (matches, players) => {
+const matchSeedsToDraw = (matches, players, seeds) => {
     if (matches.length <= 2)
     {
         return
@@ -15,24 +15,16 @@ const matchSeedsToDraw = (matches, players) => {
     // number of matches in the first round of the tournament draw
     let roundMatches = Math.pow(2,depth) - Math.pow(2,depth - 1)
 
-    const seededPlayers = seedPlayers(players, roundMatches)
-
-    let currentPos = roundMatches
-    let playerCounter = 0
-    while (currentPos < (roundMatches * 2))
+    // take the players and create an array with players to be seeded
+    const seededPlayers = seedPlayers(players, seeds, roundMatches)
+    
+    seedIdx = seededPlayers.length - 1
+    for (let i = roundMatches; i < tournamentMatches.length; i++)
     {
-        // assign player to court
-        tournamentMatches[currentPos].team1 = seededPlayers[playerCounter]
-        tournamentMatches[currentPos].checker = 1
+        tournamentMatches[i].team1 = seededPlayers[seedIdx]
+        tournamentMatches[i].checker = 1
 
-        // sets a draw every 4 matches
-        if (currentPos % 2 == 1)
-        {
-            currentPos = currentPos + 1
-        }
-        else { currentPos = currentPos + 3 }
-
-        playerCounter++
+        seedIdx--
     }
 
     return tournamentMatches
@@ -51,22 +43,108 @@ const findDepth = (matchSize) => {
     return depth
 }
 
-const seedPlayers = (players, roundMatches) => {
-    let playersInOrder = []
-
-    let endPlayerPos = (roundMatches / 2) - 1
-    let beginPlayerPos = 0
-
-    while (beginPlayerPos < endPlayerPos)
+const seedPlayers = (players, seeds, roundMatches) => {
+    if (seeds > roundMatches)
     {
-        playersInOrder.push(players[beginPlayerPos])
-        playersInOrder.push(players[endPlayerPos])
+        seeds = roundMatches
+    }
+    let seedsArr = []
 
-        beginPlayerPos = beginPlayerPos + 1
-        endPlayerPos = endPlayerPos - 1
+    // To find the spacing between matches of 1st round matches to seeds
+    // divide 1st round matches by # of seeds    
+    seedsArr = players.slice(0, seeds)
+
+    // ensures seeds = power of 2, roundMatches will always be power of 2
+    if (roundMatches > seeds)
+    {
+        const addBlankSeeds = roundMatches - seeds
+        for (let i = 0; i < addBlankSeeds; i++)
+        {
+            seedsArr.push("")
+        }
     }
 
-    return playersInOrder
+    // assigns top and bottom seeds division
+    let topSeeds = []
+    let botSeeds = []
+    for (let i = 0; i < seedsArr.length / 2; i++)
+    {
+        topSeeds.push(-1)
+        botSeeds.push(-1)
+    }
+
+    // divide top and bottom side draws on seedings
+    for (let i = 0; i < seedsArr.length / 2; i++)
+    {
+        if (i == 0)
+        {
+            topSeeds[i] = seedsArr[i]
+            botSeeds[i] = seedsArr[i + 1]
+        }
+        else if (i % 2 == 1)
+        {
+            topSeeds[i] = seedsArr[2 * i + 1]
+            botSeeds[i] = seedsArr[2 * i]
+        }
+        else
+        {
+            topSeeds[i] = seedsArr[2 * i]
+            botSeeds[i] = seedsArr[2 * i + 1]
+        }
+    }
+
+    // order seedings vertical based match by match
+    let finalSeeding = []
+    if (topSeeds.length >= 2)
+    {
+        // top side draw
+        let endIdx = topSeeds.length - 1
+        let botMidPt = topSeeds.length / 2
+        let topMidPt = botMidPt - 1
+
+        for (let i = 0; i < topSeeds.length / 2; i++)
+        {
+            if (i === 0)
+            {
+                finalSeeding.push(topSeeds[i])
+                finalSeeding.push(topSeeds[endIdx])
+            }
+            else
+            {
+                finalSeeding.push(topSeeds[botMidPt])
+                finalSeeding.push(topSeeds[topMidPt])
+
+                topMidPt--
+                botMidPt++
+            }
+        }
+
+        // bottom side draw
+        botOuterPt = botSeeds.length - 2
+        topOuterPt = 1
+
+        for (let i = 0; i < botSeeds.length / 2; i++)
+        {
+            if (i === botSeeds.length / 2 - 1)
+            {
+                finalSeeding.push(botSeeds[endIdx])
+                finalSeeding.push(botSeeds[0])
+            }
+            else
+            {
+                finalSeeding.push(botSeeds[topOuterPt])
+                finalSeeding.push(botSeeds[botOuterPt])
+
+                topOuterPt++
+                botOuterPt--
+            }
+        }
+    }
+    else { finalSeeding = [seedsArr[0], seedsArr[1]]} // only 2 team single elim draw
+
+    return finalSeeding
 }
+
+
 
 module.exports = matchSeedsToDraw

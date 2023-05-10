@@ -64,7 +64,7 @@ module.exports.get_tournament = (req, res) => {
 module.exports.post_tournament = (req, res) => {
     const body = req.body;
     const token = req.cookies.jwt;
-    console.log(body)
+
     // Check jwt validation
     if (token)
     {
@@ -80,9 +80,17 @@ module.exports.post_tournament = (req, res) => {
                 let tournament;
 
                 // manipulates matches and players to take into account seeds
-                if (body.seedDraw && body.tournamentType === "single-elim")
+                if (body.seeds && body.tournamentType === "single-elim")
                 {
-                    const seededDraw = matchSeedsToDraw(body.matches, body.players)
+                    for (let i = 0; i < body.seeds; i++)
+                    {
+                        if (body.players[i].slice(body.players[i].length - 2, body.players[i].length) != ")*")
+                        {
+                            body.players[i] = body.players[i] + " (" + (i + 1) + ")*"
+                        }
+                    }
+                    
+                    const seededDraw = matchSeedsToDraw(body.matches, body.players, body.seeds)
                     body.matches = seededDraw
                 }
 
@@ -126,6 +134,20 @@ module.exports.put_tournament = (req, res) => {
                     // Process body matches to auto populate winners from previous rounds
                     const updatedMatchSet = populateMatchWinners(body.matches)
                     body.matches = updatedMatchSet
+                }
+
+                // manipulates matches and players to take into account seeds
+                if (body.seeds && body.tournamentType === "single-elim")
+                {
+                    for (let i = 0; i < body.seeds; i++)
+                    {
+                        if (body.players[i].slice(body.players[i].length - 2, body.players[i].length) != ")*")
+                        {
+                            body.players[i] = body.players[i] + " (" + (i + 1) + ")*"
+                        }
+                    }
+                    const seededDraw = matchSeedsToDraw(body.matches, body.players, body.seeds)
+                    body.matches = seededDraw
                 }
 
                 Tournament.findByIdAndUpdate(id, body)
@@ -177,15 +199,12 @@ module.exports.get_roundRobinResults = (req, res) => {
             let curMatch = result.matches[i]
             if (curMatch.winner === "1")
             {
-                console.log('yoooo ', curMatch.winner, " beat up: ", curMatch.team2)
                 standings[curMatch.team1][curMatch.team2] = "WIN"
 
                 standings[curMatch.team2][curMatch.team1] = "LOSS"
             }
             else if (curMatch.winner === "2")
             {
-                console.log('yoooo ', curMatch.winner, " beat up: ", curMatch.team1)
-
                 standings[curMatch.team2][curMatch.team1] = "WIN"
 
                 standings[curMatch.team1][curMatch.team2] = "LOSS"

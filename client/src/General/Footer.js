@@ -6,9 +6,9 @@ const Footer = () => {
             <div className="footer-item footer-name">
                 SCRAPN
             </div>
-            <div className="footer-item">
+            {/* <div className="footer-item">
                 123 Rainbow Road, Toronto, ON, A1B 2C3
-            </div>
+            </div> */}
             <div className="footer-item">
                 <Link path="#" onClick={(e) => {
                     window.location.href = "mailto:scrapn.support@icloud.com?subject=Scrapn Tournament Issue";

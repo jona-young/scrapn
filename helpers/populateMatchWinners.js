@@ -1,5 +1,4 @@
 const populateMatchWinners = (matchArr) => {
-    console.log(matchArr)
     let formattedArr = []
 
     // create a copy of the array
@@ -29,7 +28,6 @@ const populateMatchWinners = (matchArr) => {
 
             formattedArr[i].checker = 1
         }
-        // else { formattedArr[i].team2 = "" }
 
         if (odd.winner == "1" || odd.winner == "2")
         {
@@ -38,7 +36,6 @@ const populateMatchWinners = (matchArr) => {
             
             formattedArr[i].checker = 1
         }
-        // else { formattedArr[i].team1 = "" }
     }
 
     return formattedArr
