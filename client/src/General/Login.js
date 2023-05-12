@@ -17,13 +17,12 @@ const Login = () => {
         navigate('/signup');
     }
 
+    const routeForgotPassword = () => {
+        navigate('/forgot-password');
+    }
+
     const [ loginDetails, setLoginDetails ] = useState({});
     const [ errors, setErrors ] = useState({})
-
-    const onForgotPassword = () => {
-        // Fetch request to reset password
-        console.log("Your password will be reset, check your email shortly...")
-    }
 
     return (
         <div className="userauth-container" >
@@ -56,7 +55,7 @@ const Login = () => {
                         <div className="login-line"></div>
                     </div>
                     <input type="button" 
-                        onClick={ onForgotPassword } 
+                        onClick={ routeForgotPassword } 
                         value="Forgot Password?" 
                         className="general-button login-button login-forgot"/>
                     <input type="button" 
