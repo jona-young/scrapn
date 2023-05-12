@@ -28,4 +28,13 @@ userRouter.get('/api/user/:id', userController.get_user);
 // User PUT route
 userRouter.put('/api/user/:id', userController.put_user);
 
+// Forgot Password POST route
+userRouter.post('/api/forgot-password', userController.forgot_password);
+
+// Forgot Password GET route
+userRouter.get('/api/forgot-password/:id/:token', userController.forgot_password_check);
+
+// Forgot Password POST route
+userRouter.post('/api/reset-password', userController.reset_password);
+
 module.exports = userRouter;

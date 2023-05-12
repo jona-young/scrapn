@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser')
 // routes
 const courtBookingRoutes = require('./routes/courtBookingRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
@@ -31,6 +32,9 @@ mongoose.set('strictQuery', true);
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 app.use(cookieParser());
 
 app.use(function(req, res, next) {

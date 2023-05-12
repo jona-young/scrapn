@@ -1,6 +1,8 @@
 const User = require('../models/users.js');
 const CourtBooking = require('../models/court-bookings.js')
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const resetPasswordEmail = require('../helpers/resetPasswordEmail.js');
 
 // Error handling
 const handleErrors = (err) => {
@@ -38,8 +40,8 @@ const handleErrors = (err) => {
 }
 
 const maxAge = 3 * 24 * 60 * 60
-const createToken = (id) => {
-    return jwt.sign({ id }, 'BOOKR-JWT', {
+const createToken = (id, secret) => {
+    return jwt.sign({ id }, secret, {
         expiresIn: maxAge
     })
 }
@@ -50,7 +52,7 @@ module.exports.signup_post = async (req, res) => {
 
     try {
         const user = await User.create({ name, email, password, privilige, rating})
-        const token = createToken(user._id);
+        const token = createToken(user._id, 'BOOKR-JWT');
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ isLoggedOn: true, name: name, privilige: user.privilige, token: token,
             _id: user._id, bookings: [] });
@@ -68,7 +70,7 @@ module.exports.login_post = async (req, res) => {
     try {
 
             const user = await User.login(email, password);
-            const token = createToken(user._id);
+            const token = createToken(user._id, 'BOOKR-JWT');
 
             let currentDate = new Date()
             // let userCourts = []
@@ -272,6 +274,84 @@ module.exports.put_user = (req, res) => {
          })
      }   
 }
+
+module.exports.forgot_password = async (req, res) => {
+    if (req.body.email !== undefined)
+    {
+        let emailAddress = req.body.email
+
+        User.findOne({ email: emailAddress})
+        .then(async (userAcc) => {
+            let payload = {
+                id: userAcc._id,
+                email: emailAddress
+            }
+
+            const token = createToken(payload, userAcc.password + '-' + userAcc.createdAt.getTime())
+
+            // send email out
+            const emailed = await resetPasswordEmail(emailAddress, userAcc.name, userAcc._id, token)
+            console.log(emailed)
+            res.status(200).send({ result: emailed})
+        })
+        .catch((err) => {
+            res.status(400).send({errors: { email: 'User not found!'}})
+        })
+    }
+    else { res.status(400).send({ errors: {email: 'Email address not associated with an account'}})}
+}
+
+module.exports.forgot_password_check = (req, res) => {
+    const id = req.params.id
+    const _token = req.params.token
+
+
+    User.findOne({ _id: id})
+    .then((userAcc) => {
+        let payload = jwt.decode(_token, userAcc.password + '-' + userAcc.createdAt.getTime())
+
+        res.status(200).send({
+            id: payload.id,
+            token: _token
+        })
+    })
+    .catch((err) => {
+        res.send(400)
+    })
+}
+
+module.exports.reset_password = (req, res) => {
+    const id = req.body.id.id
+    const _token = req.body.token
+    const { password1, password2 } = req.body
+    console.log('dis one: ', _token)
+    if ( password1 !== password2)
+    {
+        res.status(400).send({ errors: { password: "Passwords do not match!"}})
+    }
+    else
+    {
+        User.findOne({ _id: id})
+        .then(async (userAcc) => {
+            let payload = jwt.decode(_token, userAcc.password + '-' + userAcc.createdAt.getTime())
+    
+            const salt = await bcrypt.genSalt();
+            const hashedPW = await bcrypt.hash(password1, salt);
+
+            User.findByIdAndUpdate({ _id: payload.id.id }, { password: hashedPW})
+            .then(() => {
+                res.status(200).send({ result: "Password updated!"})
+            })
+            .catch((err) => {
+                res.status(400).send({ errors: { password: "User profile updating not found!" }})
+            })
+        })
+        .catch((err) => {
+            res.status(400).send({ errors: { password: "User not found!" }})
+        })
+    }
+}
+
 
 const sortUserBookings = (courts) => {
     courts.sort(function(a, b) {

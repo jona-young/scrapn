@@ -201,7 +201,6 @@ export const getUser = async (id, setUser) => {
 //Updates a user profile
 export const putUser = async (e, forms, history) => {
   e.preventDefault();
-  console.log(' ooooh ok')
 
   const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/user/' + forms._id, {
       credentials: 'include',
@@ -211,8 +210,6 @@ export const putUser = async (e, forms, history) => {
   })
 
   const json = await data.json();
-
-  console.log(' uh ok')
 
   if (json.errors)
   {
@@ -227,5 +224,75 @@ const setLocalStorage = (items) => {
   for (let i = 0; i < items.length; i++)
   {
     localStorage.setItem(items[i][0], JSON.stringify(items[i][1]))
+  }
+}
+
+export const postForgotPassword = async (e, email, updateErrors, history) => {
+  e.preventDefault();
+  updateErrors({});
+
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/forgot-password', {
+      credentials: 'include',
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(email),
+  })
+
+  const json = await data.json();
+
+  if (json.errors)
+  {
+    // this will be the email error that it is not in the database
+      updateErrors(errors => ({...errors, 
+                  email: json.errors.email, 
+      }));
+  }
+
+  if (json.result)
+  {
+    // this will be 
+    history("/");
+  }
+}
+
+//Get verification on password reset 
+export const getPasswordReset = async (id, token, updateState) => {
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/forgot-password/' + id + "/" + token, {
+    credentials: 'include',
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+})
+
+let json = await data.json();
+
+updateState(json);
+}
+
+export const postPasswordReset = async (e, form, updateErrors, history) => {
+  e.preventDefault();
+  updateErrors({});
+
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/reset-password', {
+      credentials: 'include',
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(form),
+  })
+
+  const json = await data.json();
+
+  if (json.errors)
+  {
+    // this will be the email error that it is not in the database
+      updateErrors(errors => ({...errors, 
+                  password: json.errors.password, 
+      }));
+  }
+
+  if (json.result)
+  {
+    // this will be 
+    console.log(json.result)
+    history("/");
   }
 }

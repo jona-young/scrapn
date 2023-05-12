@@ -26,6 +26,7 @@ const CreateTournament = () => {
     useEffect(() => {
         validateUser(routeLoginChange);
     },[])
+    
     return (
         <TournamentForm form={currentItem} />
     )
