@@ -27,7 +27,7 @@ const resetPasswordEmail = async (toAddress, name, id, token) => {
                     Dear ${name},
                     <br>
                     <br>
-                    You recently requested a new password for your Cineplex Connect account.
+                    You recently requested a new password for your SCRAPN account.
                     If you made this request, please click the link below and follow the instructions.
                     <br>
                     <a href="${process.env.CLIENT_API}/reset-password/${id}/${token}">Click Here!</a>

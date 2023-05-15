@@ -20,7 +20,6 @@ const CreateTournament = () => {
         matches:[],
         author: "",
         players: [],
-
     });
     
     useEffect(() => {

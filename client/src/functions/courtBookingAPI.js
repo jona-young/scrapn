@@ -90,7 +90,6 @@ export const postBooking = async (e, forms, history) => {
 
 //Updates a court booking
 export const putBooking = async (e, forms, history) => {
-    console.log('fonrtend: ', forms)
     e.preventDefault();
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/court-booking/' + forms._id, {
         credentials: 'include',
@@ -109,3 +108,14 @@ export const putBooking = async (e, forms, history) => {
     history("/court-bookings");
 
 };
+
+const APIOptipns = () => {
+    // credentials
+
+    // method
+
+    // headers
+
+    // optional body
+
+}

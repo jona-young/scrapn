@@ -23,19 +23,16 @@ const UserLoggedOn = () => {
             return (
                 <>
                     <li className="nav-text"><Link to={"/list-tournaments"}>List of Tournaments</Link></li>
-                    <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
+                    <li className="nav-logout"><button className="btn-logout" onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
                 </> 
             )
         }
         else
         {
             return (
-                <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
+                <li className="nav-logout"><button className="btn-logout" onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
             )
         }
-        return (
-            <li className="nav-text"><button onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
-        )
     }
     else
     {

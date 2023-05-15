@@ -11,7 +11,7 @@ const Footer = () => {
             </div> */}
             <div className="footer-item">
                 <Link path="#" onClick={(e) => {
-                    window.location.href = "mailto:scrapn.support@icloud.com?subject=Scrapn Tournament Issue";
+                    window.location.href = "mailto:scrapn.services@gmail.com?subject=Scrapn Tournament Issue";
                     e.preventDefault()
                 }} className="footer-link">Contact Us</Link>
             </div>

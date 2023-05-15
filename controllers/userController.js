@@ -292,13 +292,13 @@ module.exports.forgot_password = async (req, res) => {
             // send email out
             const emailed = await resetPasswordEmail(emailAddress, userAcc.name, userAcc._id, token)
             console.log(emailed)
-            res.status(200).send({ result: emailed})
+            res.status(200).send({response: { email: 'Password reset email sent!'}})
         })
         .catch((err) => {
-            res.status(400).send({errors: { email: 'User not found!'}})
+            res.status(400).send({response: { email: 'User not found!'}})
         })
     }
-    else { res.status(400).send({ errors: {email: 'Email address not associated with an account'}})}
+    else { res.status(400).send({ response: {email: 'Email address not associated with an account'}})}
 }
 
 module.exports.forgot_password_check = (req, res) => {

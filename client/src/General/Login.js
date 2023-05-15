@@ -48,7 +48,7 @@ const Login = () => {
                     <input type="button" 
                         onClick={(e) => { postLogin(e, loginDetails, navigate, errors, setErrors, updateUserPrefs, updateLoadedData) } } 
                         value="Log In" 
-                        className="general-button login-button login-submit"/>
+                        className="login-button login-submit"/>
                     <div className="login-orbox">
                         <div className="login-line"></div>
                         <span className="login-ortext">OR</span>
@@ -57,11 +57,11 @@ const Login = () => {
                     <input type="button" 
                         onClick={ routeForgotPassword } 
                         value="Forgot Password?" 
-                        className="general-button login-button login-forgot"/>
+                        className="login-button login-forgot"/>
                     <input type="button" 
                         onClick={ routeSignupChange } 
                         value="Don't have an account?" 
-                        className="general-button login-button login-submit"/>
+                        className="login-button login-submit"/>
                 </form>
             </div>
         </div>

@@ -33,14 +33,14 @@ const Home = () => {
         setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate))
     }, [tournaments])
 
-    useEffect(() => {
-        if (courts && courts.length)
-        {
-            setAvailableCourts(3 - courts.length)
-        }
-        else {setAvailableCourts(3 - 0)}
-        setCourtBlocks(courtDashboard(courts, Link))
-    }, [courts])
+    // useEffect(() => {
+    //     if (courts && courts.length)
+    //     {
+    //         setAvailableCourts(3 - courts.length)
+    //     }
+    //     else {setAvailableCourts(3 - 0)}
+    //     setCourtBlocks(courtDashboard(courts, Link))
+    // }, [courts])
     
     useEffect(() => {
         validateUser(routeLoginChange)
@@ -54,18 +54,20 @@ const Home = () => {
                 <div className="bookings-welcome">
                     <div className="home-heading ">Welcome Back { userName }!</div>
                 </div>
-                <Link className="bookings-available content-right" to="/court-bookings">
+                {/* <Link className="bookings-available content-right" to="/court-bookings">
                         <div className="home-heading">Available Bookings</div>
                         <div className="bookings-counter content-right">{availableCourts}</div>
-                </Link>
+                </Link> */}
             </div>
-            <div className="bookings-current">
+            {/* <div className="bookings-current">
                 <span className="bookings-heading">Current Bookings</span>
                 { courtBlocks }               
-            </div>
-            <div className="bookings-current">
-                <span className="bookings-heading">Current Tournaments</span>
-                { tournamentBlocks }               
+            </div> */}
+            <div className="dashboard-tourn-current">
+                <span className="dashboard-tourn-heading">Current Tournaments</span>
+                    <div class="dashboard-tourn-list">
+                        { tournamentBlocks }               
+                    </div>
                 <Link to="/create-tournament" className="home-button">Create New Tournament</Link>
             </div>
         </div>

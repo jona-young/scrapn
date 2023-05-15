@@ -227,9 +227,9 @@ const setLocalStorage = (items) => {
   }
 }
 
-export const postForgotPassword = async (e, email, updateErrors, history) => {
+export const postForgotPassword = async (e, email, updateResponse, history) => {
   e.preventDefault();
-  updateErrors({});
+  updateResponse({});
 
   const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/forgot-password', {
       credentials: 'include',
@@ -240,11 +240,11 @@ export const postForgotPassword = async (e, email, updateErrors, history) => {
 
   const json = await data.json();
 
-  if (json.errors)
+  if (json.response)
   {
     // this will be the email error that it is not in the database
-      updateErrors(errors => ({...errors, 
-                  email: json.errors.email, 
+      updateResponse(response => ({...response, 
+                  email: json.response.email, 
       }));
   }
 

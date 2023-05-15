@@ -74,21 +74,28 @@ export const tournamentDashboard = (tournamentArr, Link, deleteTournament, histo
     for (let i = 0; i < tournamentArr.length; i++)
     {
       bookedTournaments.push(
-      <div className="tournaments-item">
-        <Link
-        className="tournaments-link"
-        key={i+"-tournament"}
-        to={{
-          pathname: "/tournament/" + tournamentArr[i]._id,
-        }}
-        >
-          <div className="bookings-info">
-              {tournamentArr[i].name} at {tournamentArr[i].location} on {tournamentArr[i].startDate}
+        <div className="tournaments-box-item">
+          <div className="tournaments-item">
+            <Link
+            className="tournaments-link"
+            key={i+"-tournament"}
+            to={{
+              pathname: "/tournament/" + tournamentArr[i]._id,
+            }}
+            >
+              <div className="tournaments-title">
+                  {tournamentArr[i].name}
+              </div>
+              <div className="tournaments-info">
+                {tournamentArr[i].location} on {tournamentArr[i].startDate}
+              </div>
+            </Link>
+            <div className='tournament-btns'>
+              <Link className="btn-tourn-edit" key={i+"-edit"} to={{pathname: "/update-tournament/" + tournamentArr[i]._id}}>Edit</Link>
+              <button className="btn-tourn-delete" key={i+"-del"} onClick={() => deleteTournament(tournamentArr[i]._id, history, false)}>Delete</button>
+            </div>
           </div>
-        </Link>
-        <button className="button-delete" key={i+"-del"} onClick={() => deleteTournament(tournamentArr[i]._id, history, false)}>Delete Tournament</button>
-      </div>
-
+        </div>
       )
     }
   }

@@ -142,12 +142,15 @@ const Tournament = () => {
         <>
             { currentItem.author === userPrefs.nameID ? 
             <div className="tournament-header">
-                <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
-                <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>
+                <div className="tournament-header-toprow">
+                    <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
+                    <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>    
+                </div>
+                <button onClick={() => exportPDF(currentItem.tournamentType, currentItem.players.length)} className="button-download">Download PDF</button>
+            
             </div>
             : ""
         }
-            <button onClick={() => exportPDF(currentItem.tournamentType, currentItem.players.length)} className="button-download">Download PDF</button>
             <div className="tournament-container" ref={pdfRef}>
                 {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} players={currentItem.players} /> : null}
                 {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
@@ -157,8 +160,9 @@ const Tournament = () => {
                     <h4>{currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}</h4>
                     <h4>{currentItem.location}</h4>
                 </div>
-
-                {standings}
+                <div className="table-scroll">
+                    {standings}
+                </div>
                 <div className="tournament">
                     {bracket}
                 </div>

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
         navigate('/signup');
     }
 
-    const [ errors, setErrors ] = useState({})
+    const [ response, setResponse ] = useState({})
     const [ email, setEmail ] = useState()
 
     return (
@@ -28,10 +28,10 @@ const ForgotPassword = () => {
                         placeholder="Email" 
                         onChange={(e) => { handleChange(e, setEmail, email)} }
                         data-key="email" />
-                    <div className="login-error">{ errors.email }</div>
+                    <div className="login-error">{ response.email }</div>
                     <input type="button" 
-                        onClick={(e) => { postForgotPassword(e, email, setErrors, navigate)}} 
-                        value="Check Email" 
+                        onClick={(e) => { postForgotPassword(e, email, setResponse, navigate)}} 
+                        value="Submit" 
                         className="general-button login-button login-submit"/>
                     <div className="login-orbox">
                         <div className="login-line"></div>

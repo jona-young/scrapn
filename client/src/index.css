@@ -106,6 +106,28 @@ body {
   border-radius: 4px;
 }
 
+.nav-logout {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2%;
+  height: 60px;
+}
+
+
+.btn-logout {
+  border: 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #FF395A;
+  color: white;
+}
+
+.btn-logout:hover {
+  background-color: #A31A38;
+}
+
+
 nav-menu-items {
   width: 100%;
   padding: 0;
@@ -251,29 +273,30 @@ ul li::marker {
   color: white;
   font-weight: bolder;
   padding: 5px;
-  border-radius: 12px;
+  border-radius: 7px;
   text-align: center;
   background: #31235C;;
-  width: 300px;
+  width: 260px;
   margin: auto;
 }
 
 .home-button:hover {
-  background: rgb(148, 120, 233);
+  background: #efefef;
+  color: black;
+  box-shadow: 0 3px 50px rgb(0 0 0 / 0.5);
+
 }
 
 .bookings-empty {
   font-size: 12px;
+  display: block;
 }
 
 .bookings-welcome {
   height: 40px;
-  width: 45%;
+  width: 100%;
   padding: 10px;
-  border: 2px solid #e3e3e3;
-  border-radius: 15px;
-  background-color: #6B37F7;
-  
+  border-radius: 10px;  
 
   display: flex;
   flex-direction: row;
@@ -284,8 +307,7 @@ ul li::marker {
   height: 40px;
   width: 45%;
   padding: 10px;
-  border: 2px solid #e3e3e3;
-  border-radius: 15px;
+  border-radius: 10px;
 
   background-color: #6B37F7;
   text-decoration: none;
@@ -297,7 +319,12 @@ ul li::marker {
 }
 
 .bookings-available:hover {
-  background-color: #dcd5d5;
+  background: #efefef;
+  box-shadow: 0 3px 50px rgb(0 0 0 / 0.5);
+}
+
+.bookings-available:hover .home-heading {
+  color: black
 }
 
 .content-right {
@@ -313,8 +340,8 @@ ul li::marker {
 
 .home-heading {
   font-weight: bold;
-  font-size: 14px;
-  color: white;
+  font-size: 24px;
+  color: black;
 }
 
 .bookings-counter {
@@ -334,9 +361,7 @@ ul li::marker {
 .bookings-current {
   padding: 10px;
   margin-top: 10px;
-  border: 2px solid #e3e3e3;
   border-radius: 15px;
-  background-color: #f7f7f7;
 }
 
 .bookings-heading {
@@ -381,19 +406,100 @@ ul li::marker {
   margin: 2px auto;
 }
 
-.tournaments-item {
+.dashboard-tourn-list {
   display: flex;
   flex-direction: row;
-  margin: 5px 0;
-  padding: 5px;
-  background: #6B37F7;
-  border: 2px solid #e3e3e3;
+  flex-wrap: wrap;
+}
+
+.dashboard-tourn-current {
+  margin-top: 10px;
   border-radius: 15px;
 }
 
+.dashboard-tourn-heading {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #31235C
+}
+
+.tournaments-box-item {
+  margin: 0 auto;
+}
+
+.tournaments-item {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  width: 260px;
+  border-radius: 15px;
+  background: #6B37F7;
+}
+
 .tournaments-item:hover {
-  background: #4b13f2;
-;
+  background: #efefef;
+  box-shadow: 0 3px 50px rgb(0 0 0 / 0.5);
+}
+
+.tournaments-item:hover .tournaments-title{
+  color: black;
+}
+
+.tournaments-item:hover .tournaments-info{
+  color: black;
+}
+
+.tournaments-title {
+  display: block;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.tournaments-info {
+  display: block;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+}
+
+.tournament-btns {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-tourn-edit {
+  height: 25px;
+  margin: 10px 10px 10px 25%;
+  padding: 4px 10px 0 10px;
+  border: 0;
+  background-color: #0092FF;
+  color: white;
+  border-radius: 5px;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.btn-tourn-edit:hover {
+  background: #6fbdf7;
+  color: black;
+}
+
+.btn-tourn-delete {
+  height: 27px;
+  margin: 10px;
+  padding: 2px 10px;
+  border: 0;
+  background-color: #FF395A;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn-tourn-delete:hover {
+  background-color: #A31A38;
+  color: black;
 }
 
 .tournaments-link {
@@ -405,6 +511,10 @@ ul li::marker {
 }
 
 .tournament-header {
+  margin-left: 10px;
+}
+
+.tournament-header-toprow {
   display: flex;
   flex-direction: row;
 }
@@ -436,7 +546,6 @@ ul li::marker {
 
 .button-download {
   right: 0;
-  margin-left: 10px;
   margin-right: 5px;
   padding: 2px 4px;
   background: #0092FF;
@@ -505,6 +614,8 @@ ul li::marker {
   margin: 5% auto;
   text-align: center;
   color: white;
+  border-radius: 5px;
+  border: 0;
 }
 
 .login-submit {
@@ -556,9 +667,10 @@ ul li::marker {
 .form {
   padding: 10px;
   margin:10px;
-  border: 3px solid #E8EAEF;
-  border-radius: 25px;
+  border-radius: 15px;
   background: #6B37F7;
+  box-shadow: 0 3px 50px rgb(0 0 0 / 0.5);
+
   color: white;
 }
 
@@ -731,6 +843,8 @@ ul li::marker {
 .tournament-container {
   padding: 10px;
   min-height: 550px;
+  overflow-x: scroll;
+
 }
 
 .tournament {
@@ -906,12 +1020,17 @@ ul li::marker {
   background: limegreen;
 }
 
+.table-scroll {
+  overflow: auto;
+}
+
 .rr-standings {
-  margin: 20px 0 0 35px;
+  table-layout: fixed;
+  min-width: 1200px;
+  margin: 10px 0;
   padding: 20px;
   background: #00C772;
   color: black;
-  border: 5px solid #f0f0f0; 
   text-align: center;
 }
 
