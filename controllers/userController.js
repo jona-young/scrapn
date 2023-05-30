@@ -287,7 +287,7 @@ module.exports.forgot_password = async (req, res) => {
                 email: emailAddress
             }
 
-            const token = createToken(payload, userAcc.password + '-' + userAcc.createdAt.getTime())
+            const token = createToken(payload,  userAcc.password + '-' + userAcc.department + '-' + userAcc.privilige)
 
             // send email out
             const emailed = await resetPasswordEmail(emailAddress, userAcc.name, userAcc._id, token)
@@ -333,7 +333,7 @@ module.exports.reset_password = (req, res) => {
     {
         User.findOne({ _id: id})
         .then(async (userAcc) => {
-            let payload = jwt.decode(_token, userAcc.password + '-' + userAcc.createdAt.getTime())
+            let payload = jwt.decode(_token, userAcc.password + '-' + userAcc.department + '-' + userAcc.privilige)
     
             const salt = await bcrypt.genSalt();
             const hashedPW = await bcrypt.hash(password1, salt);
