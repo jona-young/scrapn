@@ -12,8 +12,6 @@ const resetPasswordEmail = async (toAddress, name, id, token) => {
         }
     })
 
-    console.log(process.env.EMAIL_USER)
-
     const info = await transporter.sendMail({
         from: process.env.EMAIL_USER,
         to: toAddress,
@@ -38,7 +36,7 @@ const resetPasswordEmail = async (toAddress, name, id, token) => {
                     <br>
                     <b>Scrapn Support(AUTOMATED)</b>
                     <br>
-                    E: <a href="mailto:scrapn.support@icloud.com">scrapn.support@icloud.com</a>
+                    E: <a href="mailto:scrapn.services@gmail.com">scrapn.services@gmail.com</a>
                 </p>
             </body>
         </html>
