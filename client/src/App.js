@@ -6,6 +6,7 @@ import CourtBookings from './CourtBookings/CourtBookings.js';
 import UpdateBooking from './CourtBookings/UpdateBooking.js';
 import CreateBooking from './CourtBookings/CreateBooking.js';
 import Login from './General/Login.js';
+import Login2 from './General/Login2.js';
 import Signup from './General/Signup.js';
 import ForgotPassword from './General/ForgotPassword.js';
 import PasswordReset from './General/PasswordReset.js';
@@ -68,6 +69,7 @@ function App() {
               <Route path="/update-court/:id" element={<UpdateBooking/>} />
               <Route path="/create-court/:date/:time/:court" element={<CreateBooking/>} />
               <Route path="/login" element={<Login />} />
+              <Route path="/login2" element={<Login2 />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password/" element={<ForgotPassword />} />
               <Route path="/reset-password/:id/:token" element={<PasswordReset />} />

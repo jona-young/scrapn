@@ -45,10 +45,9 @@ app.use(function(req, res, next) {
     next(); 
 });
 
+// routes
 app.use(courtBookingRoutes);
-
 app.use(userRoutes);
-
 app.use(tournamentRoutes);
 
 app.get('/*', (req, res) => {

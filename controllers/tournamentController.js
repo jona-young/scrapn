@@ -10,7 +10,6 @@ const matchSeedsToDraw = require('../helpers/matchSeedsToDraw.js');
 
 // GET all tournaments
 module.exports.get_tournaments = (req, res) => {
-
     Tournament.find()
     .then((result) => {
         let sortedTournaments = {}

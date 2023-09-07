@@ -44,6 +44,7 @@ const Tournament = () => {
         allMatches[matchID] = updatedMatch
 
         setCurrentItem(curItem => ({...curItem, matches: allMatches}))
+        setLoadedData(false)
 
         // PUT request immediately? Will need navigate to redirect and re render the tournament
         putTournament(e, currentItem,  navigate, false);
@@ -51,8 +52,6 @@ const Tournament = () => {
 
         // then toggle pop up to remove the pop up
         togglePopUp(-1)
-
-        setLoadedData(false)
     }
     
     // Export tournament draws, modular for round robin & single elimination

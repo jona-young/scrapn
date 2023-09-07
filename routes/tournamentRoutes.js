@@ -24,7 +24,4 @@ tournamentRouter.delete('/api/tournament/:id',  tournamentController.delete_tour
 // GET - Retrieve round robin results
 tournamentRouter.get('/api/round-robin/:id', tournamentController.get_roundRobinResults);
 
-// GET - Download tournament draw
-// tournamentRouter.post('/api/download-draw/', tournamentController.export_tournament)
-
 module.exports = tournamentRouter;
