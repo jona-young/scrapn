@@ -860,7 +860,7 @@ ul li::marker {
 
 .tournament-match {
   height: 60px;
-  width: 200px;
+  width: 250px;
   background: #ffffff;
   border: 3px solid #e8e8e8;
   font-size: 12px;
@@ -868,7 +868,7 @@ ul li::marker {
 
 .tournament-empty {
   height: 60px;
-  width: 200px;
+  width: 250px;
   background: lightgray;
   border: 3px solid #e8e8e8;
 }
@@ -907,6 +907,20 @@ ul li::marker {
   margin-left: auto;
   font-weight: normal;
   text-align: right;
+}
+
+.tournament-matchwinner {
+  height: 60px;
+  width: 100%;
+  background: #ffffff;
+  border: 3px solid #e8e8e8;
+  font-size: 12px;
+}
+
+.match-winner {
+  font-size: 24px;
+  font-weight: bold;
+  width: 350px;
 }
 
 .tournament-connect {

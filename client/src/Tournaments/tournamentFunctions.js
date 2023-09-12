@@ -112,11 +112,22 @@ export const singleElimination = (matches, updateState, togglePopUp, playerType)
             }
     
             tournament.push(<div className="tournament-round" key={'round-' + i}>{round}</div>)
+            
+            if (i == 1 && matches[1].winner) {
+                tournament.push(<div className="tournament-round" key={'winner-0'}>
+                                    <div className="tournament-matchwinner">
+                                        <div className="match-info">WINNER</div>
+                                        <div className="match-team match-winner">{matches[i]['team' + matches[i].winner]}</div>
+                                    </div>
+                                </div>)
+            }
     
             for (let j = 0; j < roundMatches; j++) { matches.pop() }
             
             matchSpacer--
         }
+
+
     
         updateState(tournament)
     }
