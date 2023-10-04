@@ -10,6 +10,10 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players }) => {
         winner: ""
     })
 
+    const [ addPlayerType1, setAddPlayerType1 ] = useState('dropdown')
+    const [ addPlayerType2, setAddPlayerType2 ] = useState('dropdown')
+
+
     const editMatch = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -33,6 +37,25 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players }) => {
             let scoreArr = matchToEdit[name]
             scoreArr[index] = value.toString()
             setMatchToEdit(currentObj => ({...currentObj, [name]: scoreArr }))
+        }
+        else if (name == "team1" || name == "team2")
+        {
+            console.log('value: ', value)
+            if (value == "add-new")
+            {
+                if (name == "team1") {
+                    setAddPlayerType1("add-new")
+                }
+                else
+                {
+                    setAddPlayerType2("add-new")
+
+                }
+            }
+            else
+            {
+                setMatchToEdit(currentObj => ({...currentObj, [name]: value}))
+            }
         }
         else
         {
@@ -114,33 +137,56 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players }) => {
                         Team 1
                     </label>
                     <br />
-                    <select
+                    { addPlayerType1 == "dropdown" ?
+                        <select
+                            onChange={(e) => editMatch(e)}
+                            className="form-input"
+                            name="team1"
+                            value={matchToEdit.team1}
+                            >
+                            <option value="" disabled selected key="dis-player-1">Choose player...</option>
+                            { players.map((player, idx) => {
+                                return <option value={player} key={"p1-" + idx}>{player}</option>
+                            })}
+                            <option value="add-new" key="add-new-t1">Add new player...</option>
+                        </select>
+                        :
+                        <input
+                        type="text"
                         onChange={(e) => editMatch(e)}
                         className="form-input"
                         name="team1"
                         value={matchToEdit.team1}
-                        >
-                        <option value="" disabled selected key="dis-player-1">Choose player...</option>
-                        { players.map((player, idx) => {
-                            return <option value={player} key={"p1-" + idx}>{player}</option>
-                        })}
-                    </select>
+                        />
+                    }
                     <br />
                     <label className="form-field">
                         Team 2
                     </label>
                     <br />
-                    <select
+                    { addPlayerType2 == "dropdown" ?
+                        <select
+                            onChange={(e) => editMatch(e)}
+                            className="form-input"
+                            name="team2"
+                            value={matchToEdit.team2}
+                            >
+                            <option value="" disabled selected key="dis-player-2">Choose player...</option>
+                            { players.map((player, idx) => {
+                                return <option value={player} key={"p2-" + idx}>{player}</option>
+                            })}
+                            <option value="add-new" key="add-new-t2">Add new player...</option>
+                        </select>
+                        :
+                        <input
+                        type="text"
                         onChange={(e) => editMatch(e)}
                         className="form-input"
                         name="team2"
                         value={matchToEdit.team2}
-                        >
-                        <option value="" disabled selected key="dis-player-2">Choose player...</option>
-                        { players.map((player, idx) => {
-                            return <option value={player} key={"p2-" + idx}>{player}</option>
-                        })}
-                    </select>
+                        />
+                    }
+
                     <br />
                     <label className="form-field">
                         Best Of Series

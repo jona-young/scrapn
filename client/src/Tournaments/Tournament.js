@@ -43,7 +43,22 @@ const Tournament = () => {
         let allMatches = currentItem.matches
         allMatches[matchID] = updatedMatch
 
+        // Looks through all matches and adds any new players to the players 
+        for (var i = 0; i < 2; i++) {
+            if (currentItem.players.indexOf(updatedMatch["team" + i]) == -1)
+            {
+                if (updatedMatch["team" + i] !== undefined)
+                {
+                    let newPlayers = currentItem.players
+                    newPlayers.push(updatedMatch["team" + i])
+    
+                    setCurrentItem(curItem => ({...curItem, players: newPlayers}))
+                }
+            }
+        }
+
         setCurrentItem(curItem => ({...curItem, matches: allMatches}))
+
         setLoadedData(false)
 
         // PUT request immediately? Will need navigate to redirect and re render the tournament
@@ -56,7 +71,9 @@ const Tournament = () => {
     
     // Export tournament draws, modular for round robin & single elimination
     const exportPDF = (tournamentType, players) => {
-        let orient = "l"
+        window.innerWidth = window.innerWidth + 1200
+        console.log('lets see: ', window.outerWidth)
+        let orient = "p"
         let dimensions = [500, 500]
         if (tournamentType === "single-elim")
         {

@@ -23,8 +23,21 @@ const Signup = () => {
     return (
             <div className="userauth-container">
                 <div className="login-container">
-
-                    <img src={ signupImage } className="login-image" alt="Mario Go on Unsplash"/>
+                    <div className="login-image">
+                        <img src={ signupImage } className="login-image" alt="Hoi Pham on Unsplash"/>
+                        <p className="about-info">
+                            A lightweight web application to create tournament draws for competition and sports. Best used
+                            as a central point to display tournament draws with features to edit match teams, dates and times,
+                            and winners.
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            You may also export the tournament draws to PDF if you need to print and post them at your tournament
+                            venue!
+                        </p>
+                    </div>
                     <form className="login-box">
                         <h3 className="login-heading">Sign Up</h3>
                         <input type="text" 

@@ -113,7 +113,7 @@ export const singleElimination = (matches, updateState, togglePopUp, playerType)
     
             tournament.push(<div className="tournament-round" key={'round-' + i}>{round}</div>)
             
-            if (i == 1 && matches[1].winner) {
+            if (i == 1 && (matches[1].winner == "1" || matches[1].winner == "2")) {
                 tournament.push(<div className="tournament-round" key={'winner-0'}>
                                     <div className="tournament-matchwinner">
                                         <div className="match-info">WINNER</div>
