@@ -70,53 +70,51 @@ const Tournament = () => {
     }
     
     // Export tournament draws, modular for round robin & single elimination
-    const exportPDF = (tournamentType, players) => {
-        window.innerWidth = window.innerWidth + 1200
-        console.log('lets see: ', window.outerWidth)
+    const exportPDF = (tournamentType, matches) => {
         let orient = "p"
-        let dimensions = [500, 500]
+        let dimensions = [900, 900]
         if (tournamentType === "single-elim")
         {
-            if (players >= 8 && players < 16)
+            if (matches >= 8 && matches < 16)
             {
                 dimensions = [900, 900]
             }
-            else if (players >= 16 && players < 32)
+            else if (matches >= 16 && matches < 32)
             {
                 orient="p"
                 dimensions = [1260, 1600]
             }
-            else if (players >= 32 && players < 64)
+            else if (matches >= 32 && matches < 64)
             {
                 orient="p"
                 dimensions = [1440, 2800]
             }
-            else if (players >= 64)
+            else if (matches >= 64)
             {
                 orient="p"
-                dimensions = [1440, 5600]
+                dimensions = [2040, 5600]
             }
         }
         else if (tournamentType === "round-robin")
         {
-            if (players === 2)
+            if (matches === 2)
             {
                 dimensions = [1260, 720]
             }
-            else if (players === 3)
+            else if (matches === 3)
             {
                 dimensions = [1260, 1080]
             }
-            else if (players === 4)
+            else if (matches === 4)
             {
                 dimensions = [1260, 1260]
             }
-            else if (players === 5)
+            else if (matches === 5)
             {
                 orient="p"
                 dimensions = [1260, 1780]
             }
-            else if (players === 6)
+            else if (matches === 6)
             {
                 orient="p"
                 dimensions = [1440, 2060]
@@ -124,6 +122,7 @@ const Tournament = () => {
 
         }
 
+        console.log('dimensionsbro: ',dimensions)
         const content = pdfRef.current;
 
         // jsPDF parameters (orientation, unit, page size)
@@ -160,9 +159,9 @@ const Tournament = () => {
             <div className="tournament-header">
                 <div className="tournament-header-toprow">
                     <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
-                    <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>    
+                    {/* <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>     */}
                 </div>
-                <button onClick={() => exportPDF(currentItem.tournamentType, currentItem.players.length)} className="button-download">Download PDF</button>
+                <button onClick={() => exportPDF(currentItem.tournamentType, currentItem.matches.length)} className="button-download">Download PDF</button>
             
             </div>
             : ""

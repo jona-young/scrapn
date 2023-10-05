@@ -66,7 +66,7 @@ export const courtDashboard = (courtArr, Link) => {
   return bookedCourts
 }
 
-export const tournamentDashboard = (tournamentArr, Link, deleteTournament, history) => {
+export const tournamentDashboard = (tournamentArr, Link, deleteTournament, history, DialogAlert) => {
   let bookedTournaments = []
   
   if (tournamentArr && tournamentArr.length > 0)
@@ -91,8 +91,12 @@ export const tournamentDashboard = (tournamentArr, Link, deleteTournament, histo
               </div>
             </Link>
             <div className='tournament-btns'>
-              <Link className="btn-tourn-edit" key={i+"-edit"} to={{pathname: "/update-tournament/" + tournamentArr[i]._id}}>Edit</Link>
-              <button className="btn-tourn-delete" key={i+"-del"} onClick={() => deleteTournament(tournamentArr[i]._id, history, false)}>Delete</button>
+              <Link className="btn-tourn-edit" key={i+"-edit"} to={{pathname: "/update-tournament/" + tournamentArr[i]._id}}>EDIT</Link>
+              {/* <button className="btn-tourn-delete" key={i+"-del"} onClick={() => deleteTournament(tournamentArr[i]._id, history, false)}>Delete</button> */}
+              <DialogAlert
+                btnName="delete"
+                handleClickAction={() => deleteTournament(tournamentArr[i]._id, history, false)} 
+              />
             </div>
           </div>
         </div>

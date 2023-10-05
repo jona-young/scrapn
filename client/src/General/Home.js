@@ -5,6 +5,8 @@ import { courtDashboard, tournamentDashboard } from '../functions/userFunctions'
 import { validateUser } from '../functions/userAPI.js';
 import { getUserTournaments, deleteTournament } from '../functions/tournamentAPI.js';
 import { getBookingsByUser } from '../functions/courtBookingAPI.js';
+import DialogAlert from '../functions/DialogAlert.js';
+
 
 const Home = () => {
     //User Context
@@ -30,7 +32,8 @@ const Home = () => {
     }, [userPrefs])
 
     useEffect(() => {
-        setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate))
+        setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate, DialogAlert))
+
     }, [tournaments])
 
     // useEffect(() => {
@@ -66,7 +69,7 @@ const Home = () => {
             <div className="dashboard-tourn-current">
                 <span className="dashboard-tourn-heading">Current Tournaments</span>
                     <div class="dashboard-tourn-list">
-                        { tournamentBlocks }               
+                        { tournamentBlocks } 
                     </div>
                 <Link to="/create-tournament" className="home-button">Create New Tournament</Link>
             </div>
