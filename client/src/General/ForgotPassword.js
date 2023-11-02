@@ -1,53 +1,22 @@
-import { useState } from 'react';
-import loginImage from '../images/signup.jpg';
-import { useNavigate } from 'react-router-dom';
-import { handleChange } from '../functions/userFunctions.js';
-import { postForgotPassword } from '../functions/userAPI.js';
+import ForgotPasswordForm from './ForgotPasswordForm';
+import '../index.css';
 
 const ForgotPassword = () => {
-    // Setup redirect
-    const navigate = useNavigate();
-    const routeLoginChange = () => {
-        navigate('/login');
-    }
-    const routeSignupChange = () => {
-        navigate('/signup');
-    }
-
-    const [ response, setResponse ] = useState({})
-    const [ email, setEmail ] = useState()
-
     return (
-        <div className="userauth-container" >
-            <div className="login-container">
-                <img src={ loginImage } className="login-image" alt="Hoi Pham on Unsplash"/>
-                <form className="login-box">
-                    <h3 className="login-heading">Forgot Password?</h3>
-                    <input type="text" 
-                        className="login-input" 
-                        placeholder="Email" 
-                        onChange={(e) => { handleChange(e, setEmail, email)} }
-                        data-key="email" />
-                    <div className="login-error">{ response.email }</div>
-                    <input type="button" 
-                        onClick={(e) => { postForgotPassword(e, email, setResponse, navigate)}} 
-                        value="Submit" 
-                        className="general-button login-button login-submit"/>
-                    <div className="login-orbox">
-                        <div className="login-line"></div>
-                        <span className="login-ortext">OR</span>
-                        <div className="login-line"></div>
+        <div>
+            <section className="general-banner header-spacer">
+                <div className="general-heading">
+                    <h1 className="form-heading general-bannertext">Forgot Password</h1>
+                    <p className="form-subheading general-lightsub">Home &gt; Forgot Password</p>
+                </div>
+            </section>
+            <section className="form-card">
+                    <div className="form-container">
+                        <h2 className="form-heading">Forgot Password</h2>
+                        <p className="form-subheading form-lightsub">Enter the email associated with your account for a link to reset your password.</p>
+                        <ForgotPasswordForm />
                     </div>
-                    <input type="button" 
-                        onClick={ routeLoginChange } 
-                        value="Login" 
-                        className="general-button login-button login-forgot"/>
-                    <input type="button" 
-                        onClick={ routeSignupChange } 
-                        value="Don't have an account?" 
-                        className="general-button login-button login-submit"/>
-                </form>
-            </div>
+            </section>
         </div>
     )
 }

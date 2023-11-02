@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getLogout } from '../functions/userAPI.js';
 import { UserContext } from '../functions/UserContext.js';
 
-const UserLoggedOn = () => {
+const UserLoggedOn = ({ navbarToggle }) => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
     const [ loggedOn, setLoggedOn ] = useState(false)
@@ -16,30 +16,35 @@ const UserLoggedOn = () => {
         setLoggedOn(userPrefs.isLoggedOn)
     }, [userPrefs])
 
+    const handleLogout = () => {
+        getLogout(routeLoginChange, setLoggedOn);
+        navbarToggle();
+    }
+
     if (loggedOn)
     {
-        if (userPrefs.privilige > 2)
+        if (userPrefs.privilige > 50)
         {
             return (
                 <>
-                    <li className="nav-text"><Link to={"/list-tournaments"}>List of Tournaments</Link></li>
-                    <li className="nav-logout"><button className="btn-logout" onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
+                    <Link to={"/list-tournaments"} onClick={navbarToggle} className="nav-menuoption">List of Tournaments</Link>
+                    <Link to="#" className="form-submit form-tournamentbtn form-dangerbtn" onClick={ () => {handleLogout()} }>Logout</Link>
                 </> 
             )
         }
         else
         {
             return (
-                <li className="nav-logout"><button className="btn-logout" onClick={ () => {getLogout(routeLoginChange, setLoggedOn)} }>Logout</button></li>
-            )
+                <Link to="#" className="form-submit form-tournamentbtn form-dangerbtn" onClick={ () => {handleLogout()} }>Logout</Link>
+                )
         }
     }
     else
     {
         return (
             <>
-                <li className="nav-text"><Link to={"login"}>Login</Link></li>
-                <li className="nav-text"><Link to={"signup"}>Signup</Link></li>
+                <Link to={"login"} onClick={navbarToggle} className="form-submit form-tournamentbtn" >Login</Link>
+                <Link to={"signup"} onClick={navbarToggle} className="form-submit form-tournamentbtn form-dangerbtn" >Signup</Link>
             </>
         )
     }

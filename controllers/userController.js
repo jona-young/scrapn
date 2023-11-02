@@ -287,7 +287,7 @@ module.exports.forgot_password = async (req, res) => {
                 email: emailAddress
             }
 
-            const token = createToken(payload,  userAcc.password + '-' + userAcc.department + '-' + userAcc.privilige)
+            const token = createToken(payload,  userAcc.password + '-' + userAcc.privilige)
 
             // send email out
             const emailed = await resetPasswordEmail(emailAddress, userAcc.name, userAcc._id, token)
@@ -295,6 +295,7 @@ module.exports.forgot_password = async (req, res) => {
             res.status(200).send({response: { email: 'Password reset email sent!'}})
         })
         .catch((err) => {
+            console.log(err)
             res.status(400).send({response: { email: 'User not found!'}})
         })
     }
@@ -321,16 +322,18 @@ module.exports.forgot_password_check = (req, res) => {
 }
 
 module.exports.reset_password = (req, res) => {
-    const id = req.body.id.id
+    console.log(req.body)
+    const id = req.body.id
     const _token = req.body.token
     const { password1, password2 } = req.body
-    console.log('dis one: ', _token)
+
     if ( password1 !== password2)
     {
         res.status(400).send({ errors: { password: "Passwords do not match!"}})
     }
     else
     {
+        console.log(id)
         User.findOne({ _id: id})
         .then(async (userAcc) => {
             let payload = jwt.decode(_token, userAcc.password + '-' + userAcc.department + '-' + userAcc.privilige)

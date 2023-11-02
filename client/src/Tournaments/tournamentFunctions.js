@@ -1,4 +1,4 @@
-export const singleElimination = (matches, updateState, togglePopUp, playerType) => {
+export const singleElimination = async (matches, updateState, togglePopUp, playerType) => {
     try
     {
         const tournament = []
@@ -129,10 +129,11 @@ export const singleElimination = (matches, updateState, togglePopUp, playerType)
 
 
     
-        updateState(tournament)
+        updateState(tournament);
+        return 1
     }
 
-    catch(err) { console.log(err) }
+    catch(err) { return 0 }
 
 }
 

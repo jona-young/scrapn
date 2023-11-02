@@ -27,7 +27,17 @@ const CreateTournament = () => {
     },[])
     
     return (
-        <TournamentForm form={currentItem} />
+        <>
+            <section className="general-banner header-spacer">
+                <div className="general-heading">
+                    <h1 className="form-heading general-bannertext">Tournament</h1>
+                    <p className="form-subheading general-lightsub">Home &gt; Tournament</p>
+                </div>
+            </section>
+            <div className="form-card footer-spacer">
+                <TournamentForm form={currentItem} />
+            </div>
+        </>
     )
 }
 

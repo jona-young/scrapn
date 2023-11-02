@@ -1,0 +1,226 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header-spacer {
+    padding-top: 2rem;
+  }
+  
+  .form-lightsub {
+    color: rgb(155, 155, 155);
+  }
+  
+  .form-container {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .form-card {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5%;
+    background: white;
+    box-shadow: 0 0 0 0.05rem rgba(0, 103, 237, 0.06), 0rem 0rem 1.25rem rgba(30, 34, 40, 0.04);
+    border: 0;
+    border-radius: 0.5rem;
+    position: relative;
+    margin-top: -12rem;
+    margin-bottom: 2rem;
+    z-index: 3;
+  }
+  
+  .form-heading {
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-subheading {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-questions {
+    width: 100%;
+  }
+  
+  .form-label {
+    margin-bottom: 1rem;
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+  }
+
+  .form-field {
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.25rem;
+    border: 2px solid rgba(8, 60, 130, 0.07);
+    width: 100%;
+  }
+  
+  .form-textarea {
+    height: 12rem;
+    width: 100%;
+  }
+  
+  .form-submit {
+    cursor: pointer;
+    background-color: #3f78e0;
+    color: #ffffff;
+    border-radius: 50rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 1.2rem;
+    border-color: rgba(8, 60, 130, 0.07);
+  }
+  
+  .form-main {
+    margin-bottom: 2rem;
+  }
+
+  .form-tournamentbtn {
+    display: block;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    width: fit-content !important;
+    font-size: 0.8rem;
+  }
+
+  .form-updatebtn {
+    background: #e0e240;
+  }
+
+  .form-dangerbtn {
+    background: #e13636 !important;
+  }
+  
+  .divide-line {
+    position: relative;
+    margin: 1rem 25%;
+    border-top: 2px solid rgba(164, 174, 198, 0.2);
+    width: 50%;
+  }
+  
+  .general-banner {
+    background-image: url("../img/user-auth.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    z-index: 0;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 350px;
+    z-index: 0;
+  }
+  
+  .general-heading {
+    position: relative;
+    z-index: 2;
+    margin: 0 25%;
+    padding: 2rem 0;
+    text-align: center;
+  }
+  
+  .general-bannertext {
+    font-size: 2.2rem;
+  }
+  
+  .general-lightsub {
+    text-align: center;
+    color: rgb(155, 155, 155);
+  }
+  
+  .general-link {
+    display: block;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    color: rgb(51, 128, 236);
+  }
+  
+  .general-contentbox {
+    margin: 0 2rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+  
+  .general-statement {
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: left;
+  }
+  
+  .general-contenttext {
+    margin-bottom: 0.75rem;
+    color: rgb(155, 155, 155);
+  }
+  
+  .general-transitiontext {
+    font-weight: 500;
+    color: #3f78e0;
+    margin-bottom: 0.75rem;
+  }
+  
+  .general-icon {
+    height: 50px;
+    width: auto;
+  }
+  
+  .general-subheading {
+    margin-bottom: .25rem;
+  }
+  
+  .content-lightsub {
+    color: rgb(155, 155, 155) !important;
+    
+  }
+  
+  .flex-items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  .flex-content {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+  }
+  
+  .flex-item {
+    margin-top: 0.4rem;
+    margin-left: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .gen-remmargin {
+    padding-top: 0 !important;
+  }
+
+  @media only screen and (min-width: 531px) {
+    .form-card {
+      width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+  
+    }
+  
+  }

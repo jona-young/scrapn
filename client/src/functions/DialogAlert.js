@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function DialogAlert({btnName, handleClickAction}) {
+export default function DialogAlert({btnName, handleClickAction, heading, message}) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -34,17 +34,17 @@ export default function DialogAlert({btnName, handleClickAction}) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Delete this tournament?"}
+          { heading }
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this tournament?
+            { message }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmit} autoFocus>
-            Delete
+            {btnName}
           </Button>
         </DialogActions>
       </Dialog>

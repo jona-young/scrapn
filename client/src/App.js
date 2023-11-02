@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './General/Header.js';
 import Footer from './General/Footer.js';
-import CourtBookings from './CourtBookings/CourtBookings.js';
-import UpdateBooking from './CourtBookings/UpdateBooking.js';
-import CreateBooking from './CourtBookings/CreateBooking.js';
 import Login from './General/Login.js';
-import Login2 from './General/Login2.js';
 import Signup from './General/Signup.js';
 import ForgotPassword from './General/ForgotPassword.js';
 import PasswordReset from './General/PasswordReset.js';
+import PageNotFound from './General/PageNotFound.js';
 import Profile from './General/Profile.js';
 import Users from './General/Users.js';
 import Home from './General/Home.js';
+import About from './General/About.js';
+import Contact from './General/Contact.js';
+import Membership from './General/Membership.js';
 import Tournament from './Tournaments/Tournament.js';
 import CreateTournament from './Tournaments/CreateTournament.js';
 import UpdateTournament from './Tournaments/UpdateTournament.js';
@@ -64,22 +64,21 @@ function App() {
         <BrowserRouter>
           <Header />
             <Routes>
-              <Route path="/" element={<Home/>} />
-              <Route path="/court-bookings" element={<CourtBookings/>} />
-              <Route path="/update-court/:id" element={<UpdateBooking/>} />
-              <Route path="/create-court/:date/:time/:court" element={<CreateBooking/>} />
+              <Route path="/" element={<About />} />
+              <Route path="/tournaments" element={<Home/>} />
               <Route path="/login" element={<Login />} />
-              <Route path="/login2" element={<Login2 />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/forgot-password/" element={<ForgotPassword />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password/:id/:token" element={<PasswordReset />} />
-              <Route path="/profile/:id" element={<Profile />} />
-              <Route path="/users" element={<Users />} />
+              {/* <Route path="/profile/:id" element={<Profile />} /> */}
+              {/* <Route path="/users" element={<Users />} /> */}
+              {/* <Route path="/membership" element={<Membership />} /> */}
+              {/* <Route path="/contact-us" element={<Contact />} /> */}
               <Route path="/tournament/:id" element={<Tournament />} />
               <Route path="/create-tournament" element={<CreateTournament />} />
               <Route path="/update-tournament/:id" element={<UpdateTournament />} />
               <Route path="/list-tournaments" element={<ListTournaments />} />
-              <Route path='*' element={<Navigate to='/' />} />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           <Footer />
         </BrowserRouter>

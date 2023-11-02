@@ -3,8 +3,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
 import jsPDF from 'jspdf';
 import { singleElimination, roundRobin, roundRobinStandings } from '../Tournaments/tournamentFunctions.js';
-import { getTournament, putTournament, getRoundRobinResults, deleteTournament } from '../functions/tournamentAPI.js';
+import { getTournament, putTournament, getRoundRobinResults } from '../functions/tournamentAPI.js';
 import MatchUpdate from '../Tournaments/MatchUpdate.js';
+import "../General/template.css"
+import "../General/site.css";
 
 const Tournament = () => {
     const { id } = useParams();
@@ -40,11 +42,13 @@ const Tournament = () => {
 
     const updateMatch = async (e, updatedMatch) => {
         e.preventDefault();
+        setLoadedData(false);
+
         let allMatches = currentItem.matches
         allMatches[matchID] = updatedMatch
 
         // Looks through all matches and adds any new players to the players 
-        for (var i = 0; i < 2; i++) {
+        for (var i = 1; i < 3; i++) {
             if (currentItem.players.indexOf(updatedMatch["team" + i]) == -1)
             {
                 if (updatedMatch["team" + i] !== undefined)
@@ -59,11 +63,8 @@ const Tournament = () => {
 
         setCurrentItem(curItem => ({...curItem, matches: allMatches}))
 
-        setLoadedData(false)
-
         // PUT request immediately? Will need navigate to redirect and re render the tournament
-        putTournament(e, currentItem,  navigate, false);
-
+        putTournament(e, currentItem,  navigate, false, setLoadedData);
 
         // then toggle pop up to remove the pop up
         togglePopUp(-1)
@@ -122,23 +123,24 @@ const Tournament = () => {
 
         }
 
-        console.log('dimensionsbro: ',dimensions)
         const content = pdfRef.current;
 
         // jsPDF parameters (orientation, unit, page size)
         const doc = new jsPDF(orient, "px", dimensions);
         doc.html(content, {
             callback: function (doc) {
-            doc.save('sample.pdf');
+            doc.save('tournament.pdf');
             }
         });
     }
 
     useEffect(() => { 
         getTournament(id, setCurrentItem, setLoadedData)
+
         if (currentItem.tournamentType === "single-elim")
         {
             singleElimination(currentItem.matches, setBracket, togglePopUp, currentItem.playerType)
+            // createDraw();
         }
         else if (currentItem.tournamentType === "round-robin")
         {
@@ -155,31 +157,50 @@ const Tournament = () => {
 
     return (
         <>
-            { currentItem.author === userPrefs.nameID ? 
-            <div className="tournament-header">
+            <section className="site-panel header-spacer">
+                <div className="site-heading tournament-topbanner">
+                    <h1 className="form-heading general-bannertext">Tournament</h1>
+                    <p className="form-subheading general-lightsub">Your tournament draw (below).</p>
+                </div>
+                { currentItem.author === userPrefs.nameID ? 
                 <div className="tournament-header-toprow">
-                    <Link to={"/update-tournament/" + id} className="tournament-button">Update</Link>
-                    {/* <button onClick={() => deleteTournament(id, navigate, true)} className="button-delete">Delete</button>     */}
-                </div>
-                <button onClick={() => exportPDF(currentItem.tournamentType, currentItem.matches.length)} className="button-download">Download PDF</button>
-            
-            </div>
-            : ""
-        }
+                    <Link to={"/update-tournament/" + id} className="form-submit form-tournamentbtn form-updatebtn">Update</Link>
+                    <Link to="#" onClick={() => exportPDF(currentItem.tournamentType, currentItem.matches.length)} className="form-submit form-tournamentbtn form-downloadbtn">Download PDF</Link>
+                </div>            
+                : ""
+                }
+            </section>
             <div className="tournament-container" ref={pdfRef}>
-                {matchID !== -1 ? <MatchUpdate togglePopUp={togglePopUp} updateMatch={updateMatch} match={currentItem.matches[matchID]} players={currentItem.players} /> : null}
-                {/* <button onClick={() => downloadDraw(currentItem)}>Test Download</button> */}
-                <div className="tournament-banner">
-                    <h1>{currentItem.name}</h1>
-                    <hr className="banner-line" />
-                    <h4>{currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}</h4>
-                    <h4>{currentItem.location}</h4>
-                </div>
-                <div className="table-scroll">
-                    {standings}
-                </div>
-                <div className="tournament">
-                    {bracket}
+                <div 
+                className="tournament-flexcard"
+                >
+                    <div>
+                        <span className="content-icon">T1</span>
+                    </div>
+                    <div className="tourn-cardinfo">
+                        <h4 className="tourn-spacer">{currentItem.name}</h4>
+                        <span className="content-badge tourn-spacer tourn-datespace">
+                            {currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}
+                        </span>
+                        <p className="content-lightsub content-smallheading tourn-spacerend">{currentItem.location}</p>
+                    </div>
+                </div>            
+                <div className="tournament-container" ref={pdfRef}>
+                    {matchID !== -1 ? 
+                        <MatchUpdate 
+                            togglePopUp={togglePopUp} 
+                            updateMatch={updateMatch} 
+                            match={currentItem.matches[matchID]} 
+                            players={currentItem.players} /> 
+                    :
+                    null
+                    }
+                    <div className="table-scroll">
+                        {standings}
+                    </div>
+                    <div className="tournament">
+                        {bracket}
+                    </div>
                 </div>
             </div>
         </>

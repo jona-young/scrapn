@@ -156,6 +156,7 @@ export const getLogout = async (routeChange, updateState) => {
 
     updateState(false);
     routeChange();
+
   }
 }
 
@@ -231,6 +232,7 @@ export const postForgotPassword = async (e, email, updateResponse, history) => {
   e.preventDefault();
   updateResponse({});
 
+  console.log(email)
   const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/forgot-password', {
       credentials: 'include',
       method: 'POST',

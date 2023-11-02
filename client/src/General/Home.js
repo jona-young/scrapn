@@ -1,23 +1,18 @@
 import { useEffect, useContext, useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
-import { courtDashboard, tournamentDashboard } from '../functions/userFunctions';
+import { tournamentDashboard } from '../functions/userFunctions';
 import { validateUser } from '../functions/userAPI.js';
 import { getUserTournaments, deleteTournament } from '../functions/tournamentAPI.js';
-import { getBookingsByUser } from '../functions/courtBookingAPI.js';
 import DialogAlert from '../functions/DialogAlert.js';
+import './services.css';
 
 
 const Home = () => {
     //User Context
     const { userPrefs, updateUserPrefs } = useContext(UserContext);
-
-    const [ courts, setCourts ] = useState()
-    const [ courtBlocks, setCourtBlocks ] = useState()
     const [tournaments, setTournaments] = useState([])
     const [ tournamentBlocks, setTournamentBlocks ] = useState()
-    const [ dummy, setDummy ] = useState()
-    const [ availableCourts, setAvailableCourts] = useState(0);
     const [ userName, setUserName] = useState('Guest');
 
     const navigate = useNavigate();
@@ -27,23 +22,13 @@ const Home = () => {
 
     useEffect(() => {
         setUserName(userPrefs.name)
-        getBookingsByUser(userPrefs.nameID, setCourts)
-        getUserTournaments(userPrefs.nameID, setTournaments, setDummy)
+        getUserTournaments(userPrefs.nameID, setTournaments)
     }, [userPrefs])
 
     useEffect(() => {
         setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate, DialogAlert))
-
+        console.log(tournamentBlocks)
     }, [tournaments])
-
-    // useEffect(() => {
-    //     if (courts && courts.length)
-    //     {
-    //         setAvailableCourts(3 - courts.length)
-    //     }
-    //     else {setAvailableCourts(3 - 0)}
-    //     setCourtBlocks(courtDashboard(courts, Link))
-    // }, [courts])
     
     useEffect(() => {
         validateUser(routeLoginChange)
@@ -52,28 +37,17 @@ const Home = () => {
 
 
     return (
-        <div id="home-container">
-            <div className="home-headerrow">
-                <div className="bookings-welcome">
-                    <div className="home-heading ">Welcome Back { userName }!</div>
+        <>
+            <section className="site-panel header-spacer">
+                <div className="site-heading membership-header">
+                    <h1 className="form-heading general-bannertext">Tournaments</h1>
+                    <p className="form-subheading general-lightsub">A list of your current content.</p>
                 </div>
-                {/* <Link className="bookings-available content-right" to="/court-bookings">
-                        <div className="home-heading">Available Bookings</div>
-                        <div className="bookings-counter content-right">{availableCourts}</div>
-                </Link> */}
-            </div>
-            {/* <div className="bookings-current">
-                <span className="bookings-heading">Current Bookings</span>
-                { courtBlocks }               
-            </div> */}
-            <div className="dashboard-tourn-current">
-                <span className="dashboard-tourn-heading">Current Tournaments</span>
-                    <div class="dashboard-tourn-list">
-                        { tournamentBlocks } 
-                    </div>
-                <Link to="/create-tournament" className="home-button">Create New Tournament</Link>
-            </div>
-        </div>
+            </section>
+            <section className="membership-transition content-container">
+                {tournamentBlocks}
+            </section>
+        </>
     )
 }
 

@@ -68,23 +68,6 @@ body {
   height: 25px;
 }
 
-.nav-menu {
-  background-color: #E8EAEF;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: -100%;
-  transition: 850ms;
-}
-
-.nav-menu.active {
-  left: 0;
-  transition: 350ms;
-}
-
 .nav-text {
   display: flex;
   justify-content: flex-start;
@@ -511,18 +494,42 @@ ul li::marker {
 }
 
 .tournament-header {
-  margin-left: 10px;
+  margin-left: 5px;
+}
+
+.tournament-topbanner {
+  padding-bottom: 0 !important;
 }
 
 .tournament-header-toprow {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+  margin-left: 5px;
 }
 
 .tournament-banner {
   background: #00C772;
   padding: 10px 30px 10px 30px;
   color: white;
+}
+
+.tournament-flexcard {
+  box-sizing:border-box;
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  padding: 1.25rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0.25rem 1.75rem rgba(30, 34, 40, 0.07);
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .banner-line {
@@ -680,6 +687,7 @@ ul li::marker {
   width: 100%;
   font-weight: bolder;
   font-size: x-large;
+  margin-bottom: 1rem;
 }
 
 .form-form{
@@ -688,8 +696,14 @@ ul li::marker {
   align-items: center;
 }
 
-.form-field {
-  margin-top: 0.5rem;
+
+
+.form-players {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-input {
@@ -841,6 +855,7 @@ ul li::marker {
 
 /* TOURNAMENT */
 .tournament-container {
+  box-sizing: border-box;
   padding: 10px;
   min-height: 550px;
   overflow-x: scroll;
@@ -910,10 +925,10 @@ ul li::marker {
 
 .tournament-matchwinner {
   height: 60px;
-  width: 100%;
   background: #ffffff;
   border: 3px solid #e8e8e8;
   font-size: 12px;
+  max-width: 250px;
 }
 
 .match-winner {
@@ -975,25 +990,31 @@ ul li::marker {
 }
 
 .modal {
+  box-sizing: border-box;
   position: fixed;
   z-index: 1;
-  width: 285px;
+  width: 300px;
   height: 100%;
   left: 5%;
-  /* background: rgba(0, 0, 0, 0.25); */
 }
 
 .modal-content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 5%;
   background: white;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 10px;
-  width: 240px;
-  border-radius: 5px;
-  border: 2px solid black;
-  font-size: 12px;
+  border: .1rem solid #ededed;
+  box-shadow: 0 0 0 .2rem rgba(0, 103, 237, 0.06), 0rem 0rem 1.25rem rgba(30, 34, 40, 0.04);
+  border-radius: 0.5rem;
+  position: relative;
+  margin-top: -12rem;
+  margin-bottom: 2rem;
 }
+
+.matchupdate-container {
+  padding: 2rem;
+  position: relative;
+  z-index: 2;}
 
 .modal-close {
   float: right;

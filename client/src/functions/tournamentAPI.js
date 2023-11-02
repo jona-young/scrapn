@@ -14,11 +14,13 @@ export const getTournament = async (id, updateData, setDataLoaded) => {
     {
         updateData(json);
         setDataLoaded(true)
+
+        return 'Completed!';
     }
 }
 
 // GET Request for all user tournaments
-export const getUserTournaments = async (id, updateData, setDataLoaded) => {
+export const getUserTournaments = async (id, updateData) => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/user-tournaments/" + id, {
         credentials: 'include',
         method: 'GET',
@@ -30,7 +32,6 @@ export const getUserTournaments = async (id, updateData, setDataLoaded) => {
     if (json)
     {
         updateData(json);
-        setDataLoaded(true)
     }
 }
 
@@ -109,8 +110,6 @@ export const putTournament = async (e, form, history, changePlayerSize) => {
     }
 
     history('/tournament/' + form._id)
-    //window.location.reload(false);
-
 };
 
 

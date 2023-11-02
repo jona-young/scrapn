@@ -25,7 +25,17 @@ const UpdateBooking = () => {
     if (formLoad == true)
     {
         return (
-            <TournamentForm form={currentItem} update={1} />
+            <>
+                <section className="general-banner header-spacer">
+                    <div className="general-heading">
+                    <h1 className="form-heading general-bannertext">Tournament</h1>
+                    <p className="form-subheading general-lightsub">Home &gt; Tournament</p>
+                    </div>
+                </section>
+                <div className="form-card footer-spacer">
+                    <TournamentForm form={currentItem} update={1} />
+                </div>
+            </>
         )
     }
     else

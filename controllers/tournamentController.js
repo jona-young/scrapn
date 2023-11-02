@@ -2,8 +2,6 @@ require('dotenv').config();
 const Tournament = require('../models/tournaments.js')
 const User = require('../models/users.js')
 const jwt = require('jsonwebtoken');
-const pdf = require('html-pdf');
-const drawTemplate = require('../helpers/drawsTemplate.js');
 const populateMatchWinners = require('../helpers/populateMatchWinners.js');
 const matchSeedsToDraw = require('../helpers/matchSeedsToDraw.js');
 
@@ -77,22 +75,6 @@ module.exports.post_tournament = (req, res) => {
             {
                 body.author = decodedToken.id
                 let tournament;
-
-                // manipulates matches and players to take into account seeds
-                if (body.seeds && body.tournamentType === "single-elim")
-                {
-                    for (let i = 0; i < body.seeds; i++)
-                    {
-                        if (body.players[i].slice(body.players[i].length - 2, body.players[i].length) != ")*")
-                        {
-                            body.players[i] = body.players[i] + " (" + (i + 1) + ")*"
-                        }
-                    }
-                    
-                    const seededDraw = matchSeedsToDraw(body.matches, body.players, body.seeds)
-                    body.matches = seededDraw
-                }
-
                 tournament = new Tournament(body)
 
                 tournament.save()
@@ -109,7 +91,6 @@ module.exports.post_tournament = (req, res) => {
     }
 
 }
-
 
 // PUT - Update tournament
 module.exports.put_tournament = (req, res) => {
@@ -133,20 +114,6 @@ module.exports.put_tournament = (req, res) => {
                     // Process body matches to auto populate winners from previous rounds
                     const updatedMatchSet = populateMatchWinners(body.matches)
                     body.matches = updatedMatchSet
-                }
-
-                // manipulates matches and players to take into account seeds
-                if (body.seeds && body.tournamentType === "single-elim")
-                {
-                    for (let i = 0; i < body.seeds; i++)
-                    {
-                        if (body.players[i].slice(body.players[i].length - 2, body.players[i].length) != ")*")
-                        {
-                            body.players[i] = body.players[i] + " (" + (i + 1) + ")*"
-                        }
-                    }
-                    const seededDraw = matchSeedsToDraw(body.matches, body.players, body.seeds)
-                    body.matches = seededDraw
                 }
 
                 Tournament.findByIdAndUpdate(id, body)
@@ -255,22 +222,3 @@ module.exports.delete_tournament = (req, res) => {
          })
      }    
 }
-
-// // GET - export tournament
-// module.exports.export_tournament = (req, res) => {
-//     const body = req.body;
-
-//     pdf.create(drawTemplate(body, "download"), {}).toStream((err, stream) => {
-//         if (err) {
-//             res.send({error: err});
-//         }
-//         else
-//         {
-//             stream.on('end', () => {
-//                 return res.end()
-//             })    
-            
-//             stream.pipe(res)
-//         }
-//     })
-// }

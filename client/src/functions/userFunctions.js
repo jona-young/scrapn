@@ -68,38 +68,29 @@ export const courtDashboard = (courtArr, Link) => {
 
 export const tournamentDashboard = (tournamentArr, Link, deleteTournament, history, DialogAlert) => {
   let bookedTournaments = []
-  
   if (tournamentArr && tournamentArr.length > 0)
   {
     for (let i = 0; i < tournamentArr.length; i++)
     {
       bookedTournaments.push(
-        <div className="tournaments-box-item">
-          <div className="tournaments-item">
-            <Link
-            className="tournaments-link"
-            key={i+"-tournament"}
-            to={{
-              pathname: "/tournament/" + tournamentArr[i]._id,
-            }}
-            >
-              <div className="tournaments-title">
-                  {tournamentArr[i].name}
-              </div>
-              <div className="tournaments-info">
-                {tournamentArr[i].location} on {tournamentArr[i].startDate}
-              </div>
-            </Link>
-            <div className='tournament-btns'>
-              <Link className="btn-tourn-edit" key={i+"-edit"} to={{pathname: "/update-tournament/" + tournamentArr[i]._id}}>EDIT</Link>
-              {/* <button className="btn-tourn-delete" key={i+"-del"} onClick={() => deleteTournament(tournamentArr[i]._id, history, false)}>Delete</button> */}
-              <DialogAlert
-                btnName="delete"
-                handleClickAction={() => deleteTournament(tournamentArr[i]._id, history, false)} 
-              />
-            </div>
+        <Link 
+          key={i+"-tournament"}
+          to={{
+            pathname: "/tournament/" + tournamentArr[i]._id,
+          }}
+          className="general-contentbox content-flexcard"
+        >
+          <div>
+              <span className="content-icon">T{i+1}</span>
           </div>
-        </div>
+          <div className="content-cardinfo">
+              <span className="content-badge flex-spacer">
+                {tournamentArr[i].startDate}
+              </span>
+              <h4 className="flex-spacer">{tournamentArr[i].name}</h4>
+              <p className="content-lightsub content-smallheading flex-spacerend">{tournamentArr[i].location}</p>
+          </div>
+        </Link>
       )
     }
   }
@@ -109,7 +100,5 @@ export const tournamentDashboard = (tournamentArr, Link, deleteTournament, histo
     <span className="bookings-empty">You do not currently have any booked courts!</span>
     )
   }
-
-
   return bookedTournaments
 }
