@@ -32,10 +32,6 @@ const TournamentForm = ({form, update}) => {
     handleChange(e, setCurrentItem, currentItem)
   }
 
-  const handleSubmit = () => {
-    console.log('sup king')
-  }
-
   const [ numMatches, setNumMatches ] = useState(form && form.players && form.players.length ? form.players.length : 4)
   useEffect(() => {
     setCurrentItem(form)

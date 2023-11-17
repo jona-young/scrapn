@@ -101,12 +101,25 @@ body {
     font-size: 0.8rem;
   }
 
+  .form-bannerbtn {
+    margin-top: 0 !important;
+  }
+  
   .form-updatebtn {
     background: #e0e240;
   }
 
+  .form-optionbtn {
+    background: #0fc70c;
+  }
+
   .form-dangerbtn {
     background: #e13636 !important;
+  }
+
+  .form-matchupdate {
+    padding: 0.25rem 0.5rem !important;
+    margin-bottom: 0.5rem !important;
   }
   
   .divide-line {
@@ -192,6 +205,13 @@ body {
     color: rgb(155, 155, 155) !important;
     
   }
+
+  .content-cardcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:first baseline
+  }
   
   .flex-items {
     display: flex;
@@ -223,4 +243,10 @@ body {
   
     }
   
+  }
+
+  @media only screen and (max-height: 750px) {
+    .modal-matchupdate {
+      margin-top: -22rem !important;
+    }
   }

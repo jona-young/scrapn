@@ -46,7 +46,12 @@ const Home = () => {
             </section>
             <section className="membership-transition content-container">
                 {tournamentBlocks}
+                <div className="general-contentbox home-create">
+                <Link to="/create-tournament" className="form-submit form-tournamentbtn">Create New Tournament</Link>
+                </div>
             </section>
+
+
         </>
     )
 }

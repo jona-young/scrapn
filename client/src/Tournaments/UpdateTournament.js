@@ -16,10 +16,12 @@ const UpdateBooking = () => {
     //Sets the item that will be pushed to backend API to update court booking
     const [currentItem, setCurrentItem] = useState({});
     const [formLoad, setFormLoad] = useState(false);
+    const [ dummyNum, setDummyNum ] = useState();
+    const [dummyObj, setDummyObj ] = useState();
 
     useEffect(() => {
         validateUser(routeLoginChange);
-        getTournament(id, setCurrentItem, setFormLoad)
+        getTournament(id, setCurrentItem, setFormLoad, dummyObj, setDummyObj, setDummyNum)
     },[])
 
     if (formLoad == true)

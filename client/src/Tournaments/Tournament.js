@@ -1,10 +1,14 @@
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { UserContext } from '../functions/UserContext.js';
-import jsPDF from 'jspdf';
-import { singleElimination, roundRobin, roundRobinStandings } from '../Tournaments/tournamentFunctions.js';
-import { getTournament, putTournament, getRoundRobinResults } from '../functions/tournamentAPI.js';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import DialogAlert from '../functions/DialogAlert.js';
+import PDFDocument from './PDFDocument..js'; 
+import { singleElimination, PDFSingleElim, roundRobin, roundRobinStandings, PDFRoundRobin, PDFRoundRobinStandings, PDFPaperSize } from '../Tournaments/tournamentFunctions.js';
+import { getTournament, putTournament, getRoundRobinResults, deleteTournament } from '../functions/tournamentAPI.js';
 import MatchUpdate from '../Tournaments/MatchUpdate.js';
+import OpenImage from "../img/open.png"
+import CloseImage from "../img/close.png"
 import "../General/template.css"
 import "../General/site.css";
 
@@ -14,10 +18,12 @@ const Tournament = () => {
 
     //User Context
     const { userPrefs } = useContext(UserContext);
-
-    const pdfRef = useRef(null);
     
     const [ bracket, setBracket ] = useState([])
+    const [ pdfBracket, setPDFBracket ] = useState([])
+    const [ pdfStandings, setPDFStandings ] = useState([])
+    const [ pdfPaperSize, setPDFPaperSize ] = useState("")
+    const [collapseData, setCollapseData ] = useState({})
     const [ standings, setStandings ] = useState([])
     const [ standingsData, setStandingsData ] = useState()
     const [ currentItem, setCurrentItem ] = useState({
@@ -27,6 +33,32 @@ const Tournament = () => {
 
     // Court update window
     const [ matchID, setMatchID ] = useState(-1)
+
+    const updateCollapseData = (name) => {
+        let newCollapseData = collapseData
+        newCollapseData[name] = !newCollapseData[name]
+        setCollapseData(newCollapseData)
+    }
+    const expandCollapseData = () => {
+        let newCollapseData = collapseData
+
+        let flag = false
+        for (const [key, value] of Object.entries(newCollapseData)) {
+            if (newCollapseData[key] == true) {
+                flag = true
+            }
+        }
+
+        for (const [key, value] of Object.entries(newCollapseData)) {
+            if (flag) {
+                newCollapseData[key] = false
+            } else {
+                newCollapseData[key] = true
+            }
+        }
+
+        setCollapseData(newCollapseData)
+    }
 
     const togglePopUp = (_matchID) => {
 
@@ -69,91 +101,40 @@ const Tournament = () => {
         // then toggle pop up to remove the pop up
         togglePopUp(-1)
     }
-    
-    // Export tournament draws, modular for round robin & single elimination
-    const exportPDF = (tournamentType, matches) => {
-        let orient = "p"
-        let dimensions = [900, 900]
-        if (tournamentType === "single-elim")
-        {
-            if (matches >= 8 && matches < 16)
-            {
-                dimensions = [900, 900]
-            }
-            else if (matches >= 16 && matches < 32)
-            {
-                orient="p"
-                dimensions = [1260, 1600]
-            }
-            else if (matches >= 32 && matches < 64)
-            {
-                orient="p"
-                dimensions = [1440, 2800]
-            }
-            else if (matches >= 64)
-            {
-                orient="p"
-                dimensions = [2040, 5600]
-            }
-        }
-        else if (tournamentType === "round-robin")
-        {
-            if (matches === 2)
-            {
-                dimensions = [1260, 720]
-            }
-            else if (matches === 3)
-            {
-                dimensions = [1260, 1080]
-            }
-            else if (matches === 4)
-            {
-                dimensions = [1260, 1260]
-            }
-            else if (matches === 5)
-            {
-                orient="p"
-                dimensions = [1260, 1780]
-            }
-            else if (matches === 6)
-            {
-                orient="p"
-                dimensions = [1440, 2060]
-            }
-
-        }
-
-        const content = pdfRef.current;
-
-        // jsPDF parameters (orientation, unit, page size)
-        const doc = new jsPDF(orient, "px", dimensions);
-        doc.html(content, {
-            callback: function (doc) {
-            doc.save('tournament.pdf');
-            }
-        });
-    }
 
     useEffect(() => { 
-        getTournament(id, setCurrentItem, setLoadedData)
+        getTournament(id, setCurrentItem, setLoadedData, collapseData, setCollapseData)
 
+        let matchLength = currentItem.matches.length
+        console.log('match size: ', matchLength)
+
+        let paperSize = PDFPaperSize(matchLength, currentItem.tournamentType)
+        setPDFPaperSize(paperSize)
+
+        let pdfMatches = []
+        let drawMatches = []
+        for (var i = 0; i < matchLength; i++) {
+            pdfMatches.push(currentItem.matches[i])
+            drawMatches.push(currentItem.matches[i])
+        }
         if (currentItem.tournamentType === "single-elim")
         {
-            singleElimination(currentItem.matches, setBracket, togglePopUp, currentItem.playerType)
-            // createDraw();
+            PDFSingleElim(pdfMatches, currentItem.playerType, setPDFBracket)
+            singleElimination(drawMatches, setBracket, togglePopUp, currentItem.playerType)
         }
         else if (currentItem.tournamentType === "round-robin")
         {
+            PDFRoundRobin(pdfMatches, currentItem.players.length, setPDFBracket)
+
             getRoundRobinResults(id, setStandingsData);
-            roundRobin(currentItem.matches, setBracket, togglePopUp, currentItem.playerType)
+            roundRobin(drawMatches, setBracket, togglePopUp, currentItem.players.length)
         }
     }, [loadedData])
 
     useEffect(() => {
+        PDFRoundRobinStandings(currentItem.players, standingsData, setPDFStandings)
         roundRobinStandings(currentItem.players, standingsData, setStandings, loadedData)
     }, [standingsData, loadedData])
-
-
 
     return (
         <>
@@ -164,13 +145,33 @@ const Tournament = () => {
                 </div>
                 { currentItem.author === userPrefs.nameID ? 
                 <div className="tournament-header-toprow">
-                    <Link to={"/update-tournament/" + id} className="form-submit form-tournamentbtn form-updatebtn">Update</Link>
-                    <Link to="#" onClick={() => exportPDF(currentItem.tournamentType, currentItem.matches.length)} className="form-submit form-tournamentbtn form-downloadbtn">Download PDF</Link>
+                    <Link to={"/update-tournament/" + id} className="form-submit form-tournamentbtn form-updatebtn form-bannerbtn">Update</Link>
+                    <DialogAlert 
+                    btnName="Delete"
+                    handleClickAction = {(e) => deleteTournament(e, currentItem._id, navigate, true)} 
+                    heading="Delete Tournament?"
+                    message="Confirm you would like to delete this tournament!"/>
+                    <PDFDownloadLink document={ <PDFDocument 
+                                                    badge="T1" 
+                                                    name={currentItem.name} 
+                                                    date={currentItem.startDate}
+                                                    location={currentItem.location} 
+                                                    draw={pdfBracket}
+                                                    drawType={currentItem.tournamentType}
+                                                    standings={ currentItem.tournamentType == "single-elim" ? "Hello": pdfStandings}
+                                                    paperSize={pdfPaperSize} />
+
+                                              } 
+                                    className="form-submit form-tournamentbtn form-downloadbtn form-bannerbtn" fileName={currentItem.name+'.pdf'}>
+                        {({ blob, url, loading, error }) => 
+                        loading ? 'Loading document...' : 'Download!'
+                        }
+                    </PDFDownloadLink>
                 </div>            
                 : ""
                 }
             </section>
-            <div className="tournament-container" ref={pdfRef}>
+            <div className="tournament-container">
                 <div 
                 className="tournament-flexcard"
                 >
@@ -185,21 +186,45 @@ const Tournament = () => {
                         <p className="content-lightsub content-smallheading tourn-spacerend">{currentItem.location}</p>
                     </div>
                 </div>            
-                <div className="tournament-container" ref={pdfRef}>
+                <div className="tournament-container">
                     {matchID !== -1 ? 
                         <MatchUpdate 
                             togglePopUp={togglePopUp} 
                             updateMatch={updateMatch} 
                             match={currentItem.matches[matchID]} 
-                            players={currentItem.players} /> 
+                            players={currentItem.players}
+                            tournamentType={currentItem.tournamentType} /> 
                     :
                     null
                     }
                     <div className="table-scroll">
                         {standings}
                     </div>
-                    <div className="tournament">
-                        {bracket}
+                    <div className={ "tournament"}>
+                        { currentItem.tournamentType == "single-elim" ?
+                        bracket
+                        :
+                        <div className="roundrobin-container roundrobin-matchmargin">
+                            <Link to="#" onClick={() => { expandCollapseData() }} className="form-submit form-tournamentbtn form-optionbtn roundrobin-expand">
+                                <p>Expand / Collapse</p>
+                            </Link>
+                            {bracket.map((round, i) => {
+                                return (
+                                    <div className="roundrobin-matchset" key={'matchset-round' + i}>
+                                        <Link to="#" onClick={() => { updateCollapseData((i + 1)) }} className="roundrobin-matchsetheader">
+                                            <img src={collapseData[(i + 1) ] ? CloseImage : OpenImage} className="roundrobin-icon" />
+                                            <p>Round {i + 1} Matches</p>
+                                        </Link>
+                                        <div className={ collapseData[(i + 1)] ? "roundrobin-collapse rr-active" : "roundrobin-collapse"} >
+                                            <div className="roundrobin-carousel">
+                                            {round}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            } )}
+                        </div>
+                        }
                     </div>
                 </div>
             </div>

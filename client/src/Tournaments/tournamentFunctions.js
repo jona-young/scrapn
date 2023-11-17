@@ -1,3 +1,547 @@
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+    tournamentRound6: {
+        margin: 'auto 0 auto 5pt',
+        width: '250pt',
+        marginLeft: '0'
+    },
+    tournamentRound5: {
+        margin: 'auto 0 auto 5pt',
+        width: '250pt',
+    },
+    tournamentRound4: {
+        margin: 'auto 0 auto 5pt',
+        width: '250pt',
+    },
+    tournamentRound3: {
+        margin: 'auto 0 auto 5pt',
+        width: '250pt',
+    },
+    tournamentRound2: {
+        margin: 'auto 0 auto 5pt',
+        width: '250pt',
+    },
+    tournamentRound1: {
+        margin: 'auto 0 auto 5pt',
+        width: '250pt',
+    },
+    singleConnect6: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '35pt',
+        width: '250pt',
+    },
+    singleConnect5: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '125pt',
+        width: '250pt',
+    },
+    singleConnect4: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '325pt',
+        width: '250pt',
+    },
+    singleConnect3: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '725pt',
+        width: '250pt',
+    },
+    singleConnect2: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '1515pt',
+        width: '250pt',
+    },
+    singleSpace6: {
+        minHeight: '35pt'
+    },
+    singleSpace5: {
+        minHeight: '136pt'
+
+    },
+    singleSpace4: {
+        minHeight: '335pt'
+
+    },
+    singleSpace3: {
+        minHeight: '740pt'
+
+    },
+    singleSpace2: {
+        minHeight: '1525pt'
+
+    },
+    doubleConnect66: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '35pt',
+        width: '250pt'
+    },
+    doubleConnect55: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '185pt',
+        width: '250pt'
+    },
+    doubleConnect44: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '490pt',
+        width: '250pt'
+    },
+    doubleConnect33: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '1100pt',
+        width: '250pt'
+    },
+    doubleConnect22: {
+        borderRight: '6pt solid #5590EC',
+        minHeight: '2465pt',
+        width: '250pt'
+    },
+    doubleSpace66: {
+        minHeight: '35pt'
+    },
+    doubleSpace55: {
+        minHeight: '196pt'
+    },
+    doubleSpace44: {
+        minHeight: '515pt'
+    },
+    doubleSpace33: {
+        minHeight: '1150pt'
+    },
+    doubleSpace22: {
+        minHeight: '2465pt'
+    },
+    tournamentEmpty: {
+        height: '60pt',
+        width: '250pt',
+        backgroundColor: 'lightgray',
+        border: '3pt solid #e8e8e8',
+    },
+    tournamentEmptyDoubles: {
+        height: '120pt',
+        width: '250pt',
+        backgroundColor: 'lightgray',
+        border: '3pt solid #e8e8e8',
+    },
+    tournamentMatch: {
+        height: '60pt',
+        backgroundColor: '#ffffff',
+        border: '3pt solid #e8e8e8',
+        fontSize: '12pt',
+        minWidth: '250pt',
+    },
+    tournamentMatchDoubles: {
+        height: '60pt',
+        backgroundColor: '#ffffff',
+        border: '3pt solid #e8e8e8',
+        fontSize: '12pt',
+        width: '250pt',
+        height: '120pt'
+    },
+    matchNames: {
+        width: '130pt',
+        height: '17pt', 
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden'
+    },
+    matchNamesDoubles: {
+        width: '130pt',
+        height: '34pt', 
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden'
+    },
+    doublesSpacer: {
+        display: 'block',
+        margin: '60pt 0'
+    },
+    matchInfo: {
+        padding: '3pt 10pt 0 10pt',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    matchScore: {
+        right: 0,
+        marginLeft: 'auto',
+        textAlign: 'right'
+    },
+    matchTeam: {
+        padding: '0 10pt 0 10pt',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    boxScore: {
+        display: 'inline-block',
+        width: '15pt',
+        margin: '0 1pt',
+        textAlign: 'center'
+    },
+    matchWinner: {
+        fontSize: '24pt',
+        width: '350pt'
+    },
+    matchTeamWinner: {
+        padding: '0 10pt 0 10pt',
+        display: 'flex',
+        flexDirection: 'row',
+        fontSize: '24pt',
+        width: '350pt'
+    },
+    winnerText: {
+    },
+    roundrobinMatch: {
+        width: '250pt',
+        margin: '20pt 5pt',
+        padding: '5pt 10pt',
+        backgroundColor: 'white',
+        border: '2pt solid #e8e8e8',
+        borderRadius: '7pt',
+        display: 'flex',
+        flexDirection: 'column',
+
+    },
+    roundrobinCenterBox: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    roundrobinNameBox: {
+        width: '250pt',
+        display: 'flex',
+        flexDirection: 'column',
+        fontSize: '12pt'
+    },
+    roundrobinDateloc: {
+        margin: '5pt',
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    roundrobinLocation: {
+        textAlign: 'left',
+        fontSize: '14pt',
+        marginBottom: '5pt'
+    },
+    roundrobinDate: {
+        right: 0,
+        marginLeft: 'auto'
+    },
+    roundrobinMatchup: {
+        margin: '5pt auto'
+    },
+    roundrobinNames: {
+        textAlign: 'center',
+        display: 'block'
+    },
+    roundrobinScoreset: {
+        margin: '2pt auto',
+        display: 'flex',
+        flexDirection: 'row',
+        fontSize: '12pt'
+    },
+    roundrobinScore: {
+        textAlign: 'center',
+        marginRight: '5pt'
+    }, 
+    rrStandings: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        margin: '10pt auto',
+        color: 'black',
+        textAlign: 'center'
+    },
+    rrTr: {
+        display: 'flex',
+        flexDirection: 'row',
+        height: '50pt'
+    },
+    rrTrCollection: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    standingsColplayer: {
+        fontSize: '12pt',
+        width: '100pt'
+    },
+    standingsBlocked: {
+        width: '125pt',
+        overflow: 'hidden',
+        borderRadius: '5pt',
+        backgroundColor: '#e8e8e8'
+    },
+    standingsValue: {
+        width: '125pt',
+        border: '2pt solid #e8e8e8',
+        overflow: 'hidden',
+        borderRadius: '5pt',
+    },
+    standingsColHeader: {
+        width: '125pt',
+        border: '2pt solid #e8e8e8',
+        overflow: 'hidden',
+        borderRadius: '5pt',
+    },
+    standingsRowPlayer: {
+        width: '200pt',
+        fontSize: '12pt',
+    },
+    standingsColPlayer: {
+        fontSize: '12pt',
+    },
+    standingsColResult: {
+        fontSize: '12pt',
+        margin: 'auto 0',
+    },
+    textBlock: {
+        display: 'block',
+        marginBottom: '5pt',
+        textAlign: 'center',
+    }
+});
+
+export const PDFRoundRobin = ( matches, playerLen, updateState ) => {
+    if (playerLen % 2 == 1) {
+        playerLen++;
+    }
+
+    let tournament = []
+    const options = {
+        year: 'numeric', 
+        month: 'numeric', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit'
+    }
+    // display matches
+    let round = []
+
+    for (let i = 0; i < matches.length; i++)
+    {   
+        let rawDate = matches[i].date
+        let formattedDate
+        if (rawDate !== "")
+        {
+            formattedDate = new Date(rawDate).toLocaleString([], options)
+        }
+        else { formattedDate = ""}
+
+        round.push(<View style={styles.roundrobinMatch}>
+                        <View style={styles.roundrobinDateloc}>
+                            <View>
+                                <Text style={styles.roundrobinLocation}>{"Round " + matches[i].round}&nbsp; <br /> {matches[i].location}</Text>
+                            </View>
+                            <View style={styles.roundrobinDate}>
+                                <Text>{formattedDate}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.roundrobinCenterBox}>
+                            <View style={styles.roundrobinNameBox}>
+                                {matches[i].team1 && matches[i].winner === "1" ? <PDFParseDoublesTeam team={matches[i].team1} /> : <PDFParseDoublesTeam team={matches[i].team1} />}
+                                <Text style={styles.textBlock}>
+                                    vs
+                                </Text>
+                                {matches[i].team2 && matches[i].winner === "2" ? <PDFParseDoublesTeam team={matches[i].team2} /> : <PDFParseDoublesTeam team={matches[i].team2} />}
+                            </View>
+                            <View style={styles.roundrobinScoreset}>
+                                {matches[i].score1.map((score, x) => {return <Text style={styles.roundrobinScore}>{score}</Text>})}
+                            </View>
+                            <View style={styles.roundrobinScoreset}>
+                                {matches[i].score2.map((score, x) => {return <Text style={styles.roundrobinScore}>{score}</Text>})}
+                            </View>
+                        </View>
+                    </View>)
+       
+        if ((i + 1) % (playerLen / 2) == 0)
+        {
+            tournament.push(round)
+            round = []
+        }
+    }
+
+    updateState(tournament)
+}
+
+export const PDFRoundRobinStandings = (players, currentResults, updateTable) => {
+    if (currentResults)
+    {
+        let counter = 0
+        let headings =  <View style={styles.rrTr}>
+                            <View style={styles.standingsRowPlayer}></View>
+                            { players.map((player, idx) => {
+                            return <View style={styles.standingsColHeader}>
+                                        <View style={styles.standingsColPlayer}>
+                                            {<PDFParseDoublesTeam team={player} />}
+                                        </View>
+                                    </View>
+                            })}
+                        </View>
+
+        let rows = []
+        for (let i = 0; i < players.length; i++)
+        {
+            let row = []
+            for (let j = 0; j < players.length; j++)
+            {
+                if (players[i] === players[j])
+                {
+                    row.push(<View style={styles.standingsBlocked}>&nbsp;</View>)
+                }
+                else
+                {
+                    if (currentResults[players[i]][players[j]] === "TBD")
+                    {
+                        row.push(<View style={styles.standingsValue}>&nbsp;</View>)
+                    }
+                    else
+                    {
+                        row.push(<View style={styles.standingsValue}>
+                                    <Text style={styles.standingsColResult}>
+                                        {currentResults[players[i]][players[j]]}
+                                    </Text>
+                                </View>)
+                    }
+                }
+                counter++
+            }
+                rows.push(<View style={styles.rrTr}>
+                        <View style={styles.standingsRowPlayer}>
+                            {<PDFParseDoublesTeam team={players[i]} />}
+                        </View>
+                        {row}
+                </View>)
+
+        }
+            updateTable(<View style={styles.rrStandings}><View style={styles.rrTrCollection}>{headings}{rows}</View></View>)
+
+    }
+}
+
+export const PDFSingleElim = ( matches, playerType, updateState ) => {
+    try
+    {
+        const draw = []
+        const options = {
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit'
+        }
+        
+        // Match size has to account for the parent-child tree placeholder to determine next and previous matches
+        const matchSize = matches.length - 1
+        let keyCounter = matchSize
+        
+        //find bracket size
+        let depth = findDepth(matchSize)
+
+        let matchClass = "tournamentMatch"
+        let matchNameClass = "matchNames"
+        let doublesSpacerClass = ""
+        let emptyMatchClass = "tournamentEmpty"
+
+        if (playerType === "Doubles")
+        {
+            emptyMatchClass = "tournamentEmptyDoubles"
+            matchClass = "tournamentMatchDoubles"
+            matchNameClass = "matchNamesDoubles"
+            doublesSpacerClass = "doublesSpacer"
+        }
+
+        let matchSpacer = 6
+        for (let i = depth; i > 0; i--)
+        {
+            let round = []
+            let roundMatches = Math.pow(2,i) - Math.pow(2,i - 1)
+
+            // j = 1 accounts for parent-child tree placeholder
+            for (let j = 1; j <= roundMatches; j++)
+            {
+                //match spacer var
+                let connectClass = "singleConnect"+ matchSpacer
+                let spaceClass = "singleSpace"+ matchSpacer
+
+                if (playerType === "Doubles")
+                {
+                    connectClass = "doubleConnect"+ matchSpacer + matchSpacer
+                    spaceClass = "doubleSpace"+ matchSpacer + matchSpacer
+                }
+
+
+                let connector = <View style={styles[connectClass]}></View>
+                let spacer = <View style={styles[spaceClass]} ></View>
+
+                if (matches[keyCounter].checker === 0)
+                {
+                    round.push(<View style={styles[emptyMatchClass]}></View>)
+    
+                    if (j % 2 === 1 && i > 1) { round.push(connector) }
+                    else if (j % 2 === 0 && j !== (roundMatches)) { round.push(spacer) }
+                }
+                else
+                {
+                    let rawDate = matches[keyCounter].date
+                    let formattedDate
+                    if (rawDate !== "")
+                    {
+                        formattedDate = new Date(rawDate).toLocaleString([], options)
+                    }
+                    else { formattedDate = ""}
+
+                    round.push(<View style={styles[matchClass]}>
+                                    <View style={styles.matchInfo}>
+                                        <View>
+                                            <Text>{matches[keyCounter].round} {matches[keyCounter].location ? (" - " + matches[keyCounter].location) : ""}</Text>
+                                        </View>
+                                        <Text style={styles.matchScore}>
+                                            <Text>{formattedDate}</Text>
+                                        </Text>
+                                    </View>
+                                    <View style={styles.matchTeam}>
+                                        <View style={styles[matchNameClass]}>
+                                            <Text>{matches[keyCounter].team1 && matches[keyCounter].winner === "1" ? <Text style={styles.winnerText}><PDFParseDoublesTeam team={matches[keyCounter].team1} /></Text> : <PDFParseDoublesTeam team={matches[keyCounter].team1} /> } &nbsp;</Text>
+                                        </View>
+                                        <Text style={styles.matchScore}>
+                                            {matches[keyCounter].score1.map((score)=> {return <Text style={styles.boxScore}>{score}</Text>})}
+                                        </Text>
+                                    </View>
+                                    <View style={styles[doublesSpacerClass]}></View>
+                                    <View style={styles.matchTeam}>
+                                        <View style={styles[matchNameClass]}>
+                                            <Text>{matches[keyCounter].team2 && matches[keyCounter].winner === "2" ? <Text style={styles.winnerText}><PDFParseDoublesTeam team={matches[keyCounter].team2} /></Text> : <PDFParseDoublesTeam team={matches[keyCounter].team2} />} &nbsp;</Text>
+                                        </View>
+                                        <Text style={styles.matchScore}>
+                                        {matches[keyCounter].score2.map((score)=> {return <Text style={styles.boxScore}>{score}</Text>})}
+                                        </Text>
+                                    </View>
+                                </View>)
+                    
+                    if (j % 2 === 1 && i > 1) { round.push(connector) }
+                    else if (j % 2 === 0 && j !== (roundMatches)) { round.push(spacer) }
+                }
+                keyCounter--
+            }
+
+            draw.push(<View style={styles["tournamentRound" + matchSpacer]}>{round}</View>)
+            
+            if (i == 1 && (matches[1].winner == "1" || matches[1].winner == "2")) {
+                draw.push(<View style={styles.tournamentRound1}>
+                                    <View style={styles.matchWinner}>
+                                        <View style={styles.matchInfo}><Text style={styles.winnerText}>WINNER</Text></View>
+                                        <View style={styles.matchTeamWinner}><Text style={styles.winnerText}>{matches[i]['team' + matches[i].winner]}</Text></View>
+                                    </View>
+                                </View>)
+            }
+    
+            for (let j = 0; j < roundMatches; j++) { matches.pop() }
+            
+            matchSpacer--
+        }
+
+        updateState(draw)
+    }
+
+    catch(err) { console.log(err) }
+}
+
 export const singleElimination = async (matches, updateState, togglePopUp, playerType) => {
     try
     {
@@ -55,7 +599,7 @@ export const singleElimination = async (matches, updateState, togglePopUp, playe
 
                 if (matches[keyCounter].checker === 0)
                 {
-                    round.push(<div className={emptyClass}
+                    round.push(<div className={emptyClass + " " + doublesMatch}
                                 key={keyCounter} 
                                 data-key={keyCounter}
                                 onClick={(e) => forwardPopUp(e, togglePopUp)}>
@@ -137,19 +681,15 @@ export const singleElimination = async (matches, updateState, togglePopUp, playe
 
 }
 
-export const roundRobinStandings = (players, currentResults, updateTable, loadedData) => {
+export const roundRobinStandings = (players, currentResults, updateTable) => {
     if (currentResults)
     {
         let counter = 0
-        let headings =  <tr>
+        let headings =  <tr className="rr-tr">
                             <th></th>
                             { players.map((player, idx) => {
-                            return <th key={idx + "-playercol"}>{<ParseDoublesTeam team={player} />}</th>
+                            return <th className="standings-colplayer" key={idx + "-playercol"}>{<ParseDoublesTeam team={player} />}</th>
                             })}
-                            <th>Wins</th>
-                            <th>Games</th>
-                            <th>Place</th>
-
                         </tr>
         let rows = []
         for (let i = 0; i < players.length; i++)
@@ -159,30 +699,24 @@ export const roundRobinStandings = (players, currentResults, updateTable, loaded
             {
                 if (players[i] === players[j])
                 {
-                    row.push(<td className="standings-blocked" key={counter + "-blocked"}>&nbsp;</td>)
+                    row.push(<td className="standings-blocked rr-td" key={counter + "-blocked"}>&nbsp;</td>)
                 }
                 else
                 {
                     if (currentResults[players[i]][players[j]] === "TBD")
                     {
-                        row.push(<td className="standings-value" key={counter + "-playerblock"}>&nbsp;</td>)
+                        row.push(<td className="standings-value rr-td" key={counter + "-playerblock"}>&nbsp;</td>)
                     }
                     else
                     {
-                        row.push(<td className="standings-value" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
+                        row.push(<td className="standings-value rr-td" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
                     }
-                    // row.push(<td className="standings-value" key={counter + "-playerblock"}>{currentResults[players[i]][players[j]]}</td>)
-
                 }
                 counter++
             }
-                rows.push(<tr key={counter+"-row"}>
-                    <td className="standings-rowplayer">{<ParseDoublesTeam team={players[i]} />}</td>
+                rows.push(<tr className="rr-tr" key={counter+"-row"}>
+                    <td className="standings-rowplayer rr-td">{<ParseDoublesTeam team={players[i]} />}</td>
                     {row}
-                    <td className="standings-results" key={counter + "-wins"}></td>
-                    <td className="standings-results" key={counter + "-games"}></td>
-                    <td className="standings-results" key={counter + "-place"}></td>
-
                 </tr>)
         }
 
@@ -190,7 +724,11 @@ export const roundRobinStandings = (players, currentResults, updateTable, loaded
     }
 }
 
-export const roundRobin = (matches, updateState, togglePopUp) => {
+export const roundRobin = (matches, updateState, togglePopUp, playerLen) => {
+    if (playerLen % 2 == 1) {
+        playerLen++;
+    }
+
     let tournament = []
     const options = {
         year: 'numeric', 
@@ -199,13 +737,11 @@ export const roundRobin = (matches, updateState, togglePopUp) => {
         hour: '2-digit', 
         minute: '2-digit'
     }
-
     // display matches
     let round = []
+
     for (let i = 0; i < matches.length; i++)
     {   
-
-
         let rawDate = matches[i].date
         let formattedDate
         if (rawDate !== "")
@@ -213,7 +749,6 @@ export const roundRobin = (matches, updateState, togglePopUp) => {
             formattedDate = new Date(rawDate).toLocaleString([], options)
         }
         else { formattedDate = ""}
-
 
         round.push(<div className="roundrobin-match"
                         key={i+"rr-match"}
@@ -232,14 +767,19 @@ export const roundRobin = (matches, updateState, togglePopUp) => {
                             </p>
                         </div>
                         <div className="roundrobin-scoreset">
-                            {matches[i].score1.map((score) => {return <p className="roundrobin-score" key={i+"-team1"}>{score}</p>})}
+                            {matches[i].score1.map((score, x) => {return <p className="roundrobin-score" key={x+"-team1"}>{score}</p>})}
                         </div>
                         <div className="roundrobin-scoreset">
-                            {matches[i].score2.map((score) => {return <p className="roundrobin-score" key={i+"-team2"}>{score}</p>})}
+                            {matches[i].score2.map((score, x) => {return <p className="roundrobin-score" key={x+"-team2"}>{score}</p>})}
                         </div>
                     </div>)
+       
+        if ((i + 1) % (playerLen / 2) == 0)
+        {
+            tournament.push(round)
+            round = []
+        }
     }
-    tournament.push(<div className="roundrobin-container" key={0}>{round}</div>)
 
     updateState(tournament)
 }
@@ -628,4 +1168,75 @@ const ParseDoublesTeam = ({team}) => {
     {
         return <>{team}</>
     }
+}
+
+const PDFParseDoublesTeam = ({team}) => {
+    if (team === "")
+    {
+        return <Text>{team}</Text>
+    }
+    if (team.split("/").length >= 2)
+    {
+        return (
+            <>
+                <Text style={styles.textBlock}>{team.split("/")[0]}</Text>
+                <Text style={styles.textBlock}>{team.split("/")[1]}</Text>
+            </>
+        )
+    }
+    else if (team.split("&").length >= 2)
+    {
+        return (
+            <>
+                <Text style={styles.textBlock}>{team.split("&")[0]}</Text>
+                <Text style={styles.textBlock}>{team.split("&")[1]}</Text>
+            </>
+        )
+    }
+    else
+    {
+        return <>{team}</>
+    }
+}
+
+export const PDFPaperSize = (matchSize, tournamentType) => {
+    if (tournamentType == "single-elim")
+    {
+        if (matchSize == 4)
+        {
+            return [941, 750]
+        }
+        else if (matchSize == 8)
+        {
+            return [1500, 1000]
+        }
+        else if (matchSize == 16)
+        {
+            return [1500, 1500]
+        }
+        else if (matchSize == 32)
+        {
+            return [1750, 2750]
+        }
+        else if (matchSize == 64)
+        {
+            return [2000, 5250]
+        }
+    }
+    else if (tournamentType == "round-robin")
+    {
+        if (matchSize == 1)
+        {
+            return [500, 750]
+        }
+        else if (matchSize == 6)
+        {
+            return [1000, 1100]
+        }
+        else if (matchSize == 15)
+        {
+            return [1200, 1700]
+        }
+    }
+
 }

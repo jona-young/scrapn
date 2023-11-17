@@ -73,6 +73,7 @@ export const tournamentDashboard = (tournamentArr, Link, deleteTournament, histo
     for (let i = 0; i < tournamentArr.length; i++)
     {
       bookedTournaments.push(
+      <div className="content-flexcard home-cardorient">
         <Link 
           key={i+"-tournament"}
           to={{
@@ -91,6 +92,12 @@ export const tournamentDashboard = (tournamentArr, Link, deleteTournament, histo
               <p className="content-lightsub content-smallheading flex-spacerend">{tournamentArr[i].location}</p>
           </div>
         </Link>
+        <DialogAlert 
+        btnName="Delete"
+        handleClickAction = {(e) => deleteTournament(e, tournamentArr[i]._id, history, false)} 
+        heading="Delete Tournament?"
+        message="Confirm you would like to delete this tournament!"/>
+      </div>
       )
     }
   }

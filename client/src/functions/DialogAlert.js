@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function DialogAlert({btnName, handleClickAction, heading, message}) {
+export default function DialogAlert({btnName, handleClickAction, heading, message, extraClass}) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -17,16 +18,16 @@ export default function DialogAlert({btnName, handleClickAction, heading, messag
     setOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     setOpen(false);
-    handleClickAction()
+    handleClickAction(e)
   }
 
   return (
     <div>
-      <Button variant="contained" color="error" onClick={handleClickOpen}>
+      <Link variant="contained" className={"form-submit form-tournamentbtn form-dangerbtn " + extraClass} color="error" onClick={handleClickOpen}>
         { btnName }
-      </Button>
+      </Link>
       <Dialog
         open={open}
         onClose={handleClose}

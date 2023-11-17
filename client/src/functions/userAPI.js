@@ -155,6 +155,7 @@ export const getLogout = async (routeChange, updateState) => {
                     ])
 
     updateState(false);
+    window.location.reload(false);
     routeChange();
 
   }

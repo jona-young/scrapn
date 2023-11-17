@@ -1,7 +1,7 @@
 import { roundRobinUpdater } from "../Tournaments/tournamentFunctions.js";
 
 // GET Request for single tournament
-export const getTournament = async (id, updateData, setDataLoaded) => {
+export const getTournament = async (id, updateData, setDataLoaded, collapseData, setCollapseData, ) => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/tournament/" + id, {
         credentials: 'include',
         method: 'GET',
@@ -12,6 +12,24 @@ export const getTournament = async (id, updateData, setDataLoaded) => {
 
     if (json)
     {
+        if (json.tournamentType == 'round-robin') {
+            let numOfRounds;
+            let playerLen;
+
+            if (json.players.length % 2 == 1) {
+                playerLen = json.players.length + 1;
+            } else {
+                playerLen = json.players.length
+            }
+
+            numOfRounds = json.matches.length / (playerLen / 2)
+            let collapseObj = {}
+            for (var i = 1; i <= numOfRounds; i++)
+            {
+                collapseObj[i] = false;
+            }
+            setCollapseData(collapseObj);
+        }
         updateData(json);
         setDataLoaded(true)
 
@@ -81,7 +99,7 @@ export const postTournament = async (e, form, history) => {
         console.log(json.errors);
     }
 
-    history("/");
+    history("/tournaments");
 
 }
 
@@ -114,7 +132,10 @@ export const putTournament = async (e, form, history, changePlayerSize) => {
 
 
 //Delete a court booking
-export const deleteTournament = async (id, history, formDel) => {
+export const deleteTournament = async (e, id, navigate, formDel) => {
+    e.preventDefault();
+
+    console.log(id)
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament/' + id, {
         credentials: 'include',
         method: 'DELETE',
@@ -127,8 +148,8 @@ export const deleteTournament = async (id, history, formDel) => {
     {
         console.log(json)
         if (formDel === true) {
-            // if tournanet deleted on tournament page
-            history("/");
+            // if tournament deleted on tournament page
+            navigate("/tournaments");
           } else if (formDel === false) {
             // if tournament deleted on home page
             window.location.reload(false);

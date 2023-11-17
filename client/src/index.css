@@ -250,6 +250,13 @@ ul li::marker {
   min-height: 500px;
 }
 
+.home-cardorient {
+  flex-direction: column !important;
+  align-items: center !important;
+  padding: 0.5rem 2rem !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
 .home-button {
   display: block;
   text-decoration: none;
@@ -715,13 +722,22 @@ ul li::marker {
 .form-number {
   font-weight: bold;
   text-align: center;
-  width: 40px;
+  width: 25px;
   margin-right: 5px;
 }
 
 .form-submit {
-  margin-top: 25px;
-  width: 190px;
+  margin-top: 5px;
+}
+
+.matchupdate-buttonbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.matchupdate-height {
+  margin-left: 0.5rem;
+  height: 1.14rem;
 }
 
 .form-delete {
@@ -863,9 +879,14 @@ ul li::marker {
 }
 
 .tournament {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  padding: 30px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem 0.2rem;
+  padding-top: 2rem;
+  overflow: scroll;
 }
 
 .tournament-round {
@@ -928,7 +949,7 @@ ul li::marker {
   background: #ffffff;
   border: 3px solid #e8e8e8;
   font-size: 12px;
-  max-width: 250px;
+  max-width:250px;
 }
 
 .match-winner {
@@ -939,7 +960,6 @@ ul li::marker {
 
 .tournament-connect {
   border-right: 6px solid #5590EC;
-
 }
 
 .tournament-space6 {
@@ -992,7 +1012,7 @@ ul li::marker {
 .modal {
   box-sizing: border-box;
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   width: 300px;
   height: 100%;
   left: 5%;
@@ -1012,7 +1032,7 @@ ul li::marker {
 }
 
 .matchupdate-container {
-  padding: 2rem;
+  padding: 1.25rem;
   position: relative;
   z-index: 2;}
 
@@ -1060,21 +1080,20 @@ ul li::marker {
 
 .rr-standings {
   table-layout: fixed;
-  min-width: 1200px;
-  margin: 10px 0;
-  padding: 20px;
+  width: 600px;
+  margin: 10px auto;
   background: white;
   color: black;
   text-align: center;
 }
 
 .standings-blocked {
-  background: black;
+  background: #e8e8e8;
+  box-shadow: 0rem 0.25rem 1.75rem rgba(30, 34, 40, 0.12);
 }
 
 .standings-value {
-  border: 4px solid black;
-  width: 300px;
+  box-shadow: 0rem 0.25rem 1.75rem rgba(30, 34, 40, 0.12);
 }
 
 .standings-results {
@@ -1082,15 +1101,35 @@ ul li::marker {
   width: 100px;
 }
 
+.rr-th {
+  width: 100px;
+  overflow: hidden;
+}
+
+.rr-td {
+  width: 100px !important;
+  overflow: hidden;
+  border-radius:0.25rem;
+}
+
+.rr-tr {
+  height: 50px;
+  overflow: hidden;
+}
+
+.standings-colplayer {
+  font-size: 0.7rem;
+  font-weight: bold;
+}
 .standings-rowplayer {
-  width: 200px;
-  padding: 10px 0 10px 0;
+  padding: 0.7rem 1rem 0.7rem 0;
+  font-size: 0.7rem;
   font-weight: bold;
 }
 
 .roundrobin-container {
   display: flex;
-  flex-direction: rows;
+  flex-direction: column;
   flex-wrap: wrap;
 }
 
@@ -1099,14 +1138,64 @@ ul li::marker {
   margin: auto;
 }
 
+.roundrobin-matchset {
+  box-sizing: border-box;
+  box-shadow: 0 0 0 0.05rem rgba(16, 100, 170, 0.1), 0rem 0rem 1.25rem rgba(60, 64, 80, 0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 0.65rem 1.25rem;
+  overflow: scroll;
+  width: 100%;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.roundrobin-matchsetheader {
+  text-decoration: none;
+  color: #3f78e0;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.roundrobin-collapse {
+  display: none;
+}
+
+.roundrobin-matchmargin {
+  margin: 0 auto !important;
+}
+
+
+.roundrobin-icon {
+  width: 15px;
+  height: auto;
+  margin-top: 0.1rem;
+  margin-right: 0.25rem;
+}
+
+.rr-active {
+  display:block;
+}
+
+.roundrobin-carousel {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  justify-content: center;
+}
+
 .roundrobin-match {
   width: 250px;
-  height: 195px;
+  height: fit-content;
   margin: 20px 5px;
-  padding: 0 10px 0 10px;
+  padding: 5px 10px 5px 10px;
   background: white;
-  border: 5px solid #f0f0f0;
-
+  box-shadow: 0rem 0.25rem 1.75rem rgba(30, 34, 40, 0.2);
+  border-radius:0.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -1135,7 +1224,6 @@ ul li::marker {
   margin: 2px auto;
   display: flex;
   flex-direction: row;
-
   font-size: 12px;
 }
 
@@ -1147,6 +1235,13 @@ ul li::marker {
 
 .roundrobin-names {
   text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.roundrobin-expand {
+  position: relative;
+  right: 0;
+  margin-left: auto;
 }
 
 @media only screen and (min-width: 885px)
@@ -1199,3 +1294,5 @@ ul li::marker {
     margin: 25px auto;
   }
 }
+
+
