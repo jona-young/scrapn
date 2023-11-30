@@ -22,6 +22,10 @@ const tournamentSchema = new Schema({
         type: String,
         required: false,
     },
+    drawSize: {
+        type:String,
+        required: false,
+    },
     matches: [{
         checker: {
             type: Number,
@@ -31,18 +35,18 @@ const tournamentSchema = new Schema({
             type: String,
             required: false,
         },
-        team1: {
+        team1: [{
             type: String,
             required: false,
-        },
+        }],
         score1: [{
             type: String,
             required: false
         }],
-        team2: {
+        team2: [{
             type: String,
             required: false,
-        },
+        }],
         score2: [{
             type: String,
             required: false
@@ -72,10 +76,10 @@ const tournamentSchema = new Schema({
         type: String,
         required: false,
     },
-    players: [{
+    players: [[{
         type: String,
         required: false
-    }],
+    }]],
     playerType: {
         type: String,
         required: false

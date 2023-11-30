@@ -17,35 +17,25 @@ const TournamentForm = ({form, update}) => {
     endDate: form.endDate ? form.endDate : "",
     location: form.location ? form.location : "",
     tournamentType: form.tournamentType ? form.tournamentType : "",
-    matches: form.matches ? form.matches : 1,
+    drawSize: form.drawSize ? form.drawSize : 0,
+    matches: form.matches ? form.matches : [],
     author: form.author ? form.author : "",
     authorID: form.authorID ? form.authorID : "",
     players: form.players ? form.players : [],
-    playerType: form.playerType ? form.playerType : "",
-    mode: update ? update : "-1",
+    playerType: form.playerType ? form.playerType : "Singles",
+    mode: update ? update : -1,
     seeds: form.seeds ? form.seeds : 0
   });
 
-  const [ tournamentType, setTournamentType ] = useState("")
-  const updateTournamentType = (e) => {
-    setTournamentType(e.target.value)
+  const addPlayers = (e) => {
+    e.preventDefault()
+    e.target.name="add-player"
     handleChange(e, setCurrentItem, currentItem)
   }
 
-  const [ numMatches, setNumMatches ] = useState(form && form.players && form.players.length ? form.players.length : 4)
   useEffect(() => {
-    setCurrentItem(form)
-    if (form.tournamentType === "single-elim")
-    {
-      setNumMatches(form.players.length)
-      setTournamentType("single-elim")
-    }
-    else {setNumMatches(form.players.length)}
-  },[form])
-
-  useEffect(() => {
-    matchAndPlayerUpdater(numMatches, currentItem, setCurrentItem, update)
-  }, [numMatches])
+    matchAndPlayerUpdater(currentItem.drawSize, currentItem, setCurrentItem, update)
+  }, [currentItem.drawSize])
 
   return (
       <div className="form-container">
@@ -99,7 +89,7 @@ const TournamentForm = ({form, update}) => {
               Draw Type
             </label>
             <select
-              onChange={(e) => updateTournamentType(e)}
+              onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
               className="form-field"
               name="tournamentType"
               value={currentItem.tournamentType}
@@ -109,13 +99,13 @@ const TournamentForm = ({form, update}) => {
               <option value="round-robin" key="3-dt">Round Robin</option>
             </select>
             <label className="form-label">
-              Number of Teams
+              Draw Size
             </label>
             <select
-              onChange={(e) => handleChange(e, setNumMatches, numMatches)}
+              onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
               className="form-field"
-              name="numMatches"
-              value={numMatches}
+              name="drawSize"
+              value={currentItem.drawSize}
             >
               <option key="1-nm">Select draw type first..</option>
               {currentItem.tournamentType === "single-elim" ? 
@@ -136,6 +126,8 @@ const TournamentForm = ({form, update}) => {
                 <option value="4" key="4-rr">4 Team</option>
                 <option value="5" key="5-rr">5 Team</option>
                 <option value="6" key="6-rr">6 Team</option>
+                <option value="7" key="7-rr">7 Team</option>
+                <option value="8" key="8-rr">8 Team</option>
               </>
               : ""
               }
@@ -158,18 +150,28 @@ const TournamentForm = ({form, update}) => {
             </label>
             { currentItem && currentItem.players && 
             currentItem.players.map((player, idx) => {
-                return <div className="form-players" key={idx+1 + "-playerdiv"}>
-                        <b>{idx + 1}. &nbsp;</b>
+              return <div className="form-players" key={idx+{player} + "-playerdiv"}>
+              {player.map((individual, idxp) => {
+                return <>
+                        <b>{idxp == 0 ? idx + 1 + "." : " "}</b>
                         <input
                           onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-                          className="form-field"
+                          className={ currentItem.playerType == "Singles" ? "form-field" : "form-field form-playerDoubles"}
                           name="players"
-                          key={idx+1 + "-player"}
-                          data-key={idx}
-                          value={currentItem.players[idx]}
+                          key={idx + "-" + idxp + "-player"}
+                          data-key={"["+idx+","+idxp+"]"}
+                          value={currentItem.players[idx][idxp]}
                         />
-                      </div>
+                      </>
+              })}
+              </div>
             })}
+            {
+              currentItem.tournamentType == "single-elim" ?
+              <a href="#" onClick={addPlayers} className="form-submit form-tournamentbtn form-updatebtn">Add Player</a>
+              :
+              ""
+            }
             <input id="submit" className="form-submit" type="submit" name="Add" />
             {form.mode === "update" ? 
               <button 

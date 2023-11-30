@@ -27,7 +27,6 @@ const Home = () => {
 
     useEffect(() => {
         setTournamentBlocks(tournamentDashboard(tournaments, Link, deleteTournament, navigate, DialogAlert))
-        console.log(tournamentBlocks)
     }, [tournaments])
     
     useEffect(() => {
@@ -46,12 +45,10 @@ const Home = () => {
             </section>
             <section className="membership-transition content-container">
                 {tournamentBlocks}
-                <div className="general-contentbox home-create">
-                <Link to="/create-tournament" className="form-submit form-tournamentbtn">Create New Tournament</Link>
-                </div>
             </section>
-
-
+            <div className="home-create">
+                <Link to="/create-tournament" className="form-submit form-tournamentbtn">Create New Tournament</Link>
+            </div>
         </>
     )
 }

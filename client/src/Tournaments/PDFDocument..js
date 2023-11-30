@@ -1,9 +1,18 @@
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
+
+Font.register({
+  family: 'Open Sans',
+  fonts: [
+    { src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf' },
+    { src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-700.ttf', fontWeight: 700 }
+  ]
+})
 
 // Create styles
 const styles = StyleSheet.create({
     page: {
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      fontFamily: 'Open Sans',
     },
     section: {
       margin: 5,
@@ -129,6 +138,7 @@ const styles = StyleSheet.create({
   
   // Create Document Component
   const PDFDocument = ({badge, name, date, location, draw, drawType, standings, paperSize}) => (
+
     <Document>
       <Page size={paperSize} style={styles.page}>
         <View style={styles.section}>
@@ -181,14 +191,3 @@ const styles = StyleSheet.create({
   );
 
   export default PDFDocument;
-
-//   <div className="tournament-container" ref={pdfRef}>        
-//                 <div className="tournament-container" ref={pdfRef}>
-//                     <div className="table-scroll">
-//                         {standings}
-//                     </div>
-//                     <div className="tournament">
-//                         {bracket}
-//                     </div>
-//                 </div>
-//             </div>

@@ -72,26 +72,24 @@ const Tournament = () => {
         }
     }
 
-    const updateMatch = async (e, updatedMatch) => {
+    const updateMatch = async (e, updatedMatch, newPlayers) => {
         e.preventDefault();
         setLoadedData(false);
 
         let allMatches = currentItem.matches
         allMatches[matchID] = updatedMatch
 
-        // Looks through all matches and adds any new players to the players 
-        for (var i = 1; i < 3; i++) {
-            if (currentItem.players.indexOf(updatedMatch["team" + i]) == -1)
+        if (newPlayers.length > 0)
+        {
+            let updatedPlayers = currentItem.players
+            for (var i = 0; i < newPlayers.length; i++)
             {
-                if (updatedMatch["team" + i] !== undefined)
-                {
-                    let newPlayers = currentItem.players
-                    newPlayers.push(updatedMatch["team" + i])
-    
-                    setCurrentItem(curItem => ({...curItem, players: newPlayers}))
-                }
+                updatedPlayers.push(newPlayers[i])
             }
+
+            setCurrentItem(curItem => ({...curItem, players: updatedPlayers}))
         }
+
 
         setCurrentItem(curItem => ({...curItem, matches: allMatches}))
 
@@ -103,10 +101,9 @@ const Tournament = () => {
     }
 
     useEffect(() => { 
-        getTournament(id, setCurrentItem, setLoadedData, collapseData, setCollapseData)
+        getTournament(id, setCurrentItem, setLoadedData, setCollapseData)
 
         let matchLength = currentItem.matches.length
-        console.log('match size: ', matchLength)
 
         let paperSize = PDFPaperSize(matchLength, currentItem.tournamentType)
         setPDFPaperSize(paperSize)
@@ -127,13 +124,13 @@ const Tournament = () => {
             PDFRoundRobin(pdfMatches, currentItem.players.length, setPDFBracket)
 
             getRoundRobinResults(id, setStandingsData);
-            roundRobin(drawMatches, setBracket, togglePopUp, currentItem.players.length)
+            roundRobin(drawMatches, setBracket, togglePopUp, currentItem.players.length, currentItem.playerType)
         }
     }, [loadedData])
 
     useEffect(() => {
         PDFRoundRobinStandings(currentItem.players, standingsData, setPDFStandings)
-        roundRobinStandings(currentItem.players, standingsData, setStandings, loadedData)
+        roundRobinStandings(currentItem.players, standingsData, setStandings, currentItem.playerType)
     }, [standingsData, loadedData])
 
     return (
@@ -151,7 +148,7 @@ const Tournament = () => {
                     handleClickAction = {(e) => deleteTournament(e, currentItem._id, navigate, true)} 
                     heading="Delete Tournament?"
                     message="Confirm you would like to delete this tournament!"/>
-                    <PDFDownloadLink document={ <PDFDocument 
+                    {/* <PDFDownloadLink document={ <PDFDocument 
                                                     badge="T1" 
                                                     name={currentItem.name} 
                                                     date={currentItem.startDate}
@@ -166,7 +163,7 @@ const Tournament = () => {
                         {({ blob, url, loading, error }) => 
                         loading ? 'Loading document...' : 'Download!'
                         }
-                    </PDFDownloadLink>
+                    </PDFDownloadLink> */}
                 </div>            
                 : ""
                 }
@@ -176,13 +173,18 @@ const Tournament = () => {
                 className="tournament-flexcard"
                 >
                     <div>
-                        <span className="content-icon">T1</span>
+                        <span className="content-icon">T</span>
                     </div>
                     <div className="tourn-cardinfo">
                         <h4 className="tourn-spacer">{currentItem.name}</h4>
+                        {currentItem.startDate ? 
                         <span className="content-badge tourn-spacer tourn-datespace">
                             {currentItem.startDate}{currentItem.endDate ? " to " + currentItem.endDate : ""}
                         </span>
+                        :
+                        ""
+                        }
+
                         <p className="content-lightsub content-smallheading tourn-spacerend">{currentItem.location}</p>
                     </div>
                 </div>            
@@ -193,7 +195,8 @@ const Tournament = () => {
                             updateMatch={updateMatch} 
                             match={currentItem.matches[matchID]} 
                             players={currentItem.players}
-                            tournamentType={currentItem.tournamentType} /> 
+                            tournamentType={currentItem.tournamentType}
+                            playerType={currentItem.playerType} /> 
                     :
                     null
                     }

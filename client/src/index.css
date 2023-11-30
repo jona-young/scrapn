@@ -250,6 +250,13 @@ ul li::marker {
   min-height: 500px;
 }
 
+.home-create {
+  position: relative;
+  z-index: 4;
+  width:fit-content;
+  margin: 0 auto 2rem auto;
+}
+
 .home-cardorient {
   flex-direction: column !important;
   align-items: center !important;
@@ -713,6 +720,10 @@ ul li::marker {
   align-items: center;
 }
 
+.form-playerDoubles {
+  width: 40% !important;
+}
+
 .form-input {
   font-weight: bold;
   text-align: center;
@@ -946,16 +957,11 @@ ul li::marker {
 
 .tournament-matchwinner {
   height: 60px;
-  background: #ffffff;
-  border: 3px solid #e8e8e8;
-  font-size: 12px;
-  max-width:250px;
+  width: 300px;
 }
 
 .match-winner {
-  font-size: 24px;
-  font-weight: bold;
-  width: 350px;
+  font-size: 18px;
 }
 
 .tournament-connect {

@@ -1,4 +1,5 @@
 const populateMatchWinners = (matchArr) => {
+    console.log("starting: ", matchArr)
     let formattedArr = []
 
     // create a copy of the array
@@ -10,6 +11,7 @@ const populateMatchWinners = (matchArr) => {
     // data formatting of matches
     for (let i = 1; i < (matchArr.length / 2); i++)
     {   
+        console.log('thisindiv: ', matchArr[i])
         // bottom match
         let even = matchArr[2 * i]
         // top match

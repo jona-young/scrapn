@@ -20,8 +20,8 @@ const About = () => {
                     <img src={AboutImage} className="about-transitionimage" />
                 </div>
                 <div className="general-contentbox">
-                    <h3 className="general-statement">We wish to enhance and ease the creation and displaying of your tournaments.</h3>
-                    <p className="general-contenttext">Our tournament web application allows you to easily create your tournaments, update matches, display your tournaments online, and easily export your draws to print!</p>
+                    <h3 className="general-statement">We want tournaments organizers, big and small, to have the ability to host tournament draws!</h3>
+                    <p className="general-contenttext">Whether you want to create a fun comeptition with friends and family or for a competitive league, our tournament web application allows you to easily create your tournaments, update matches, and display your tournaments online!</p>
                 </div>
             </section>
             <section className="site-panel">
@@ -33,7 +33,7 @@ const About = () => {
                             <img src={LightBulb} className="general-icon" />
                             <div className="flex-item">
                                 <h3 className="general-subheading">Feature Implementation</h3>
-                                <p className="content-lightsub">We work with you to add new features. If you don't need it, we don't add it.</p>
+                                <p className="content-lightsub">You know what you want, and we would like to get a better idea of what you want to improve this tool.</p>
                             </div>
                         </div>
                         <div className="flex-content">

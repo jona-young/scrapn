@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { postContactUs } from '../functions/userAPI.js'
 
 const ContactForm = () => {
+    const navigate = useNavigate();
+
     const [ contact, setContact ] = useState({
         firstName: "",
         lastName: "",
@@ -23,7 +26,7 @@ const ContactForm = () => {
         e.preventDefault();
 
         // send to function to verify data and submit to backend API
-        // signupPOST(contact, errors,)
+        postContactUs(e, contact, navigate)
         
         //CURRENTLY NOT WORKING
     }

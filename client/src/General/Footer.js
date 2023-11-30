@@ -30,9 +30,9 @@ const Footer = () => {
                     <Link to="/about" className="nav-menuoption footer-link content-lightsub">
                         About
                     </Link>
-                    {/* <Link to="/contact-us" className="nav-menuoption footer-link content-lightsub">
+                    <Link to="/contact-us" className="nav-menuoption footer-link content-lightsub">
                         Contact Us
-                    </Link> */}
+                    </Link>
                     {/* <Link to="/pricing" className="nav-menuoption footer-link content-lightsub">
                         Pricing
                     </Link> */}

@@ -3,53 +3,53 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
     tournamentRound6: {
         margin: 'auto 0 auto 5pt',
-        width: '250pt',
+        width: '275pt',
         marginLeft: '0'
     },
     tournamentRound5: {
         margin: 'auto 0 auto 5pt',
-        width: '250pt',
+        width: '275pt'
     },
     tournamentRound4: {
         margin: 'auto 0 auto 5pt',
-        width: '250pt',
+        width: '275pt'
     },
     tournamentRound3: {
         margin: 'auto 0 auto 5pt',
-        width: '250pt',
+        width: '275pt'
     },
     tournamentRound2: {
         margin: 'auto 0 auto 5pt',
-        width: '250pt',
+        width: '275pt'
     },
     tournamentRound1: {
         margin: 'auto 0 auto 5pt',
-        width: '250pt',
+        width: '275pt'
     },
     singleConnect6: {
         borderRight: '6pt solid #5590EC',
         minHeight: '35pt',
-        width: '250pt',
+        width: '275pt'
     },
     singleConnect5: {
         borderRight: '6pt solid #5590EC',
-        minHeight: '125pt',
-        width: '250pt',
+        minHeight: '150pt',
+        width: '275pt'
     },
     singleConnect4: {
         borderRight: '6pt solid #5590EC',
-        minHeight: '325pt',
-        width: '250pt',
+        minHeight: '350pt',
+        width: '275pt'
     },
     singleConnect3: {
         borderRight: '6pt solid #5590EC',
-        minHeight: '725pt',
-        width: '250pt',
+        minHeight: '750pt',
+        width: '275pt'
     },
     singleConnect2: {
         borderRight: '6pt solid #5590EC',
-        minHeight: '1515pt',
-        width: '250pt',
+        minHeight: '1540pt',
+        width: '275pt'
     },
     singleSpace6: {
         minHeight: '35pt'
@@ -73,27 +73,27 @@ const styles = StyleSheet.create({
     doubleConnect66: {
         borderRight: '6pt solid #5590EC',
         minHeight: '35pt',
-        width: '250pt'
+        width: '275pt'
     },
     doubleConnect55: {
         borderRight: '6pt solid #5590EC',
         minHeight: '185pt',
-        width: '250pt'
+        width: '275pt'
     },
     doubleConnect44: {
         borderRight: '6pt solid #5590EC',
         minHeight: '490pt',
-        width: '250pt'
+        width: '275pt'
     },
     doubleConnect33: {
         borderRight: '6pt solid #5590EC',
         minHeight: '1100pt',
-        width: '250pt'
+        width: '275pt'
     },
     doubleConnect22: {
         borderRight: '6pt solid #5590EC',
         minHeight: '2465pt',
-        width: '250pt'
+        width: '275pt'
     },
     doubleSpace66: {
         minHeight: '35pt'
@@ -111,30 +111,32 @@ const styles = StyleSheet.create({
         minHeight: '2465pt'
     },
     tournamentEmpty: {
-        height: '60pt',
-        width: '250pt',
+        height: '85pt',
+        width: '275pt',
         backgroundColor: 'lightgray',
         border: '3pt solid #e8e8e8',
     },
     tournamentEmptyDoubles: {
         height: '120pt',
-        width: '250pt',
+        width: '275pt',
         backgroundColor: 'lightgray',
         border: '3pt solid #e8e8e8',
     },
     tournamentMatch: {
-        height: '60pt',
+        height: '85pt',
         backgroundColor: '#ffffff',
         border: '3pt solid #e8e8e8',
         fontSize: '12pt',
-        minWidth: '250pt',
+        width: '275pt'
     },
     tournamentMatchDoubles: {
-        height: '60pt',
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
         backgroundColor: '#ffffff',
         border: '3pt solid #e8e8e8',
         fontSize: '12pt',
-        width: '250pt',
+        width: '275pt',
         height: '120pt'
     },
     matchNames: {
@@ -145,36 +147,33 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     matchNamesDoubles: {
-        width: '130pt',
         height: '34pt', 
-        textOverflow: 'ellipsis',
+        width: '150pt',
         whiteSpace: 'nowrap',
-        overflow: 'hidden'
     },
     doublesSpacer: {
         display: 'block',
-        margin: '60pt 0'
     },
     matchInfo: {
-        padding: '3pt 10pt 0 10pt',
+        padding: '5pt 10pt 0 10pt',
         display: 'flex',
-        flexDirection: 'row'
-    },
-    matchScore: {
-        right: 0,
-        marginLeft: 'auto',
-        textAlign: 'right'
+        flexDirection: 'row',
+        fontWeight: 'bold'
     },
     matchTeam: {
-        padding: '0 10pt 0 10pt',
+        padding: '10pt 10pt 0 15pt',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+    },
+    matchScore: {
+        display: 'flex',
+        flexDirection: 'row',
+        textAlign: 'right',
     },
     boxScore: {
-        display: 'inline-block',
-        width: '15pt',
-        margin: '0 1pt',
-        textAlign: 'center'
+        marginRight: '5pt',
+        textAlign: 'right',
+        width: '15pt'
     },
     matchWinner: {
         fontSize: '24pt',
@@ -188,6 +187,7 @@ const styles = StyleSheet.create({
         width: '350pt'
     },
     winnerText: {
+        fontWeight: 'bold'
     },
     roundrobinMatch: {
         width: '250pt',
@@ -291,10 +291,13 @@ const styles = StyleSheet.create({
         fontSize: '12pt',
         margin: 'auto 0',
     },
+    teamBlock: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
     textBlock: {
-        display: 'block',
         marginBottom: '5pt',
-        textAlign: 'center',
+        textAlign: 'left',
     }
 });
 
@@ -491,26 +494,25 @@ export const PDFSingleElim = ( matches, playerType, updateState ) => {
                                         <View>
                                             <Text>{matches[keyCounter].round} {matches[keyCounter].location ? (" - " + matches[keyCounter].location) : ""}</Text>
                                         </View>
-                                        <Text style={styles.matchScore}>
+                                        <View style={styles.matchScore}>
                                             <Text>{formattedDate}</Text>
-                                        </Text>
+                                        </View>
                                     </View>
                                     <View style={styles.matchTeam}>
                                         <View style={styles[matchNameClass]}>
                                             <Text>{matches[keyCounter].team1 && matches[keyCounter].winner === "1" ? <Text style={styles.winnerText}><PDFParseDoublesTeam team={matches[keyCounter].team1} /></Text> : <PDFParseDoublesTeam team={matches[keyCounter].team1} /> } &nbsp;</Text>
                                         </View>
-                                        <Text style={styles.matchScore}>
-                                            {matches[keyCounter].score1.map((score)=> {return <Text style={styles.boxScore}>{score}</Text>})}
-                                        </Text>
+                                        <View style={styles.matchScore}>
+                                            {matches[keyCounter].score1.map((score)=> {return <View style={styles.boxScore}><Text>{score}</Text></View>})}
+                                        </View>
                                     </View>
-                                    <View style={styles[doublesSpacerClass]}></View>
                                     <View style={styles.matchTeam}>
                                         <View style={styles[matchNameClass]}>
                                             <Text>{matches[keyCounter].team2 && matches[keyCounter].winner === "2" ? <Text style={styles.winnerText}><PDFParseDoublesTeam team={matches[keyCounter].team2} /></Text> : <PDFParseDoublesTeam team={matches[keyCounter].team2} />} &nbsp;</Text>
                                         </View>
-                                        <Text style={styles.matchScore}>
+                                        <View style={styles.matchScore}>
                                         {matches[keyCounter].score2.map((score)=> {return <Text style={styles.boxScore}>{score}</Text>})}
-                                        </Text>
+                                        </View>
                                     </View>
                                 </View>)
                     
@@ -632,7 +634,7 @@ export const singleElimination = async (matches, updateState, togglePopUp, playe
                                     </div>
                                     <div className="match-team">
                                         <div className={"match-names " + nameClass}>
-                                            {matches[keyCounter].team1 && matches[keyCounter].winner === "1" ? <b><ParseDoublesTeam team={matches[keyCounter].team1} /></b> : <ParseDoublesTeam team={matches[keyCounter].team1} /> } &nbsp;
+                                            {matches[keyCounter].team1 && matches[keyCounter].winner === "1" ? <b><ParseDoublesTeam playerType={playerType} team={matches[keyCounter].team1} /></b> : <ParseDoublesTeam playerType={playerType} team={matches[keyCounter].team1} /> } &nbsp;
                                         </div>
                                         <div className="match-score">
                                             {matches[keyCounter].score1.map((score)=> {return <span className="box-score">{score}</span>})}
@@ -641,7 +643,7 @@ export const singleElimination = async (matches, updateState, togglePopUp, playe
                                     { doublesSpacer }
                                     <div className="match-team">
                                         <div className={"match-names " + nameClass}>
-                                        {matches[keyCounter].team2 && matches[keyCounter].winner === "2" ? <b><ParseDoublesTeam team={matches[keyCounter].team2} /></b> : <ParseDoublesTeam team={matches[keyCounter].team2} />} &nbsp;
+                                        {matches[keyCounter].team2 && matches[keyCounter].winner === "2" ? <b><ParseDoublesTeam playerType={playerType} team={matches[keyCounter].team2} /></b> : <ParseDoublesTeam playerType={playerType} team={matches[keyCounter].team2} />} &nbsp;
                                         </div>
                                         <div className="match-score">
                                         {matches[keyCounter].score2.map((score)=> {return <span className="box-score">{score}</span>})}
@@ -681,14 +683,14 @@ export const singleElimination = async (matches, updateState, togglePopUp, playe
 
 }
 
-export const roundRobinStandings = (players, currentResults, updateTable) => {
+export const roundRobinStandings = (players, currentResults, updateTable, playerType) => {
     if (currentResults)
     {
         let counter = 0
         let headings =  <tr className="rr-tr">
                             <th></th>
                             { players.map((player, idx) => {
-                            return <th className="standings-colplayer" key={idx + "-playercol"}>{<ParseDoublesTeam team={player} />}</th>
+                            return <th className="standings-colplayer" key={idx + "-playercol"}>{<ParseDoublesTeam playerType={playerType} team={player} />}</th>
                             })}
                         </tr>
         let rows = []
@@ -715,7 +717,7 @@ export const roundRobinStandings = (players, currentResults, updateTable) => {
                 counter++
             }
                 rows.push(<tr className="rr-tr" key={counter+"-row"}>
-                    <td className="standings-rowplayer rr-td">{<ParseDoublesTeam team={players[i]} />}</td>
+                    <td className="standings-rowplayer rr-td">{<ParseDoublesTeam playerType={playerType} team={players[i]} />}</td>
                     {row}
                 </tr>)
         }
@@ -724,7 +726,7 @@ export const roundRobinStandings = (players, currentResults, updateTable) => {
     }
 }
 
-export const roundRobin = (matches, updateState, togglePopUp, playerLen) => {
+export const roundRobin = (matches, updateState, togglePopUp, playerLen, playerType) => {
     if (playerLen % 2 == 1) {
         playerLen++;
     }
@@ -761,9 +763,9 @@ export const roundRobin = (matches, updateState, togglePopUp, playerLen) => {
                         </div>
                         <div className="roundrobin-matchup">
                             <p className="roundrobin-names">
-                            {matches[i].team1 && matches[i].winner === "1" ? <b><ParseDoublesTeam team={matches[i].team1} /></b> : <ParseDoublesTeam team={matches[i].team1} />}
+                            {matches[i].team1 && matches[i].winner === "1" ? <b><ParseDoublesTeam playerType={playerType} team={matches[i].team1} /></b> : <ParseDoublesTeam playerType={playerType} team={matches[i].team1} />}
                             <br /> vs <br />
-                            {matches[i].team2 && matches[i].winner === "2" ? <b><ParseDoublesTeam team={matches[i].team2} /></b> : <ParseDoublesTeam team={matches[i].team2} />}
+                            {matches[i].team2 && matches[i].winner === "2" ? <b><ParseDoublesTeam playerType={playerType} team={matches[i].team2} /></b> : <ParseDoublesTeam playerType={playerType} team={matches[i].team2} />}
                             </p>
                         </div>
                         <div className="roundrobin-scoreset">
@@ -808,13 +810,163 @@ export const handleChange = (e, updateItem, currentItem) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    if (name === "numMatches") { updateItem(parseInt(value)) }
+    if (name === "drawSize") { updateItem(currentObj => ({...currentObj, [name]: parseInt(value)})) }
     else if (name === "players") 
     {
+        let indexP = JSON.parse(e.target.getAttribute("data-key"))
+
+        if (currentItem.playerType == "Doubles")
+        {
+
+            const newPlayerSet = currentItem.players.map((val, i) => {
+                if (i == indexP[0])
+                {
+                    if (indexP[1] == 0)
+                    {
+                        return [value, val[1]]
+                    }
+                    else if (indexP[1] == 1)
+                    {
+                        return [val[0], value]
+                    }
+                }
+                else
+                {
+                    return val
+                }
+            })
+            
+            updateItem(currentObj => ({...currentObj, players: newPlayerSet}))
+        }
+        else
+        {
+            const newPlayerSet = currentItem.players.map((val, i) => {
+                if (i == indexP[0])
+                {
+                    return [value]
+                }
+                else
+                {
+                    return val
+                }
+            })
+            
+            updateItem(currentObj => ({...currentObj, players: newPlayerSet}))
+        }
+
+    }
+    else if (name === "add-player")
+    {
+        let newPlayers = currentItem.players
+        if (currentItem.playerType == "Doubles")
+        {
+            newPlayers.push(["",""])
+        }
+        else if (currentItem.playerType == "Singles")
+        {
+            newPlayers.push([""])
+        }
+
+        updateItem(currentObj => ({...currentObj, players: newPlayers}))
+    }
+    else if (name === "playerType")
+    {
         let playerSet = currentItem.players
-        let indexP = e.target.getAttribute("data-key")
-        playerSet[indexP] = value
-        updateItem(currentObj => ({...currentObj, players: playerSet}))
+        let matchSet = currentItem.matches
+
+        for (var i = 0; i < playerSet.length; i++)
+        {
+
+            if (value === "Singles")
+            {
+                if (playerSet[i].length > 1)
+                {
+                    playerSet[i].pop()
+
+                    // account for the placeholder match at index 0
+                    if (i > 0 && currentItem.tournamentType == "single-elim")
+                    {
+                        matchSet[i].team1.pop()
+                        matchSet[i].team2.pop()
+                    }
+                }
+            }
+            else if (value === "Doubles")
+            {            
+                // iterate through players and matches to identify both have 2 players
+                if (playerSet[i].length < 2)
+                {
+
+                    playerSet[i].push("")
+                    
+                    // account for the placeholder match at index 0
+                    if (i > 0 && currentItem.tournamentType == "single-elim")
+                    {
+                        matchSet[i].team1.push("")
+                        matchSet[i].team2.push("")
+                    }
+                }
+            }
+        }
+
+        updateItem(currentObj => ({...currentObj, [name]: value, players: playerSet, matches: matchSet}))
+    }
+    else if (name == "tournamentType")
+    {
+        //updates tournament type and the draw size to a power of 2 value which should trigger the match updater
+        let curItem = currentItem
+        let flag = 0
+        if (value == "single-elim")
+        {
+            // find the smallest draw size that is still greater than the number of players in the round robin
+            // i < 10 is arbitrary value where less than 2^10 = 2^9 = 512 draw size
+            for (var i = 1; i < 10; i++)
+            {
+                let powerOfTwo = Math.pow(2, i)
+                if (powerOfTwo > curItem.drawSize && powerOfTwo >= 4)
+                {
+                    curItem.drawSize = powerOfTwo
+                    console.log('there')
+
+                    flag = 1
+                    break
+                }
+                else if (powerOfTwo == curItem.drawSize  && powerOfTwo >=4)
+                {
+                    break
+                }
+            }
+
+            if (flag == 1)
+            {
+                singlesUpdater(curItem.drawSize, currentItem, updateItem, 2, "single-elim")
+            }
+            else
+            {
+                updateItem(currentObj => ({...currentObj, [name]: value})) 
+            }
+        }
+        // adjust single elim to draw size that fits within bounds of round robin draw size
+        else if (value == "round-robin")
+        {
+            let playerLen = currentItem.players.length
+            // need to account for player length greater than draw size allowed for round robin...
+            // requires a full match update
+            if (playerLen > 8)
+            {
+                roundRobinCheckPlayers(8, currentItem, updateItem, 2, "round-robin")
+            }
+            // accounts for player length less than or equal to max rr draw size of 8
+            // still requires a full match update
+            else
+            {
+                roundRobinCheckPlayers(currentItem.drawSize, currentItem, updateItem, 2, "round-robin")
+            }
+        }
+        else 
+        {
+            updateItem(currentObj => ({...currentObj, [name]: value})) 
+        }
     }
     else { updateItem(currentObj => ({...currentObj, [name]: value})) }
   };
@@ -831,76 +983,99 @@ export const togglePopUp = (_matchID,
     else { updateMatchID(-1) }
 }
 
-export const matchAndPlayerUpdater = (numMatches, currentItem, updateItem, mode) => {
+export const matchAndPlayerUpdater = (drawSize, currentItem, updateItem, mode) => {
     if (currentItem.tournamentType === "single-elim")
     {
-        singlesUpdater(numMatches, currentItem, updateItem, mode)
+        singlesUpdater(drawSize, currentItem, updateItem, mode)
     }
     else if (currentItem.tournamentType === "round-robin")
     {
-        roundRobinCheckPlayers(numMatches, currentItem, updateItem)
+        roundRobinCheckPlayers(drawSize, currentItem, updateItem, mode)
     }
 }
 
 // sets up matches data structure within a single elimination tournament
-const singlesUpdater = (numMatches, currentItem, updateItem, mode) => {
-    // if the purpose is to update a current tournament
-    if (numMatches > currentItem.matches.length && mode)
-    {
-        console.log(1)
-      // find the matches to add to the current tournament draw
-      const matchesToAdd = numMatches - currentItem.matches.length
-      // protect the current matches when sending to backend so they are not overwritten
-      protectCurrentRounds(currentItem.matches, updateItem)
-      // pass current matches with number of extra matches to add
-      const matchArr = updateMatchRounds(matchesToAdd, currentItem.matches[currentItem.matches.length - 1].round)
-      const combinedMatches = currentItem.matches.concat(matchArr.matches)
-      const combinedPlayers = currentItem.players.concat(matchArr.players)
+//UPON numMatches -> drawSize decouple, all numMatches must change to currentItem.drawSize
+const singlesUpdater = (drawSize, currentItem, updateItem, mode, newTournType) => {
+     // if the purpose is to update a current tournament
+     if (drawSize > currentItem.matches.length && mode == 1)
+     {
+       // find the matches to add to the current tournament draw
+       const matchesToAdd = drawSize - currentItem.matches.length
+       // protect the current matches when sending to backend so they are not overwritten
+       protectCurrentRounds(currentItem.matches, updateItem)
+       // pass current matches with number of extra matches to add
+       const matchArr = updateMatchRounds(matchesToAdd, currentItem.matches[currentItem.matches.length - 1].round, currentItem.playerType)
+       const combinedMatches = currentItem.matches.concat(matchArr.matches)
+       const combinedPlayers = currentItem.players.concat(matchArr.players)
+ 
+       // update current item
+       updateItem(currentObj => ({...currentObj, matches: combinedMatches, players: combinedPlayers}))
+     }
+     // a new tournament form with blank matches but already designated players
+     else if (mode == 2)
+     {
+       const matchArr = addMatchRounds(drawSize, currentItem.playerType)
+       console.log('dif in players to draw size ', currentItem.players.length - drawSize)
+       let playerDiff = currentItem.players.length - drawSize
+       let addPlayers = []
 
-      // update current item
-      updateItem(currentObj => ({...currentObj, matches: combinedMatches, players: combinedPlayers}))
-    }
-    else if (numMatches < currentItem.matches.length)
-    {
-        console.log(2)
+       if (playerDiff < 0)
+       {
+        playerDiff = playerDiff * -1
+        for (var i = 0; i < playerDiff; i++)
+        {
+            if (currentItem.playerType == "Singles")
+            {
+                addPlayers.push([""])
+            }
+            else
+            {
+                addPlayers.push(["",""])
+            }
+        }
+       }
 
-      // find the number of matches to remove
-      const matchesToRemove = (currentItem.matches.length) - numMatches
-      const matchArr = removeMatchRounds(matchesToRemove, currentItem.matches, currentItem.players)
+       let newPlayers = currentItem.players.concat(addPlayers)
 
-      // removes appropriate matches and players
-      updateItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
-    }
-    else if (numMatches == currentItem.matches.length)
-    {
-        console.log(3)
-
-      // good to go, the ideal situation
-      return
-    }
-    else
-    {
-        console.log(4)
-
-      // a new tournament form with blank matches 
-      const matchArr = addMatchRounds(numMatches)
-      updateItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
-    }
+       updateItem(currentObj => ({...currentObj, matches: matchArr.matches, tournamentType: newTournType, players: newPlayers}))
+     }
+     else if (drawSize < currentItem.matches.length)
+     {
+       // find the number of matches to remove
+       const matchesToRemove = (currentItem.matches.length) - drawSize
+       const matchArr = removeMatchRounds(matchesToRemove, currentItem.matches, currentItem.players)
+ 
+       // removes appropriate matches and players
+       updateItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
+     }
+     else if (drawSize == currentItem.matches.length)
+     {
+       // good to go, the ideal situation
+       return
+     }
+     else
+     {
+       // a new tournament form with blank matches 
+       const matchArr = addMatchRounds(drawSize, currentItem.playerType)
+       updateItem(currentObj => ({...currentObj, matches: matchArr.matches, players: matchArr.players}))
+     }
 }
 
-// sets up matches data structure within a round robin tournament
-export const roundRobinUpdater = (numMatches, currentItem) => {
+// sets up matches data structure within a round robin tournament from tournamentAPI
+export const roundRobinUpdater = (drawSize, currentItem) => {
+    console.log(currentItem)
     let players1 = []
     let players2 = []
-    let modifiedPlayers = numMatches
+    let modifiedPlayers = drawSize
     let byeCheck = false
 
-    if (numMatches % 2 == 1)
+    if (drawSize % 2 == 1)
     {
         modifiedPlayers++;
         byeCheck = true
     }
-
+    
     const matchupArr = setupMatchupArrays(modifiedPlayers, currentItem.players, byeCheck)
     players1 = matchupArr[0]
     players2 = matchupArr[1]
@@ -911,38 +1086,58 @@ export const roundRobinUpdater = (numMatches, currentItem) => {
     return matchSet
 }
 
-const roundRobinCheckPlayers = (numMatches, currentItem, updateItem) => {
+// activated when draw size changed for tournament settings
+const roundRobinCheckPlayers = (drawSize, currentItem, updateItem, mode, newTournType) => {
     let updatedPlayers = currentItem.players
     let playerLen = updatedPlayers.length
 
-    if (playerLen < numMatches)
+    // if the purpose is to update a current tournament and user wants more players than current
+    if (drawSize > playerLen)
     {
-        let addPlayers = numMatches - playerLen
-        for (let i = 0; i < addPlayers; i++) { updatedPlayers.push("")}
+        const addPlayers = drawSize - playerLen
+        for (let i = 0; i < addPlayers; i++) 
+        {
+            if (currentItem.playerType == "Singles")
+            {
+                updatedPlayers.push([""])
+            } 
+            else if (currentItem.playerType == "Doubles")
+            {
+                updatedPlayers.push(["",""])
+            } 
+        }
     }
-    else if (playerLen > numMatches)
+    // if user purpose is to remove players from current
+    else if (drawSize < playerLen)
     {
-        const removePlayers = playerLen - numMatches
+        const removePlayers = playerLen - drawSize
         for (let i = 0; i < removePlayers; i++)
         {
             updatedPlayers.pop()
         }
     }
-    else { return }
 
-    updateItem(currentObject => ({...currentObject, players: updatedPlayers}))
+    if (mode == 2)
+    {
+        updateItem(currentObject => ({...currentObject, players: updatedPlayers, tournamentType: newTournType}))
+    }
+    else
+    {
+        updateItem(currentObject => ({...currentObject, players: updatedPlayers}))
+    }
 }
 
-const setupMatchupArrays = (numMatches, players, byeCheck) => {
+// supplementary function of roundRobinUpdater which is called by tournamentAPI
+const setupMatchupArrays = (drawSize, players, byeCheck) => {
     let players1 = []
     let players2 = []
-    let indexAdjust = numMatches / 2
+    let indexAdjust = drawSize / 2
 
-    for (let i = 0; i < (numMatches / 2); i++)
+    for (let i = 0; i < (drawSize / 2); i++)
     {
         players1.push(players[i])
 
-        if (byeCheck && i === (numMatches / 2 - 1))
+        if (byeCheck && i === (drawSize / 2 - 1))
         {
             players2.push("Bye")
         }
@@ -951,6 +1146,7 @@ const setupMatchupArrays = (numMatches, players, byeCheck) => {
 
     return [players1, players2]
 }
+
 
 const shiftPlayers = (players1, players2) => {
     let _players1 = players1
@@ -977,6 +1173,8 @@ const shiftPlayers = (players1, players2) => {
     
     return [ _players1, _players2]
 }
+
+// supplementary function of roundRobinUpdater which is called by tournamentAPI
 
 const createRoundRobinMatchSet = (modifiedPlayers, _players1, _players2) => {
     let matchSet = []
@@ -1030,11 +1228,36 @@ const findDepth = (matchSize) => {
     return depth
 }
 
-const addMatchRounds = (matchNum) => {
+const addMatchRounds = (matchNum, playerType) => {
+    let playerArr = [""]
+    let matchObj = {
+        checker: 0,
+        round: "", 
+        team1: [""],
+        score1: [
+            ""
+        ],
+        team2: [""],
+        score2: [
+            ""
+        ],
+        location: "",
+        date: "",
+        winner:""
+    }
+
+    if (playerType == "Doubles")
+    {
+        playerArr.push("")
+        matchObj.team1.push("")
+        matchObj.team2.push("")
+
+    }
+
     let formattedMatchArr = {matches: [], players: []}
     formattedMatchArr.matches.push({checker: 0, round: "parent-child tree placeholder"})
-    formattedMatchArr.players.push("")
-
+    // value does not matter given placeholder match
+    formattedMatchArr.players.push(playerArr)
 
     const depth = findDepth(matchNum)
 
@@ -1047,31 +1270,43 @@ const addMatchRounds = (matchNum) => {
         for (let j = roundMatches; j >= 1; j--)
         {   
             // for each match added, requires potential for 2 players
-            formattedMatchArr.players.push("")
-            formattedMatchArr.matches.push({
-                checker: 0,
-                round: roundArr[i], 
-                team1: "",
-                score1: [
-                    ""
-                ],
-                team2: "",
-                score2: [
-                    ""
-                ],
-                location: "",
-                date: "",
-                winner:""
-            })
+            formattedMatchArr.players.push(playerArr)
+            matchObj.round = roundArr[i]
+            formattedMatchArr.matches.push(matchObj)
         }      
     }
 
     return formattedMatchArr
 }
 
-const updateMatchRounds = (matchesToAdd, lastRound) => {
+const updateMatchRounds = (matchesToAdd, lastRound, playerType) => {
     let formattedMatchArr = {matches: [], players: []}
     let roundArr = ["-1", "F", "SF", "QF", "R16", "R32", "R64"]
+    let playerArr = [""]
+    let matchObj = {
+        checker: 0,
+        round: "", 
+        team1: [""],
+        score1: [
+            ""
+        ],
+        team2: [""],
+        score2: [
+            ""
+        ],
+        location: "",
+        date: "",
+        winner:""
+    }
+
+    if (playerType == "Doubles")
+    {
+        playerArr.push("")
+        matchObj.team1.push("")
+        matchObj.team2.push("")
+
+    }
+
     // find round to start assigning new courts
     let remainingArr = roundArr.slice(roundArr.indexOf(lastRound) + 1)
     let remainingMatches = matchesToAdd
@@ -1093,22 +1328,9 @@ const updateMatchRounds = (matchesToAdd, lastRound) => {
         for (let k = 0; k < addCounter; k++)
         {
             // for each match added, requires potential for 2 players
-            formattedMatchArr.players.push("")
-            formattedMatchArr.matches.push({
-                checker: 0,
-                round: remainingArr[i], 
-                team1: "",
-                score1: [
-                    ""
-                ],
-                team2: "",
-                score2: [
-                    ""
-                ],
-                location: "",
-                date: "",
-                winner:""
-            })
+            formattedMatchArr.players.push(playerArr)
+            matchObj.round = remainingArr[i]
+            formattedMatchArr.matches.push(matchObj)
         }
 
         remainingMatches = remainingMatches - addCounter
@@ -1139,34 +1361,24 @@ const removeMatchRounds = (matchesToRemove, _matches, _players) => {
     return formattedArr
 }
 
-const ParseDoublesTeam = ({team}) => {
+const ParseDoublesTeam = ({team, playerType}) => {
     if (team === "")
     {
         return <>{team}</>
     }
-    if (team.split("/").length >= 2)
+    if (team.length == 2 && playerType == "Doubles")
     {
         return (
             <>
-                {team.split("/")[0]}
+                {team[0]}
                 <br />
-                {team.split("/")[1]}
-            </>
-        )
-    }
-    else if (team.split("&").length >= 2)
-    {
-        return (
-            <>
-                {team.split("&")[0]}
-                <br />
-                {team.split("&")[1]}
+                {team[1]}
             </>
         )
     }
     else
     {
-        return <>{team}</>
+        return <>{team[0]}</>
     }
 }
 
@@ -1175,22 +1387,14 @@ const PDFParseDoublesTeam = ({team}) => {
     {
         return <Text>{team}</Text>
     }
-    if (team.split("/").length >= 2)
+    if (team.length == 2)
     {
         return (
-            <>
-                <Text style={styles.textBlock}>{team.split("/")[0]}</Text>
-                <Text style={styles.textBlock}>{team.split("/")[1]}</Text>
-            </>
-        )
-    }
-    else if (team.split("&").length >= 2)
-    {
-        return (
-            <>
-                <Text style={styles.textBlock}>{team.split("&")[0]}</Text>
-                <Text style={styles.textBlock}>{team.split("&")[1]}</Text>
-            </>
+            <View style={styles.teamBlock}>
+                <View style={styles.textBlock}><Text>{team[0]}</Text></View>
+                <Text>{"\n"}</Text>
+                <View style={styles.textBlock}><Text>{team[1]}</Text></View>
+            </View>
         )
     }
     else

@@ -37,4 +37,7 @@ userRouter.get('/api/forgot-password/:id/:token', userController.forgot_password
 // Forgot Password POST route
 userRouter.post('/api/reset-password', userController.reset_password);
 
+// Forgot Password POST route
+userRouter.post('/api/contact-us', userController.contactus_post);
+
 module.exports = userRouter;

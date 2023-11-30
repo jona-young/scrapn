@@ -89,7 +89,6 @@ module.exports.post_tournament = (req, res) => {
         }
         )
     }
-
 }
 
 // PUT - Update tournament

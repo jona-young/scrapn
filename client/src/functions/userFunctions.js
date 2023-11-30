@@ -104,7 +104,7 @@ export const tournamentDashboard = (tournamentArr, Link, deleteTournament, histo
   else
   {
     bookedTournaments.push(
-    <span className="bookings-empty">You do not currently have any booked courts!</span>
+    <span className="bookings-empty">You do not currently have any tournaments!</span>
     )
   }
   return bookedTournaments

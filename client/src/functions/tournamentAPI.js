@@ -1,7 +1,7 @@
 import { roundRobinUpdater } from "../Tournaments/tournamentFunctions.js";
 
 // GET Request for single tournament
-export const getTournament = async (id, updateData, setDataLoaded, collapseData, setCollapseData, ) => {
+export const getTournament = async (id, updateData, setDataLoaded, setCollapseData, ) => {
     const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/tournament/" + id, {
         credentials: 'include',
         method: 'GET',
@@ -73,7 +73,7 @@ export const getTournaments = async (updateData, setDataLoaded) => {
 // POST request for new tournament
 export const postTournament = async (e, form, history) => {
     e.preventDefault();
-
+    
     if (form.tournamentType == "round-robin")
     {
         let formattedMatches = roundRobinUpdater(form.players.length, form)

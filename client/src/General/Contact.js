@@ -16,12 +16,13 @@ const Contact = () => {
             </section>
             <section className="form-card contact-contentbackground">
                     <div className="form-container contact-card">
-                        <h2 className="form-heading">5,000+</h2>
-                        <p className="contact-subheading form-lightsub ">Satisfied Customers</p>
+                        {/* <h2 className="form-heading">5,000+</h2>
+                        <p className="contact-subheading form-lightsub ">Satisfied Customers</p> */}
+                        <h3 className="general-statement">Do you have ideas on how we could improve? Let's make something great together.</h3>
                     </div>
             </section>
             <section className="general-contentbox">
-                    <h3 className="general-statement">Do you have ideas on how we could improve? Let's make something great together.</h3>
+                    {/* <h3 className="general-statement">Do you have ideas on how we could improve? Let's make something great together.</h3> */}
                     <div className="flex-items">
                         {/* <div className="flex-content">
                             <img src={Address} className="general-icon" />

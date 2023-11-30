@@ -21,7 +21,7 @@ const UpdateBooking = () => {
 
     useEffect(() => {
         validateUser(routeLoginChange);
-        getTournament(id, setCurrentItem, setFormLoad, dummyObj, setDummyObj, setDummyNum)
+        getTournament(id, setCurrentItem, setFormLoad, setDummyObj)
     },[])
 
     if (formLoad == true)

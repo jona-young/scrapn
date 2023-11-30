@@ -233,7 +233,6 @@ export const postForgotPassword = async (e, email, updateResponse, history) => {
   e.preventDefault();
   updateResponse({});
 
-  console.log(email)
   const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/forgot-password', {
       credentials: 'include',
       method: 'POST',
@@ -294,8 +293,34 @@ export const postPasswordReset = async (e, form, updateErrors, history) => {
 
   if (json.result)
   {
-    // this will be 
-    console.log(json.result)
+    history("/");
+  }
+}
+
+export const postContactUs = async (e, form, history) => {
+  e.preventDefault();
+  // updateErrors({});
+
+  const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/contact-us', {
+      credentials: 'include',
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(form),
+  })
+
+  const json = await data.json();
+
+  if (json.errors)
+  {
+    // // this will be the email error that it is not in the database
+    //   updateErrors(errors => ({...errors, 
+    //               password: json.errors.password, 
+    //   }));
+    return
+  }
+
+  if (json.result)
+  {
     history("/");
   }
 }

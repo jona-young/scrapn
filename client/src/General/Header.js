@@ -73,6 +73,9 @@ const Header = () => {
             <Link to="/" onClick={showNavbar} className="nav-menuoption">
                 Home
             </Link>
+            <Link to="/contact-us" className="nav-menuoption">
+                Contact Us
+            </Link>
             <Link to="/tournaments" onClick={showNavbar} className="nav-menuoption">
                 Tournaments
             </Link>
@@ -82,9 +85,6 @@ const Header = () => {
             </Link> */}
             {/* <Link to="/membership" className="nav-menuoption">
                 Membership Plans
-            </Link>
-            <Link to="/contact-us" className="nav-menuoption">
-                Contact Us
             </Link> */}
             <div className="nav-contactbottom">
                 <p className="nav-contactinfo">

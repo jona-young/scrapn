@@ -3,6 +3,8 @@ const CourtBooking = require('../models/court-bookings.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const resetPasswordEmail = require('../helpers/resetPasswordEmail.js');
+const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 // Error handling
 const handleErrors = (err) => {
@@ -333,7 +335,6 @@ module.exports.reset_password = (req, res) => {
     }
     else
     {
-        console.log(id)
         User.findOne({ _id: id})
         .then(async (userAcc) => {
             let payload = jwt.decode(_token, userAcc.password + '-' + userAcc.department + '-' + userAcc.privilige)
@@ -367,4 +368,55 @@ const sortUserBookings = (courts) => {
       });
 
     return courts
+}
+
+module.exports.contactus_post = async (req, res) => {
+    const body = req.body;
+    
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PW
+        }
+    })
+
+    const info = await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: "Request - SUGGESTION",
+        html: `
+        <html>
+            <head>
+            </head>
+            <body>
+                <p>
+                    You have received a suggestion from  ${body.firstName + " " + body.lastName},
+                    <br>
+                    <br>
+                    The message is as follows!
+                    <br>
+                    <br>
+                    ${body.message}
+                    <br>
+                    <br>
+                    Regards,
+                    <br>
+                    <br>
+                    <b>Scrapn Support(AUTOMATED)</b>
+                    <br>
+                    E: <a href="mailto:scrapn.services@gmail.com">scrapn.services@gmail.com</a>
+                </p>
+            </body>
+        </html>
+        `
+    })
+
+    if (info)
+    {
+        res.status(200).send({ result: "message received!"})
+    }
+
 }

@@ -73,7 +73,7 @@ function App() {
               {/* <Route path="/profile/:id" element={<Profile />} /> */}
               {/* <Route path="/users" element={<Users />} /> */}
               {/* <Route path="/membership" element={<Membership />} /> */}
-              {/* <Route path="/contact-us" element={<Contact />} /> */}
+              <Route path="/contact-us" element={<Contact />} />
               <Route path="/tournament/:id" element={<Tournament />} />
               <Route path="/create-tournament" element={<CreateTournament />} />
               <Route path="/update-tournament/:id" element={<UpdateTournament />} />

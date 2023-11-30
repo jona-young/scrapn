@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
 import DialogAlert from '../functions/DialogAlert';
 
-const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType }) => {
+const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType, playerType }) => {
     const [ matchToEdit, setMatchToEdit ] = useState({
         date: "",
         location: "",
         round: "",
         team1: "",
         team2: "",
-        winner: ""
+        winner: "",
     })
-
+    const [ pType, setPType ] = useState('')
     const [ addPlayerType1, setAddPlayerType1 ] = useState('dropdown')
-    const [ addPlayerType2, setAddPlayerType2 ] = useState('dropdown')
+    const [ addT1P1, setT1P1 ] = useState('')
+    const [ addT1P2, setT1P2 ] = useState('')
 
+    const [ addPlayerType2, setAddPlayerType2 ] = useState('dropdown')
+    const [ addT2P1, setT2P1 ] = useState('')
+    const [ addT2P2, setT2P2 ] = useState('')
 
     const editMatch = (e) => {
         const name = e.target.name
@@ -27,7 +31,6 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
             {
                 scores1.push("")
                 scores2.push("")
-
             }
 
             setMatchToEdit(currentObj => ({...currentObj, bestof: value, score1: scores1, score2: scores2}))
@@ -49,13 +52,29 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
                 else
                 {
                     setAddPlayerType2("add-new")
-
                 }
             }
             else
-            {
-                setMatchToEdit(currentObj => ({...currentObj, [name]: value}))
+            {   
+
+                setMatchToEdit(currentObj => ({...currentObj, [name]: value.split(',') }))
             }
+        }
+        else if (name == "team1p1")
+        {
+            setT1P1(value)
+        }
+        else if (name == "team1p2")
+        {
+            setT1P2(value)
+        }
+        else if (name == "team2p1")
+        {
+            setT2P1(value)
+        }
+        else if (name == "team2p2")
+        {
+            setT2P2(value)
         }
         else
         {
@@ -64,7 +83,6 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
     }
 
     const clearMatch = (e) => {
-        console.log('hoho: ', match)
         e.preventDefault()
 
         let blankMatch = {}
@@ -95,9 +113,48 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
         updateMatch(e, blankMatch)
     }
 
+    const submitMatch = (e) => {
+        e.preventDefault()
+
+        let newPlayerArray = []
+        if (addT1P1 !== '' || addT1P2 !== '')
+        {
+            let newTeam1
+            if (pType == "Singles")
+            {
+                newTeam1 = [addT1P1]
+            } 
+            else if (pType == "Doubles")
+            {
+                newTeam1 = [addT1P1, addT1P2]
+            }
+
+            newPlayerArray.push(newTeam1)
+            matchToEdit.team1 = newTeam1
+        }
+        if (addT2P1 !== '' || addT2P2 !== '')
+        {
+            let newTeam2
+            if (pType == "Singles")
+            {
+                newTeam2 = [addT2P1]
+            } 
+            else if (pType == "Doubles")
+            {
+                newTeam2 = [addT2P1, addT2P2]
+            }
+
+            newPlayerArray.push(newTeam2)
+            matchToEdit.team2 = newTeam2
+        }
+        
+        updateMatch(e, matchToEdit, newPlayerArray)
+    }
+
     useEffect(() => {
         setMatchToEdit(match)
         setMatchToEdit(currentMatch => ({...currentMatch, checker: 1}))
+        setPType(playerType)
     }, [match])
 
     return (
@@ -108,7 +165,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
                         <b>&times;</b>
                     </span>
                     <h4>Update Match</h4>
-                    <form onSubmit={(e) => updateMatch(e, matchToEdit)}>
+                    <form onSubmit={(e) => submitMatch(e, matchToEdit)}>
                         <label className="form-label">
                             Date
                         </label>
@@ -149,20 +206,43 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
                                 >
                                 <option value="" disabled selected key="dis-player-1">Choose player...</option>
                                 { players.map((player, idx) => {
-                                    return <option value={player} key={"p1-" + idx}>{player}</option>
+                                    return <option value={player} key={"p1-" + idx + player}>{player.length > 1 ? player[0] + " & " + player[1]: player[0]}</option>
                                 })}
-                                <option value="add-new" key="add-new-t1">Add new player...</option>
+                                { tournamentType == "single-elim" ?
+                                    <option value="add-new" key="add-new-t1">Add new player...</option>
+                                    :
+                                    ""
+                                }
                             </select>
-                            :
-                            <input
-                            type="text"
-                            onChange={(e) => editMatch(e)}
-                            className="form-field form-matchupdate"
-                            name="team1"
-                            value={matchToEdit.team1}
-                            placeholder="Add new player..."
-                            />
-                        }
+                            :  
+                                playerType == "Singles" ?
+                                <>
+                                <input
+                                type="text"
+                                onChange={(e) => editMatch(e)}
+                                className="form-field form-matchupdate"
+                                name="team1p1"
+                                value={addT1P1}
+                                />
+                                </>
+                                :
+                                <>
+                                <input
+                                type="text"
+                                onChange={(e) => editMatch(e)}
+                                className="form-field form-matchupdate"
+                                name="team1p1"
+                                value={addT1P1}
+                                />
+                                <input
+                                type="text"
+                                onChange={(e) => editMatch(e)}
+                                className="form-field form-matchupdate"
+                                name="team1p2"
+                                value={addT1P2}
+                                />
+                            </>
+                            }
                         <label className="form-label">
                             Team 2
                         </label>
@@ -175,18 +255,42 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType 
                                 >
                                 <option value="" disabled selected key="dis-player-2">Choose player...</option>
                                 { players.map((player, idx) => {
-                                    return <option value={player} key={"p2-" + idx}>{player}</option>
+                                    return <option value={player} key={"p2-" + idx + player}>{player.length > 1 ? player[0] + " & " + player[1]: player[0]}</option>
                                 })}
-                                <option value="add-new" key="add-new-t2">Add new player...</option>
+                                { tournamentType == "single-elim" ?
+                                    <option value="add-new" key="add-new-t2">Add new player...</option>
+                                    :
+                                    ""
+                                }
                             </select>
                             :
-                            <input
-                            type="text"
-                            onChange={(e) => editMatch(e)}
-                            className="form-field form-matchupdate"
-                            name="team2"
-                            value={matchToEdit.team2}
-                            />
+                            playerType == "Singles" ?
+                            <>
+                                <input
+                                type="text"
+                                onChange={(e) => editMatch(e)}
+                                className="form-field form-matchupdate"
+                                name="team2p1"
+                                value={addT2P1}
+                                />
+                                </>
+                                :
+                            <>
+                                <input
+                                type="text"
+                                onChange={(e) => editMatch(e)}
+                                className="form-field form-matchupdate"
+                                name="team1p1"
+                                value={addT1P1}
+                                />
+                                <input
+                                type="text"
+                                onChange={(e) => editMatch(e)}
+                                className="form-field form-matchupdate"
+                                name="team1p2"
+                                value={addT1P2}
+                                />
+                            </>                           
                         }
                         <label className="form-label">
                             Best Of Series
