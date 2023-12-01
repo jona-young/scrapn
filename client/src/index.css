@@ -710,7 +710,13 @@ ul li::marker {
   align-items: center;
 }
 
-
+.form-fieldIcon {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  margin-bottom: 1rem;
+}
+.form-fieldIcon:hover {
+  padding: 0.4rem 0 0.4rem 0.3rem;
+}
 
 .form-players {
   display: flex;
@@ -906,7 +912,7 @@ ul li::marker {
 
 .tournament-match {
   height: 60px;
-  width: 250px;
+  width: 300px;
   background: #ffffff;
   border: 3px solid #e8e8e8;
   font-size: 12px;
@@ -914,16 +920,24 @@ ul li::marker {
 
 .tournament-empty {
   height: 60px;
-  width: 250px;
+  width: 300px;
   background: lightgray;
   border: 3px solid #e8e8e8;
 }
 
 .match-info {
-  padding: 3px 10px 0 10px;
+  padding: 3px 10px 5px 10px;
   font-weight: bold;
   display: flex;
   flex-direction: row;
+
+}
+
+.match-roundLoc {
+  width: 175px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .match-team {
@@ -950,7 +964,7 @@ ul li::marker {
 
 .match-score {
   right:0;
-  margin-left: auto;
+  margin: auto 0 auto auto;
   font-weight: normal;
   text-align: right;
 }
@@ -1010,9 +1024,12 @@ ul li::marker {
 
 .box-score {
   display: inline-block;
-  width: 15px;
+  width: 25px;
   margin: 0 1px;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  background: lightgray;
 }
 
 .modal {

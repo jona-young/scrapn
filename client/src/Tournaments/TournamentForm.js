@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { handleChange, matchAndPlayerUpdater } from "../Tournaments/tournamentFunctions.js";
 import { postTournament, putTournament } from "../functions/tournamentAPI.js";
+import RemoveImage from "../img/remove.png"
 import '../General/site.css';
 import '../General/template.css';
 
@@ -37,6 +38,7 @@ const TournamentForm = ({form, update}) => {
     matchAndPlayerUpdater(currentItem.drawSize, currentItem, setCurrentItem, update)
   }, [currentItem.drawSize])
 
+  console.log(currentItem)
   return (
       <div className="form-container">
         <span className="title">Tournament Form</span>
@@ -52,6 +54,7 @@ const TournamentForm = ({form, update}) => {
               onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
               className="form-field"
               name="name"
+              maxLength={100}
               value={currentItem.name}
             />
             <label className="form-label">
@@ -83,6 +86,7 @@ const TournamentForm = ({form, update}) => {
               onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
               className="form-field"
               name="location"
+              maxLength={65}
               value={currentItem.location}
             />
             <label className="form-label">
@@ -152,18 +156,26 @@ const TournamentForm = ({form, update}) => {
             currentItem.players.map((player, idx) => {
               return <div className="form-players" key={idx+{player} + "-playerdiv"}>
               {player.map((individual, idxp) => {
-                return <>
-                        <b>{idxp == 0 ? idx + 1 + "." : " "}</b>
-                        <input
-                          onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
-                          className={ currentItem.playerType == "Singles" ? "form-field" : "form-field form-playerDoubles"}
-                          name="players"
-                          key={idx + "-" + idxp + "-player"}
-                          data-key={"["+idx+","+idxp+"]"}
-                          value={currentItem.players[idx][idxp]}
-                        />
-                      </>
+
+                  return <>
+                    <b>{idxp == 0 ? idx + 1 + "." : " "}</b>
+                    <input
+                      onChange={(e) => handleChange(e, setCurrentItem, currentItem)}
+                      className={ currentItem.playerType == "Singles" ? "form-field" : "form-field form-playerDoubles"}
+                      name="players"
+                      key={idx + "-" + idxp + "-player"}
+                      data-key={"["+idx+","+idxp+"]"}
+                      value={currentItem.players[idx][idxp]}
+                    />
+                  </>
               })}
+              { currentItem.tournamentType == "single-elim" && currentItem.players.length > currentItem.drawSize ?
+                <div className="form-fieldIcon">
+                  <img src={RemoveImage} onClick={(e) => { handleChange(e, setCurrentItem, currentItem)}} name="remove-player" data-key={idx} key={idx + "-remIcon"} className="small-icon" />
+                </div>
+                :
+                ""
+              }
               </div>
             })}
             {

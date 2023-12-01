@@ -116,12 +116,12 @@ const Tournament = () => {
         }
         if (currentItem.tournamentType === "single-elim")
         {
-            PDFSingleElim(pdfMatches, currentItem.playerType, setPDFBracket)
+            // PDFSingleElim(pdfMatches, currentItem.playerType, setPDFBracket)
             singleElimination(drawMatches, setBracket, togglePopUp, currentItem.playerType)
         }
         else if (currentItem.tournamentType === "round-robin")
         {
-            PDFRoundRobin(pdfMatches, currentItem.players.length, setPDFBracket)
+            // PDFRoundRobin(pdfMatches, currentItem.players.length, setPDFBracket)
 
             getRoundRobinResults(id, setStandingsData);
             roundRobin(drawMatches, setBracket, togglePopUp, currentItem.players.length, currentItem.playerType)
@@ -129,7 +129,7 @@ const Tournament = () => {
     }, [loadedData])
 
     useEffect(() => {
-        PDFRoundRobinStandings(currentItem.players, standingsData, setPDFStandings)
+        // PDFRoundRobinStandings(currentItem.players, standingsData, setPDFStandings)
         roundRobinStandings(currentItem.players, standingsData, setStandings, currentItem.playerType)
     }, [standingsData, loadedData])
 

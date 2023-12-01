@@ -110,7 +110,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType,
         }
         
         
-        updateMatch(e, blankMatch)
+        updateMatch(e, blankMatch, -1)
     }
 
     const submitMatch = (e) => {
@@ -204,7 +204,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType,
                                 name="team1"
                                 value={matchToEdit.team1}
                                 >
-                                <option value="" disabled selected key="dis-player-1">Choose player...</option>
+                                <option value="" selected key="dis-player-1">Choose player...</option>
                                 { players.map((player, idx) => {
                                     return <option value={player} key={"p1-" + idx + player}>{player.length > 1 ? player[0] + " & " + player[1]: player[0]}</option>
                                 })}
@@ -253,7 +253,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType,
                                 name="team2"
                                 value={matchToEdit.team2}
                                 >
-                                <option value="" disabled selected key="dis-player-2">Choose player...</option>
+                                <option value="" selected key="dis-player-2">Choose player...</option>
                                 { players.map((player, idx) => {
                                     return <option value={player} key={"p2-" + idx + player}>{player.length > 1 ? player[0] + " & " + player[1]: player[0]}</option>
                                 })}
@@ -321,6 +321,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType,
                                     className="form-number"
                                     name="score1"
                                     data-index={idx}
+                                    max={199}
                                     value={set}
                                     /> 
                                 </div>
@@ -339,6 +340,7 @@ const MatchUpdate = ({ togglePopUp, updateMatch, match, players, tournamentType,
                                     className="form-number"
                                     name="score2"
                                     data-index={idx}
+                                    max={199}
                                     value={set}
                                     /> 
                                 </div>

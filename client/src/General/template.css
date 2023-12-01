@@ -196,6 +196,16 @@ body {
     height: 50px;
     width: auto;
   }
+
+  .small-icon {
+    height: 1.4rem;
+    width: auto;
+    cursor: pointer;
+  }
+  
+  .small-icon:hover {
+    height: 1.6rem;
+  }
   
   .general-subheading {
     margin-bottom: .25rem;
@@ -203,7 +213,7 @@ body {
   
   .content-lightsub {
     color: rgb(155, 155, 155) !important;
-    
+
   }
 
   .content-cardcontainer {

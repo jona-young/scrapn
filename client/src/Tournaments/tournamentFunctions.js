@@ -625,7 +625,7 @@ export const singleElimination = async (matches, updateState, togglePopUp, playe
                                     data-key={keyCounter}
                                     onClick={(e) => forwardPopUp(e, togglePopUp)}>
                                     <div className="match-info">
-                                        <div>
+                                        <div className="match-roundLoc">
                                             {matches[keyCounter].round} {matches[keyCounter].location ? (" - " + matches[keyCounter].location) : ""}
                                         </div>
                                         <p className="match-score">
@@ -926,8 +926,6 @@ export const handleChange = (e, updateItem, currentItem) => {
                 if (powerOfTwo > curItem.drawSize && powerOfTwo >= 4)
                 {
                     curItem.drawSize = powerOfTwo
-                    console.log('there')
-
                     flag = 1
                     break
                 }
@@ -939,11 +937,15 @@ export const handleChange = (e, updateItem, currentItem) => {
 
             if (flag == 1)
             {
+                console.log('yasss')
                 singlesUpdater(curItem.drawSize, currentItem, updateItem, 2, "single-elim")
             }
             else
             {
-                updateItem(currentObj => ({...currentObj, [name]: value})) 
+                console.log('noooo')
+                singlesUpdater(curItem.drawSize, currentItem, updateItem, 2, "single-elim")
+
+                // updateItem(currentObj => ({...currentObj, [name]: value})) 
             }
         }
         // adjust single elim to draw size that fits within bounds of round robin draw size
@@ -967,6 +969,19 @@ export const handleChange = (e, updateItem, currentItem) => {
         {
             updateItem(currentObj => ({...currentObj, [name]: value})) 
         }
+    }
+    else if(name == "remove-player")
+    {
+        let removePlayerIdx = parseInt(e.target.getAttribute("data-key"))
+        const newPlayerSet = currentItem.players.filter((val, idx) => {
+            if (idx !== removePlayerIdx)
+            {
+                return val
+            }
+        })
+        
+        updateItem(currentObj => ({...currentObj, players: newPlayerSet}))
+
     }
     else { updateItem(currentObj => ({...currentObj, [name]: value})) }
   };
@@ -1016,7 +1031,6 @@ const singlesUpdater = (drawSize, currentItem, updateItem, mode, newTournType) =
      else if (mode == 2)
      {
        const matchArr = addMatchRounds(drawSize, currentItem.playerType)
-       console.log('dif in players to draw size ', currentItem.players.length - drawSize)
        let playerDiff = currentItem.players.length - drawSize
        let addPlayers = []
 
@@ -1051,8 +1065,32 @@ const singlesUpdater = (drawSize, currentItem, updateItem, mode, newTournType) =
      }
      else if (drawSize == currentItem.matches.length)
      {
-       // good to go, the ideal situation
-       return
+        //    if (currentItem.players.length = 0)
+        //    {
+        //     let newPlayerSet = []
+        //     let drawAndPlayerDiff = currentItem.drawSize - currentItem.players.length
+        //     for (var i = 0; i < drawAndPlayerDiff; i++)
+        //     {
+        //         if (currentItem.playerType == "Singles")
+        //         {
+        //             newPlayerSet.push([""])
+        //         }
+        //         else
+        //         {
+        //             newPlayerSet.push(["",""])
+        //         }
+        //     }
+
+        //     let combinedPlayers = currentItem.players.concat(newPlayerSet)
+
+        //     updateItem(currentObj => ({...currentObj, players: combinedPlayers}))
+        //    }
+        //    else
+        //    {
+        // good to go, the ideal situation
+        return
+        //    }
+
      }
      else
      {
