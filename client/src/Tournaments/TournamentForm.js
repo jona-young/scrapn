@@ -38,7 +38,6 @@ const TournamentForm = ({form, update}) => {
     matchAndPlayerUpdater(currentItem.drawSize, currentItem, setCurrentItem, update)
   }, [currentItem.drawSize])
 
-  console.log(currentItem)
   return (
       <div className="form-container">
         <span className="title">Tournament Form</span>

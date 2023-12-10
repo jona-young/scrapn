@@ -934,7 +934,7 @@ ul li::marker {
 }
 
 .match-roundLoc {
-  width: 175px;
+  width: 160px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

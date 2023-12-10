@@ -113,7 +113,6 @@ export const putTournament = async (e, form, history, changePlayerSize) => {
         form.matches = formattedMatches
     }
 
-    console.log('precheck: ', form)
     const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament/' + form._id, {
         credentials: 'include',
         method: 'PUT',

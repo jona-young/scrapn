@@ -937,15 +937,11 @@ export const handleChange = (e, updateItem, currentItem) => {
 
             if (flag == 1)
             {
-                console.log('yasss')
                 singlesUpdater(curItem.drawSize, currentItem, updateItem, 2, "single-elim")
             }
             else
             {
-                console.log('noooo')
                 singlesUpdater(curItem.drawSize, currentItem, updateItem, 2, "single-elim")
-
-                // updateItem(currentObj => ({...currentObj, [name]: value})) 
             }
         }
         // adjust single elim to draw size that fits within bounds of round robin draw size
@@ -1065,32 +1061,7 @@ const singlesUpdater = (drawSize, currentItem, updateItem, mode, newTournType) =
      }
      else if (drawSize == currentItem.matches.length)
      {
-        //    if (currentItem.players.length = 0)
-        //    {
-        //     let newPlayerSet = []
-        //     let drawAndPlayerDiff = currentItem.drawSize - currentItem.players.length
-        //     for (var i = 0; i < drawAndPlayerDiff; i++)
-        //     {
-        //         if (currentItem.playerType == "Singles")
-        //         {
-        //             newPlayerSet.push([""])
-        //         }
-        //         else
-        //         {
-        //             newPlayerSet.push(["",""])
-        //         }
-        //     }
-
-        //     let combinedPlayers = currentItem.players.concat(newPlayerSet)
-
-        //     updateItem(currentObj => ({...currentObj, players: combinedPlayers}))
-        //    }
-        //    else
-        //    {
-        // good to go, the ideal situation
         return
-        //    }
-
      }
      else
      {
@@ -1268,28 +1239,10 @@ const findDepth = (matchSize) => {
 
 const addMatchRounds = (matchNum, playerType) => {
     let playerArr = [""]
-    let matchObj = {
-        checker: 0,
-        round: "", 
-        team1: [""],
-        score1: [
-            ""
-        ],
-        team2: [""],
-        score2: [
-            ""
-        ],
-        location: "",
-        date: "",
-        winner:""
-    }
 
     if (playerType == "Doubles")
     {
         playerArr.push("")
-        matchObj.team1.push("")
-        matchObj.team2.push("")
-
     }
 
     let formattedMatchArr = {matches: [], players: []}
@@ -1309,7 +1262,26 @@ const addMatchRounds = (matchNum, playerType) => {
         {   
             // for each match added, requires potential for 2 players
             formattedMatchArr.players.push(playerArr)
-            matchObj.round = roundArr[i]
+            let matchObj = {
+                checker: 0,
+                round: roundArr[i], 
+                team1: [""],
+                score1: [
+                    ""
+                ],
+                team2: [""],
+                score2: [
+                    ""
+                ],
+                location: "",
+                date: "",
+                winner:""
+            }
+            if (playerType == "Doubles")
+            {
+                matchObj.team1.push("")
+                matchObj.team2.push("")
+            }
             formattedMatchArr.matches.push(matchObj)
         }      
     }
@@ -1321,28 +1293,10 @@ const updateMatchRounds = (matchesToAdd, lastRound, playerType) => {
     let formattedMatchArr = {matches: [], players: []}
     let roundArr = ["-1", "F", "SF", "QF", "R16", "R32", "R64"]
     let playerArr = [""]
-    let matchObj = {
-        checker: 0,
-        round: "", 
-        team1: [""],
-        score1: [
-            ""
-        ],
-        team2: [""],
-        score2: [
-            ""
-        ],
-        location: "",
-        date: "",
-        winner:""
-    }
-
+    
     if (playerType == "Doubles")
     {
         playerArr.push("")
-        matchObj.team1.push("")
-        matchObj.team2.push("")
-
     }
 
     // find round to start assigning new courts
@@ -1367,7 +1321,28 @@ const updateMatchRounds = (matchesToAdd, lastRound, playerType) => {
         {
             // for each match added, requires potential for 2 players
             formattedMatchArr.players.push(playerArr)
-            matchObj.round = remainingArr[i]
+            let matchObj = {
+                checker: 0,
+                round: remainingArr[i], 
+                team1: [""],
+                score1: [
+                    ""
+                ],
+                team2: [""],
+                score2: [
+                    ""
+                ],
+                location: "",
+                date: "",
+                winner:""
+            }
+        
+            if (playerType == "Doubles")
+            {
+                matchObj.team1.push("")
+                matchObj.team2.push("")
+            }
+
             formattedMatchArr.matches.push(matchObj)
         }
 
