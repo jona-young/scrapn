@@ -24,6 +24,7 @@ const TournamentForm = ({form, update}) => {
     authorID: form.authorID ? form.authorID : "",
     players: form.players ? form.players : [],
     playerType: form.playerType ? form.playerType : "Singles",
+    seriesID: form.seriesID ? form.seriesID : "",
     mode: update ? update : -1,
     seeds: form.seeds ? form.seeds : 0
   });

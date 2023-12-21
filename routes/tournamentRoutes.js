@@ -24,4 +24,23 @@ tournamentRouter.delete('/api/tournament/:id',  tournamentController.delete_tour
 // GET - Retrieve round robin results
 tournamentRouter.get('/api/round-robin/:id', tournamentController.get_roundRobinResults);
 
+// GET - Retrieve all tournament series by user account
+tournamentRouter.get('/api/user-tournament-series/:id',  tournamentController.get_usertournamentseries);
+
+// GET - Retrieve single tournament series
+tournamentRouter.get('/api/tournament-series/:id',  tournamentController.get_tournamentseries);
+
+// GET - Retrieve single tournament series
+tournamentRouter.get('/api/tournament-seriesinfo/:id',  tournamentController.get_tournamentseriesinfo);
+
+
+// POST - Create tournament series
+tournamentRouter.post('/api/tournament-series', tournamentController.post_tournamentseries);
+
+// PUT - Update tournament series
+tournamentRouter.put('/api/tournament-series/:id', tournamentController.put_tournamentseries);
+
+// DELETE - Delete tournament series
+tournamentRouter.delete('/api/tournament-series/:id',  tournamentController.delete_tournamentseries);
+
 module.exports = tournamentRouter;

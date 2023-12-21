@@ -26,6 +26,49 @@ const About = () => {
             </section>
             <section className="site-panel">
                 <div className="general-contentbox">
+                    <h3 className="general-statement">How to Setup a Tournament.</h3>
+                    <div className="howto-items">
+                        <div className="howto-content">
+                            <div className="content-icon howto-numlight">
+                                1
+                            </div>
+                            <div className="howto-item">
+                                <h3 className="general-subheading howto-heading">Create a Tournament Series</h3>
+                                <p className="content-lightsub howto-text">Create a new tournament series with the event name, dates, and location. This will be the container for you to store your tournaments.</p>
+                            </div>
+                        </div>
+                        <div className="howto-content">
+                            <div className="content-icon howto-numdark">
+                                2
+                            </div>                            
+                            <div className="howto-item">
+                                <h3 className="general-subheading howto-heading">Select your Tournament Series</h3>
+                                <p className="content-lightsub howto-text">Your tournaments home page will reflect all of your tournament series. Choose the tournament series you want to add your tournament draws to.</p>
+                            </div>
+                        </div>
+                        <div className="howto-content">
+                            <div className="content-icon howto-numlight">
+                                3
+                            </div>
+                            <div className="howto-item">
+                                <h3 className="general-subheading howto-heading">Create a Tournament Draw</h3>
+                                <p className="content-lightsub howto-text">Fill out the tournament form and you will be redirected to your tournament draw page where you can fill out matches!</p>
+                            </div>
+                        </div>
+                        <div className="howto-content">
+                            <div className="content-icon howto-numlight">
+                                4
+                            </div>
+                            <div className="howto-item">
+                                <h3 className="general-subheading  howto-heading">Update your Tournament Draw</h3>
+                                <p className="content-lightsub howto-text">You can update any match with the teams, scores, winners, match location, etc!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+            <div className="general-contentbox">
                     <h4 className="general-transitiontext">- SUGGESIONS ON FEATURES?</h4>
                     <h3 className="general-statement">We would love to connect and hear about features you would like implemented.</h3>
                     <div className="flex-items">

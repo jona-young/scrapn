@@ -5,7 +5,7 @@ import { validateUser } from '../functions/userAPI.js';
 import TournamentForm from './TournamentForm.js';
 
 
-const UpdateBooking = () => {
+const UpdateTournament = () => {
     const { id } = useParams();
 
     const navigate = useNavigate();
@@ -49,4 +49,4 @@ const UpdateBooking = () => {
 
 }
 
-export default UpdateBooking;
+export default UpdateTournament;

@@ -9,13 +9,16 @@ import PasswordReset from './General/PasswordReset.js';
 import PageNotFound from './General/PageNotFound.js';
 import Profile from './General/Profile.js';
 import Users from './General/Users.js';
-import Home from './General/Home.js';
+import Tournaments from './Tournaments/Tournaments.js';
 import About from './General/About.js';
 import Contact from './General/Contact.js';
 import Membership from './General/Membership.js';
 import Tournament from './Tournaments/Tournament.js';
 import CreateTournament from './Tournaments/CreateTournament.js';
 import UpdateTournament from './Tournaments/UpdateTournament.js';
+import CreateTournamentSeries from './Tournaments/CreateTournamentSeries.js';
+import UpdateTournamentSeries from './Tournaments/UpdateTournamentSeries.js';
+import TournamentSeries from './Tournaments/TournamentSeries.js';
 import ListTournaments from './Tournaments/ListTournaments.js';
 import { UserContext } from './functions/UserContext.js';
 import { DataContext } from './functions/DataContext.js';
@@ -65,7 +68,7 @@ function App() {
           <Header />
             <Routes>
               <Route path="/" element={<About />} />
-              <Route path="/tournaments" element={<Home/>} />
+              <Route path="/tournaments" element={<TournamentSeries/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -75,8 +78,11 @@ function App() {
               {/* <Route path="/membership" element={<Membership />} /> */}
               <Route path="/contact-us" element={<Contact />} />
               <Route path="/tournament/:id" element={<Tournament />} />
-              <Route path="/create-tournament" element={<CreateTournament />} />
+              <Route path="/create-tournament/:id" element={<CreateTournament />} />
               <Route path="/update-tournament/:id" element={<UpdateTournament />} />
+              <Route path="/create-tournamentseries" element={<CreateTournamentSeries />} />
+              <Route path="/update-tournamentseries/:id" element={<UpdateTournamentSeries />} />
+              <Route path="/tournament-series/:id" element={<Tournaments />} />
               <Route path="/list-tournaments" element={<ListTournaments />} />
               <Route path='*' element={<PageNotFound />} />
             </Routes>

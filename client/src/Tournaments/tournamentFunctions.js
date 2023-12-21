@@ -966,6 +966,73 @@ export const handleChange = (e, updateItem, currentItem) => {
             updateItem(currentObj => ({...currentObj, [name]: value})) 
         }
     }
+    // else if(name == "tournaments")
+    // {
+    //     let tournLenDiff = value - currentItem.tournaments.length
+
+    //     if (tournLenDiff >= 0)
+    //     {
+    //         let addTournaments = []
+
+    //         for (var i = 0; i < tournLenDiff; i++)
+    //         {
+    //             addTournaments.push({
+    //                 name: "",
+    //             })
+    //         }
+
+    //         let newTournamentSet = currentItem.tournaments.concat(addTournaments)
+        
+    //         updateItem(currentObj => ({...currentObj, [name]: newTournamentSet})) 
+    //     }
+    //     else 
+    //     {
+    //         tournLenDiff = tournLenDiff * -1
+
+    //         const removeTournaments = currentItem.tournaments.map((tournament, idx) => {
+    //             if (idx > (currentItem.tournaments.length - tournLenDiff)) {
+    //                 // No change
+    //                 return tournament;
+    //             } else {
+    //                 // tournament needs to be removed
+    //                 return
+    //             }
+    //         });
+
+    //         updateItem(currentObj => ({...currentObj, [name]: removeTournaments})) 
+    //     }
+       
+    // }
+    // else if (name == "tourn-name")
+    // {
+    //     let tournIdx = parseInt(e.target.getAttribute("data-idx"))
+
+    //     const updatedTourn = currentItem.tournaments.map((tourn, i) => {
+    //         if (i === tournIdx) {
+    //           return {...tourn,
+    //                     name: value
+    //                 }
+    //         } else {
+    //           // The rest haven't changed
+    //           return tourn;
+    //         }
+    //       });
+
+    //       updateItem(currentObj => ({...currentObj, tournaments: updatedTourn}))
+
+    // }
+    // else if (name == "remove-tourn")
+    // {
+    //     let removeTournIdx = parseInt(e.target.getAttribute("data-idx"))
+    //     const newTournSet = currentItem.tournaments.filter((val, idx) => {
+    //         if (idx !== removeTournIdx)
+    //         {
+    //             return val
+    //         }
+    //     })
+        
+    //     updateItem(currentObj => ({...currentObj, tournaments: newTournSet}))
+    // }
     else if(name == "remove-player")
     {
         let removePlayerIdx = parseInt(e.target.getAttribute("data-key"))

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TournamentForm from './TournamentForm.js';
 import { validateUser } from '../functions/userAPI.js';
 
 const CreateTournament = () => {
+    const { id } = useParams();
+
     const navigate = useNavigate();
     const routeLoginChange = () => {
         navigate('/login');
@@ -11,15 +13,7 @@ const CreateTournament = () => {
 
     //Sets the item that will be pushed to backend API to create court booking
     const [currentItem, setCurrentItem] = useState({
-        id: null,
-        name: "",
-        startDate: "",
-        endDate: "",
-        location: "",
-        tournamentType: "",
-        matches:[],
-        author: "",
-        players: [],
+        seriesID: id
     });
     
     useEffect(() => {

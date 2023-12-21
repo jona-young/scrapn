@@ -87,6 +87,10 @@ const tournamentSchema = new Schema({
     seeds: {
         type: Number,
         required: false
+    },
+    seriesID: {
+        type: String,
+        required: false
     }
 }, {
     timestamps: true

@@ -94,12 +94,13 @@ export const postTournament = async (e, form, history) => {
 
     const json = await data.json();
 
+
     if (json.errors)
     {
         console.log(json.errors);
     }
 
-    history("/tournaments");
+    history("/tournament-series/"+form.seriesID);
 
 }
 
@@ -155,7 +156,7 @@ export const deleteTournament = async (e, id, navigate, formDel) => {
             window.location.reload(false);
           }
     }
-  };
+};
 
 // GET Request for all user tournaments
 export const getRoundRobinResults = async (id, updateData) => {
@@ -172,3 +173,124 @@ export const getRoundRobinResults = async (id, updateData) => {
         updateData(json)
     }
 }
+
+// GET Request for single tournament Series
+export const getTournamentSeries = async (id, updateData) => {
+
+    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/tournament-series/" + id, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        updateData(json);
+        return 'Completed!';
+    }
+}
+
+// GET Request for single tournament Series
+export const getTournamentSeriesInfo = async (id, updateData, setFormLoad) => {
+
+    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/tournament-seriesinfo/" + id, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        updateData(json);
+        setFormLoad(true)
+        return 'Completed!';
+    }
+}
+// GET Request for all user tournament series
+export const getUserTournamentSeries = async (id, updateData) => {
+    const data = await fetch(process.env.REACT_APP_DEVAPI + "/api/user-tournament-series/" + id, {
+        credentials: 'include',
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        updateData(json);
+    }
+}
+
+// POST request for new tournament series
+export const postTournamentSeries = async (e, form, history) => {
+    e.preventDefault();
+
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament-series', {
+        credentials: 'include',
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(form),
+    })
+
+    const json = await data.json();
+
+    if (json.errors)
+    {
+        console.log(json.errors);
+    }
+
+    history("/tournaments");
+
+}
+
+//PUT request to update tournament series
+export const putTournamentSeries = async (e, form, history) => {
+    e.preventDefault()
+
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament-series/' + form._id, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(form),
+    })
+
+    const json = await data.json();
+
+    if (json.errors)
+    {
+        console.log(json.errors);
+    }
+
+    history('/tournaments')
+};
+
+//Delete a tournament series
+export const deleteTournamentSeries = async (e, id, navigate, formDel) => {
+    e.preventDefault();
+
+    console.log(id)
+    const data = await fetch(process.env.REACT_APP_DEVAPI + '/api/tournament-series/' + id, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+    })
+
+    const json = await data.json();
+
+    if (json)
+    {
+        console.log(json)
+        if (formDel === true) {
+            // if tournament deleted on tournament page
+            navigate("/tournaments");
+          } else if (formDel === false) {
+            // if tournament deleted on home page
+            window.location.reload(false);
+          }
+    }
+};

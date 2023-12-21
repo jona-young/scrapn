@@ -138,7 +138,7 @@ const Tournament = () => {
             <section className="site-panel header-spacer">
                 <div className="site-heading tournament-topbanner">
                     <h1 className="form-heading general-bannertext">Tournament</h1>
-                    <p className="form-subheading general-lightsub">Your tournament draw (below).</p>
+                    <Link to={"/tournament-series/" + currentItem.seriesID} className="form-submit form-tournamentbtn form-centerbtn">Back to Tournament Series</Link>
                 </div>
                 { currentItem.author === userPrefs.nameID ? 
                 <div className="tournament-header-toprow">

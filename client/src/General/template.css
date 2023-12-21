@@ -117,6 +117,15 @@ body {
     background: #e13636 !important;
   }
 
+  .form-centerbtn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .form-btnspacer {
+    margin-right: 2rem;
+  }
+
   .form-matchupdate {
     padding: 0.25rem 0.5rem !important;
     margin-bottom: 0.5rem !important;
@@ -213,7 +222,6 @@ body {
   
   .content-lightsub {
     color: rgb(155, 155, 155) !important;
-
   }
 
   .content-cardcontainer {
@@ -240,6 +248,39 @@ body {
     margin-left: 1rem;
     font-size: 0.85rem;
   }
+
+  .howto-items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  .howto-content {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+  }
+
+  .howto-item {
+    margin-top: 0.4rem;
+    margin-left: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .howto-numlight {
+    background: #92b7fc !important;
+    flex-basis: 3rem !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .howto-numdark {
+    background: #3f78e0 !important;
+    flex-basis: 3rem !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
   
   .gen-remmargin {
     padding-top: 0 !important;
@@ -255,8 +296,48 @@ body {
   
   }
 
+  @media only screen and (min-width: 690px) {
+    .howto-items {
+      flex-direction: row;
+    }
+
+    .howto-content {
+      flex-direction: column;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .howto-item {
+      margin-left: 0;
+      margin-top: 1.4rem;
+    }
+
+    .howto-heading {
+      font-size: 1.1rem !important;
+      margin-bottom: 1rem;
+      height: 4rem;
+    }
+
+    .howto-text {
+      font-size: 0.9rem !important;
+    }
+  }
+
   @media only screen and (max-height: 750px) {
     .modal-matchupdate {
       margin-top: -22rem !important;
+    }
+  }
+
+  @media only screen and (min-width: 1191px) {
+    .howto-heading {
+      height:3rem;
+    }
+  }
+
+  @media only screen and (min-width: 1354px) {
+    .howto-heading {
+      height: 2rem;
     }
   }
