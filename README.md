@@ -4,6 +4,10 @@ A lightweight tournament draw creation web application! Essentially you create a
 
 This utility of this project is to create a platform allowing individuals or organizations running a competition, the ability to create tournament draws, update draws, and display draws online.
 
+Goals
+ 1) Develop a tournament draw hosting website that may be used by individuals or organizations that are looking for a simple but elevated solution over standard tournament draw creation websites that create basic individual draws.
+ 2) Allow for individuals looking to contribute to an open source project!
+
 Getting Started
  1) In terminal, "git clone [repository link]
  2) Install MongoDB Community Edition (https://www.mongodb.com/docs/manual/administration/install-community/)
