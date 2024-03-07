@@ -5,7 +5,11 @@ A lightweight tournament draw creation web application! Essentially you create a
 This utility of this project is to create a platform allowing individuals or organizations running a competition, the ability to create tournament draws, update draws, and display draws online.
 
 Getting Started
- - Fill out later
+ 1) In terminal, "git clone [repository link]
+ 2) Install MongoDB Community Edition (https://www.mongodb.com/docs/manual/administration/install-community/)
+ 4) In terminal, "npm install" or "npm install --legacy-peer-deps"
+ 5) Open 2 terminal instances and in one run "nodemon app" for the node js server and in the second one, cd to client and run "npm start" for the react client
 
 Need Help?
- - Fill out later
+ - Issues with connecting to the database?
+     - mongoose connection to mongodb community edition is in the node server.js file setup as the default mongodb connection "mongodb://127.0.0.1:27017"
