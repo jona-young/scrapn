@@ -11,7 +11,6 @@ const courtBookingRoutes = require('./routes/courtBookingRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 const tournamentRoutes = require('./routes/tournamentRoutes.js');
 
-
 // Express app
 const app = express();
 
@@ -22,10 +21,9 @@ app.use(cors({
 }))
 
 // Connect to MongoDB and wait for data load to listen for requests
-mongoose.connect(process.env.DBURI)
-.then(() => app.listen(process.env.PORT))
-.catch((err) => console.log(err));
-
+mongoose.connect("mongodb://127.0.0.1:27017/scrapn")
+.then(() => {app.listen(4000)})
+.catch((err) => console.log(err))
 mongoose.set('strictQuery', true);
 
 // Middleware
